@@ -25,7 +25,7 @@ class WHCounter extends WHComponent {
 	
 	public function renderContentOn($html){
 
-		return $html->div()->with(
+		return $html->div()->id("counter")->with(
 			$html->headingLevel(1)->with(sprintf("%s",$this->counter)).
 			$html->anchor()->callback($this,"add")->with("++").
 			$html->text(" ").

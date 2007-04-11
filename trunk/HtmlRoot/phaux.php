@@ -152,30 +152,34 @@ if($REDIRECT){
 
 
 
-/*
-** I don't know if I care for the way I am doing 
-** scripts, css
-*/
 $html = WHHtmlCanvas::construct("WHHtmlCanvas");
-$html->html()->with(
-	$html->head()->with(
-		$htmlRoot->renderHeadContentsOn($html).
-		$html->style()->type("text/css")->with(
-			$_SESSION[$app]['mainComponent']->thisOrDialog()->styleOfThisAndChildren()
-		).
-		$html->script()->type("text/javascript")->with(
-			$_SESSION[$app]['mainComponent']->thisOrDialog()->scriptOfThisAndChildren()
-		)
-		).
+if($_REQUEST['_lu'] == ""){
+	$html->html()->with(
+		$html->head()->with(
+			$htmlRoot->renderHeadContentsOn($html).
+			$html->style()->type("text/css")->with(
+				$_SESSION[$app]['mainComponent']->thisOrDialog()->styleOfThisAndChildren()
+			).
+			$html->script()->type("text/javascript")->with(
+				$_SESSION[$app]['mainComponent']->thisOrDialog()->scriptOfThisAndChildren()
+				)
+			).
 		
-	$html->body()->with(
-		$_SESSION[$app]['mainComponent']->renderOn($html)
-	)
-);
+			$html->body()->with(
+				$_SESSION[$app]['mainComponent']->renderOn($html)
+				)
+		);
+		
+}else{
+	$html->setDocType('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>');
+	if(is_object($_SESSION[$app]['session']->callbackByKey($_REQUEST['_lu']))){
+		$_SESSION[$app]['session']->
+						callbackByKey($_REQUEST['_lu'])->
+						runWithArgument($html);
+	}
+}
 
-
-//var_dump($_SESSION[$app]['session']->getIvarNamed("registries"));
 echo $html;
-echo $ACTION_PRINT;
+
 
 $_SESSION[$app]['session']->save();

@@ -21,6 +21,11 @@ class WHConfiguration extends Object {
 		return $this;
 	}
 	
+	public function appUrl(){
+		 return $_SESSION[$app]['session']->configuration()->baseUrl().
+				"/$app?SID=".$_SESSION[$app]['session']->sessionId();
+	}
+	
 	public function baseUrl(){
 		//die(var_dump($url));
 		return $_SERVER['SCRIPT_NAME'];
