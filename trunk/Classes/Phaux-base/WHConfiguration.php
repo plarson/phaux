@@ -22,6 +22,7 @@ class WHConfiguration extends Object {
 	}
 	
 	public function appUrl(){
+		global $app;
 		 return $_SESSION[$app]['session']->configuration()->baseUrl().
 				"/$app?SID=".$_SESSION[$app]['session']->sessionId();
 	}

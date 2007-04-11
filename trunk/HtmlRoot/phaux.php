@@ -133,8 +133,18 @@ $htmlRoot = Object::construct("WHHtmlRoot");
 $_SESSION[$app]['mainComponent']->updateRootWithChildren($htmlRoot);
 
 foreach($app_configurations[$app]['styles'] as $var => $value){
-	//echo $value."\n";
 	$htmlRoot->needsStyle($value);
+}
+
+foreach($app_configurations[$app]['scripts'] as $var => $value){
+	$htmlRoot->needsScript($value);
+}
+
+/*
+** If this is a live update we don't want to redirect
+*/
+if(!$REQUEST['_ul']){
+	$REDIRECT = FALSE;
 }
 
 if($REDIRECT){
@@ -172,10 +182,13 @@ if($_REQUEST['_lu'] == ""){
 		
 }else{
 	$html->setDocType('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>');
+	$html->setMimeType("text/xml");
 	if(is_object($_SESSION[$app]['session']->callbackByKey($_REQUEST['_lu']))){
-		$_SESSION[$app]['session']->
+		$html->html()->with(
+					$_SESSION[$app]['session']->
 						callbackByKey($_REQUEST['_lu'])->
-						runWithArgument($html);
+						runWithArgument($html)
+		);
 	}
 }
 

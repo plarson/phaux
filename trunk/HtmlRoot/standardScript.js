@@ -1,4 +1,14 @@
 
+function addParameter(uri, key, value)
+{
+	var separator = "?";
+
+	if(uri.indexOf("?") >= 0)
+	    separator = "&";
+	return uri + separator + key + "=" + escape(value);
+}
+
+
 function createDataPacket(parameters) {
 	var dataPacket = "";
 	for(var i=0; i<parameters.length; i++) {
@@ -107,19 +117,25 @@ function liveUpdateDOM(target, template) {
 
 function xmlLiveProcessOne(child) {
 
-	if (child.tagName == "innerHtml") {
-		var elementId = child.getAttribute("id");
 
-		var element = document.getElementById(elementId);
-		element.innerHTML = child.firstChild.data;
-	}
-
+	/* 
+	** This script came with some added functionality that 
+	** I don't understand. 
+	** It looks like it might be able to update
+	** visual properties of the page but I am only
+	** intrested (at the moment) in updateing the innerHtml
+	** Leaving the functionality in for future reference
+	*/
 	if (child.tagName == "dom") {
 
 		var elementId = child.getAttribute("id");
 		var element = document.getElementById(elementId);
 		liveUpdateDOM(element, child);
 
+	}else /*if (child.tagName == "innerHtml")*/ {
+		var elementId = child.getAttribute("id");
+		var element = document.getElementById(elementId);
+		element.innerHTML = child.firstChild.data;
 	}
 	
 
@@ -134,7 +150,7 @@ function xmlLiveProcessOne(child) {
 
 
 function xmlProcessResults(response) {
-
+	
 	for(i=0; i < response.documentElement.childNodes.length; i++) {
 
 		var child = response.documentElement.childNodes[i];
@@ -162,9 +178,10 @@ function xmlLiveUpdater(uriFunc, processResultsFunc)
        	request = new XMLHttpRequest();
     }
 
-    
+    update();
     function update()
     {
+		
        if(request && request.readyState < 4)
 
             request.abort();
@@ -191,15 +208,15 @@ function xmlLiveUpdater(uriFunc, processResultsFunc)
 		if(request.readyState == 4) {
 
 		     window.status = "Getting new instructions...";
-
+			
 			if(request && request.responseXML && request.responseXML.documentElement) {
-
+				
 				processResultsFunc(request.responseXML);
 
 				window.status = "Done";
 
 			} else {
-
+				
 				document.location.reload();
 
 			}

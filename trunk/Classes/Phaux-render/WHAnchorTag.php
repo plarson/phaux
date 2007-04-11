@@ -17,6 +17,37 @@ class WHAnchorTag extends WHTag {
 		return $this;
 	}
 	
+	
+	/*
+	** liveUpdateOn and liveUpdateWithCallbackOn
+	** Links that call one of these two things 
+	** should have an href but I don't know if I care
+	** for they way I am doing it. It just feels hacky
+	*/ 
+	public function liveUpdateOn($jsEvent,$object,$function,$arguments = ""){
+		$this->setAttribute("href","javascript: void(0);");
+		return parent::liveUpdateOn($jsEvent,$object,$function,$arguments);
+	}
+	
+	public function liveUpdateWithCallbackOn(	$jsEvent,
+												$updateObject,
+												$updateFunction,
+												$updateArguments,
+												$callbackObject,
+												$callbackFunction,
+												$callbackArguments){
+		$this->setAttribute("href","javascript: void(0);");
+		return parent::liveUpdateWithCallbackOn(	$jsEvent,
+													$updateObject,
+													$updateFunction,
+													$updateArguments,
+													$callbackObject,
+													$callbackFunction,
+													$callbackArguments);
+	}
+		
+	
+	
 	public function callback($object,$function,$arguments = ""){
 		global $app;
 		$this->registerCallback($object,$function,$arguments);

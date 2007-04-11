@@ -53,9 +53,10 @@ class WHTag extends Object {
 		
 	
 	public function liveUpdateFunction($renderKey,$callbackKey = ""){
+		global $app;
 		$url = $_SESSION[$app]['session']->configuration()->appUrl();
 		if($callbackKey != ""){
-			$url .= "&_k=".$this->callbackKey;
+			$url .= "&_k=".$callbackKey;
 		}
 		$url .= "&_r=".$_SESSION[$app]['session']->currentRegistryKey();
 		$url .= "&_lu=$renderKey";
@@ -67,6 +68,7 @@ class WHTag extends Object {
 		$renderKey = $this->createCallback($object,$function,$arguments);
 		$this->setAttribute($jsEvent,
 			$this->liveUpdateFunction($renderKey));
+		return $this;
 	}
 		
 	
@@ -82,6 +84,7 @@ class WHTag extends Object {
 		$callbackKey = $this->createCallback($callbackObject,$callbackFunction,$callbackArguments);
 		$this->setAttribute($jsEvent,
 			$this->liveUpdateFunction($renderKey,$callbackKey));
+		return $this;
 	}
 	
 		
