@@ -7,7 +7,7 @@ class WHCallback extends Object {
 	protected $arguments = array();
 
 	public function run(){
-		$this->runWithArgs($this->arguments);
+		return $this->runWithArgs($this->arguments);
 	}
 	
 	/*test
@@ -17,11 +17,11 @@ class WHCallback extends Object {
 	public function runWithArgument($anArgument){
 		$newArray = $this->arguments;
 		array_unshift($newArray,$anArgument);
-		$this->runWithArgs($newArray);
+		return $this->runWithArgs($newArray);
 	}
 	
 	public function runWithArgs($args){
-		call_user_func_array(array($this->object,$this->method),$args);
+		return call_user_func_array(array($this->object,$this->method),$args);
 	}
 	
 	public function key(){

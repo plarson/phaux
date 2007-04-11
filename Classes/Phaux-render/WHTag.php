@@ -51,17 +51,56 @@ class WHTag extends Object {
 		return $this;
 	}
 		
+	
+	public function liveUpdateFunction($renderKey,$callbackKey = ""){
+		$url = $_SESSION[$app]['session']->configuration()->appUrl();
+		if($callbackKey != ""){
+			$url .= "&_k=".$this->callbackKey;
+		}
+		$url .= "&_r=".$_SESSION[$app]['session']->currentRegistryKey();
+		$url .= "&_lu=$renderKey";
+		
+		return "xmlLiveUpdaterUri('$url');";
+	}
+		
+	public function liveUpdateOn($jsEvent,$object,$function,$arguments = ""){
+		$renderKey = $this->createCallback($object,$function,$arguments);
+		$this->setAttribute($jsEvent,
+			$this->liveUpdateFunction($renderKey));
+	}
+		
+	
+	public function liveUpdateWithCallbackOn(	$jsEvent,
+												$updateObject,
+												$updateFunction,
+												$updateArguments,
+												$callbackObject,
+												$callbackFunction,
+												$callbackArguments){
+													
+		$renderKey = $this->createCallback($updateObject,$updateFunction,$updateArguments);
+		$callbackKey = $this->createCallback($callbackObject,$callbackFunction,$callbackArguments);
+		$this->setAttribute($jsEvent,
+			$this->liveUpdateFunction($renderKey,$callbackKey));
+	}
+	
 		
 	public function registerCallback($object,$function,$arguments = ""){
+		$this->callbackKey = $this->createCallback($object,$function,$arguments);		
+	}
+
+	/*
+	** Returns the new callback key
+	*/
+	public function createCallback($object,$function,$arguments = ""){
 		global $app;
 		if(!is_array($arguments)){
 			$arguments = array();
 		}
-		$this->callbackKey = $_SESSION[$app]['session']->registerCallback(
+		$key = $_SESSION[$app]['session']->registerCallback(
 												$object,$function,$arguments
 												)->key();
-		return $this;		
-		
+		return $key;
 	}
 		
 	
