@@ -7,12 +7,21 @@
 class WHHtmlCanvas extends WHCanvas {
 	protected $baseTag;
 	protected $docType;
+	protected $mimeType;
 	
 	
 	public function __construct(){
 		$this->docType = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" '.
 				'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+		$this->mimeType = "text/html";
 				
+	}
+	
+	public function setMimeType($aString){
+		$this->mimeType = $aString;
+	}
+	public function mimeType(){
+		return $this->mimeType;
 	}
 	
 	public function docType(){
@@ -130,6 +139,7 @@ class WHHtmlCanvas extends WHCanvas {
 	}
 	
 	function __toString(){
+		header("Content-type: ".$this->mimeType());
 		return $this->docType.
 				$this->baseTag->__toString();
 	}
