@@ -10,3 +10,4 @@ include("WHCollectionCallback.php");
 include("WHInformDialog.php");
 include("WHYesNoDialog.php");
 include("WHHtmlRoot.php");
+include("WHLiveNavigation.php");

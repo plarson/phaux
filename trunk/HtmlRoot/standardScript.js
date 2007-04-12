@@ -117,7 +117,6 @@ function liveUpdateDOM(target, template) {
 
 function xmlLiveProcessOne(child) {
 
-
 	/* 
 	** This script came with some added functionality that 
 	** I don't understand. 
@@ -152,7 +151,7 @@ function xmlLiveProcessOne(child) {
 function xmlProcessResults(response) {
 	
 	for(i=0; i < response.documentElement.childNodes.length; i++) {
-
+		
 		var child = response.documentElement.childNodes[i];
 		xmlLiveProcessOne(child);
 
@@ -162,7 +161,13 @@ function xmlProcessResults(response) {
 
 
 function xmlLiveUpdaterUri(uri) {
-
+	/*
+	** I have to encode all the attribute values on a page
+	** in order for the page to be parsable XML so edencode 
+	** The &amp; s 
+	*/
+	uri = uri.replace("&amp;","&");
+	
     return xmlLiveUpdater(
 function() { return uri; }, xmlProcessResults);
 
