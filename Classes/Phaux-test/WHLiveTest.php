@@ -1,6 +1,7 @@
 <?php
 
 class WHLiveTest extends WHComponent {
+	protected $navigation;
 	protected $message = "Click on a link to set a message";
 	protected $messages = array(
 							"Foobar",
@@ -8,9 +9,18 @@ class WHLiveTest extends WHComponent {
 							"No Click me",
 							"I look cooler in a div",
 							"Phaux makes things easy");
+	public function __construct(){
+		$this->navigation = Object::construct("WHLiveNavigation");
+		$this->navigation->
+				addWithLabel(Object::construct("WHCounter"),"Counter")->
+				addWithLabel(Object::construct("WHFormTest"),"Form Test");
+		return $this;
+	}
+						
 	
 	public function setMessage($aString){
 		$this->message = $aString;
+		return $this;
 	}
 
 	/*
@@ -55,7 +65,17 @@ class WHLiveTest extends WHComponent {
 		}
 		return $this->renderMessageOn($html).
 				$html->br().
-				$links;
+				$links.
+				$html->br().
+				$this->renderNavigationOn($html);
+	}
+	
+	public function renderNavigationOn($html){
+		return $html->render($this->navigation);
+	}
+	
+	public function children (){
+		return array($this->navigation);
 	}
 	
 }

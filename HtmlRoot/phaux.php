@@ -143,7 +143,7 @@ foreach($app_configurations[$app]['scripts'] as $var => $value){
 /*
 ** If this is a live update we don't want to redirect
 */
-if(!$REQUEST['_ul']){
+if(isset($_REQUEST['_lu'])){
 	$REDIRECT = FALSE;
 }
 
@@ -182,6 +182,7 @@ if($_REQUEST['_lu'] == ""){
 		
 }else{
 	$html->setDocType('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>');
+
 	$html->setMimeType("text/xml");
 	if(is_object($_SESSION[$app]['session']->callbackByKey($_REQUEST['_lu']))){
 		$html->html()->with(

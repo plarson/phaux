@@ -1,4 +1,4 @@
-<?
+<?php
 
 class WHNavigation extends WHComponent {
 	protected $selection;
