@@ -74,17 +74,22 @@ class WHNavigation extends WHComponent {
 	public function renderOptionsOn($html){
 		$list = "";
 		foreach($this->components as $component){
-			$li = $html->listItem()->with(
-						$this->renderComponentLabelOn($html,$component));
-			if($component === $this->selection()){
-				$li->class("option option-selected");
-			}else{
-				$li->class("option");
-			}
+			$li = $this->renderOptionOn($html,$component);
 			$list .= $li;
 		}
 		return $html->unorderedList()->
 						with($list);
+	}
+	
+	public function renderOptionOn($html,$component){
+		$label = $this->renderComponentLabelOn($html,$component);
+		$li = $html->listItem()->with($label);
+		if($component === $this->selection()){
+			$li->class("option option-selected");
+		}else{
+			$li->class("option");
+		}
+		return $li;
 	}
 	
 	public function renderComponentLabelOn($html,$component){
