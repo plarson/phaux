@@ -161,9 +161,8 @@ if($REDIRECT){
 }
 
 
-
-$html = WHHtmlCanvas::construct("WHHtmlCanvas");
 if($_REQUEST['_lu'] == ""){
+	$html = WHHtmlCanvas::construct("WHHtmlCanvas");
 	$html->html()->with(
 		$html->head()->with(
 			$htmlRoot->renderHeadContentsOn($html).
@@ -181,9 +180,7 @@ if($_REQUEST['_lu'] == ""){
 		);
 		
 }else{
-	$html->setDocType('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>');
-
-	$html->setMimeType("text/xml");
+	$html = WHHtmlCanvas::construct("WHLiveResponceCanvas");
 	if(is_object($_SESSION[$app]['session']->callbackByKey($_REQUEST['_lu']))){
 		$html->html()->with(
 					$_SESSION[$app]['session']->

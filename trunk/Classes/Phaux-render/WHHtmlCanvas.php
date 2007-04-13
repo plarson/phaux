@@ -121,7 +121,7 @@ class WHHtmlCanvas extends WHCanvas {
 	}
 	
 	public function space(){
-		return $this->text("&nbsp");
+		return $this->text("&nbsp;");
 	}
 	
 	public function script(){
