@@ -124,6 +124,10 @@ class WHHtmlCanvas extends WHCanvas {
 		return $this->text("&nbsp");
 	}
 	
+	public function script(){
+		return $this->constructTagWithClass("WHScriptTag");
+	}
+	
 	public function render($component){
 		$return = $this->constructTagWithClass("WHHtmlText")
 				 		->with($component->renderOn($this));

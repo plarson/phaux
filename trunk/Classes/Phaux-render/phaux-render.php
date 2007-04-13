@@ -25,3 +25,4 @@ include("WHRadioButtonTag.php");
 include("WHCheckBoxTag.php");
 include("WHDivTag.php");
 include("WHLinkTag.php");
+include("WHScriptTag.php");

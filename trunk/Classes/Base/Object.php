@@ -134,4 +134,17 @@ class Object {
 	          }
 	          return $array_remval;
 	    }
+	
+		static public function charIsWhiteSpace($aChar){
+			switch ($aChar){
+				case ' ':
+				case '\t':
+				case '\n':
+				case '\r':
+					return TRUE;
+				default:
+					return FALSE;
+				
+			}
+		}
 }

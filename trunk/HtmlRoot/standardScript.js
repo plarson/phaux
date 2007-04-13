@@ -95,7 +95,9 @@ function hideDebug() {
   }
 }
 
-
+function xmlAsString(element){
+	return (new XMLSerializer()).serializeToString(element);
+}
 
 function liveUpdateDOM(target, template) {
 	var childrenFound = false;
@@ -126,24 +128,22 @@ function xmlLiveProcessOne(child) {
 	** Leaving the functionality in for future reference
 	*/
 	if (child.tagName == "dom") {
-
 		var elementId = child.getAttribute("id");
 		var element = document.getElementById(elementId);
 		liveUpdateDOM(element, child);
-
+	}
+	else if(child.tagName == "script") {
+ 		eval(child.textContent);
 	}else /*if (child.tagName == "innerHtml")*/ {
 		var elementId = child.getAttribute("id");
 		var element = document.getElementById(elementId);
-		element.innerHTML = child.firstChild.data;
+		if(child.firstChild.data){
+			element.innerHTML = child.firstChild.data;
+		}else{
+			element.innerHTML = xmlAsString(child);
+		}
 	}
 	
-
-	if (child.tagName == "script") {
- 
-	
-		eval(child.textContent);
-		
-	}
 }
 
 
