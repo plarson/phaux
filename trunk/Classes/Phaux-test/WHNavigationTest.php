@@ -4,7 +4,7 @@ class WHNavigationTest extends WHComponent {
 	protected $navigation;
 	
 	public function __construct(){
-		$this->navigation = Object::construct("WHLiveNavigation");
+		$this->navigation = Object::construct("WHNavigation");
 		$this->navigation->
 				addWithLabel(Object::construct("WHCounter"),"Counter")->
 				addWithLabel(Object::construct("WHFormTest"),"Form Test")->

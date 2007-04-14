@@ -127,13 +127,28 @@ function xmlLiveProcessOne(child) {
 	** intrested (at the moment) in updateing the innerHtml
 	** Leaving the functionality in for future reference
 	*/
+	
 	if (child.tagName == "dom") {
 		var elementId = child.getAttribute("id");
 		var element = document.getElementById(elementId);
 		liveUpdateDOM(element, child);
 	}
 	else if(child.tagName == "script") {
- 		eval(child.textContent);
+	//	document.body.innerHTML = child.innerHTML;
+		if(child.textContent){
+			eval(child.textContent);
+		}
+		else if(child.text){
+			eval(child.text);
+		}
+		else if(child.innerText){
+			eval(child.innerText);
+		}else if(child.childNodes[1].data){
+			//Safari!
+			//document.body.innerHTML = child.childNodes[1].data;
+			eval(child.childNodes[1].data);
+		}
+ 		//eval(child.firstChild.data);
 	}else /*if (child.tagName == "innerHtml")*/ {
 		var elementId = child.getAttribute("id");
 		var element = document.getElementById(elementId);
