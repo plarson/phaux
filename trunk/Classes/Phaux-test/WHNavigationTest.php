@@ -11,7 +11,8 @@ class WHNavigationTest extends WHComponent {
 				addWithLabel(Object::construct("WHMultiCounter"),"Multiple Counter")->
 				addWithLabel(Object::construct("WHRegisteredCounter"),"Registered Counter")->
 				addWithLabel(Object::construct("WHDialogTest"),"Dialog test")->
-				addWithLabel(Object::construct("WHLiveTest"),"AJAX Test");
+				addWithLabel(Object::construct("WHLiveTest"),"AJAX Test")->
+				addWithLabel(Object::construct("WHExceptionTest"),"Exception Text");
 				
 		return $this;
 	}

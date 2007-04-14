@@ -11,7 +11,7 @@ class WHLiveNavigation extends WHNavigation {
 	}
 
 	public function renderSelectionOn($html){
-		
+		$script = "";
 		foreach($this->labels() as $label){
 			/*
 			** Make all the labels unselected

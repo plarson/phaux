@@ -1,82 +1,52 @@
 <?php
+$WHERROR_TYPES = array (
+                E_ERROR              => 'Error',
+                E_WARNING            => 'Warning',
+                E_PARSE              => 'Parsing Error',
+                E_NOTICE             => 'Notice',
+                E_CORE_ERROR         => 'Core Error',
+                E_CORE_WARNING       => 'Core Warning',
+                E_COMPILE_ERROR      => 'Compile Error',
+                E_COMPILE_WARNING    => 'Compile Warning',
+                E_USER_ERROR         => 'User Error',
+                E_USER_WARNING       => 'User Warning',
+                E_USER_NOTICE        => 'User Notice',
+                E_STRICT             => 'Runtime Notice',
+                E_RECOVERABLE_ERROR  => 'Catchable Fatal Error'
+                );
 
+
+$WHERROR_FATAL = array(
+				E_ERROR,
+				E_PARSE,
+				E_CORE_ERROR,
+				E_COMPILE_ERROR,
+				E_USER_ERROR,
+				E_RECOVERABLE_ERROR	
+				);
 
 class WHError extends Object {
-	protected static $email_addr = ""; 
-	protected static $remote_dbg = ""; 
-	protected static $log_file = "";
- 	protected static $email = false; 
-	protected static $stdlog = true;
-	protected static $remote = false; 
-	protected static $display = true; 
-	protected static $notify = true; 
-	protected static $halt_script = true;
+
 	
 	static function registerErrorHandler(){
+		error_reporting(0);
 		set_error_handler(array("WHError","errorHandler"));
 
 	}
-	
-	/**
-	 * Taken from http://www.zend.com/zend/spotlight/error.php
-	 * This could be made a little cleaner
-	 */
+
 	static function errorHandler($errno,$errstr,$errfile,$errline){
-		$error_msg = " $errstr occured in $errfile on $errline at ".date("D M j G:i:s T Y");
-		$display  = WHError::$display;
-		$halt_script = WHError::$halt_script;
-		// die(var_dump($errno));
-		switch($errno) { 
-			
-			case E_USER_NOTICE: 
-			case E_NOTICE: 
-				$halt_script = false;         
-				$type = "Notice"; 
-				$display = FALSE;
-				break; 
-	   		case E_USER_WARNING: 
-	   		case E_COMPILE_WARNING: 
-	   		case E_CORE_WARNING: 
-	   		case E_WARNING: 
-				$halt_script = false;        
-	       		$type = "Warning"; 
-	       		break;
-	   		case E_USER_ERROR: 
-	       	case E_COMPILE_ERROR: 
-	   		case E_CORE_ERROR: 
-	   		case E_ERROR: 
-				$type = "Fatal Error"; 
-	       		break; 
-	   		case E_PARSE: 
-				$type = "Parse Error"; 
-	       		break; 
-	   		default: 
-				$type = "Unknown Error"; 
-	       		break; 
-	  	}
-	
-		if(WHError::$notify){ 
-	       $error_msg = $type . $error_msg; 
-	       if(WHError::$email) error_log($error_msg, 1, $email_addr); 
-	       if(WHError::$remote) error_log($error_msg ,2, $remote_dbg); 
-	       if($display) echo $error_msg."<br/>"; 
-	       if(WHError::$stdlog) { 
-	          if($log_file = "") { 
-	             error_log($error_msg, 0); 
-	          } else { 
-	             error_log($error_msg, 3, $log_file); 
-	          } 
-	       } 
-	   } 
-	   if($halt_script){
-			die("Done.");
+		global $WHERROR_FATAL;
+		global $WHERROR_TYPES;
+		global $DEBUG_ERRORS;
+		if(in_array($errno,$WHERROR_FATAL)){
+			throw new WHException($WHERROR_TYPES[$errno], $errno);
+		}else{
+			$DEBUG_ERRORS .= "\n<!--\n$errstr in $errfile on $errline\n-->\n";
 		}
-		
-		return TRUE;
 		
 	}
 	
-	
+
 	
 	
 }

@@ -1,7 +1,6 @@
 <?php
 
 class Object {
-	
 		/*
 		**Allows a more Smalltalk like syntax
 		** self::construct("Object")->whatever();
@@ -147,4 +146,5 @@ class Object {
 				
 			}
 		}
+		
 }

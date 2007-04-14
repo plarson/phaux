@@ -60,6 +60,7 @@ class WHLiveTest extends WHComponent {
 	
 	
 	public function renderContentOn($html){
+		$links = "";
 		foreach($this->messages as $message){
 			$links .= $this->renderMessageLinkOn($html,$message);
 		}

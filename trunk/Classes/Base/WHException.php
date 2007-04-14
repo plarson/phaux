@@ -3,6 +3,41 @@
 class WHException extends Exception {
 
 	public function __toString(){
+		/*
+		** This folling chunk makes this code NON-PORTABLE
+		** Fix this ...
+		** It would be better to never directly call WHException in my
+		** code but instead call a function that intializes
+		** the wanted/needed exception class
+		*/
+		global $configuration; /* FIX ME PLEASE ^^^ */
+		if($configuration->isDeployed()){
+			$this->deployedException();
+		}else{
+			$this->pretyExceptionAndDie();
+		}
+	}
+	
+	
+	public function deployedException(){
+		global $configuration; /* FIX ME PLEASE ^^^ */
+		
+		$tmpDir = sys_get_temp_dir();
+		$tmpFileName = tempnam($tmpDir,"PE-");
+		file_put_contents($tmpFileName,$this->pretyException());
+		header("HTTP/1.0 500 Internal Server Error");
+		die("<h1>HTTP/1.0 500 Internal Server Error</h1>
+			The server encountered an unexpected condition which prevented 
+			it from fulfilling the request.<br /><br />
+			<b>Error # ".basename($tmpFileName)."</b><br /><br />
+			Please contact the webmaster ".$configuration->adminEmail().
+			"<hr /><img src='/icon.png' />");
+	}
+	public function pretyExceptionAndDie(){
+		echo $this->pretyException();
+		die();
+	}
+	public function pretyException(){
 		$return .= "<h1> Uncaught Exception: ".
 				$this->message.
 				" in ".
@@ -10,34 +45,53 @@ class WHException extends Exception {
 				" on line " .
 				$this->line.
 				"</h1>";
-			
 		foreach($this->getTrace() as $point){
-			//ob_start();
-			//var_dump($point);
-			
-			//$text .= substr(ob_get_clean(),0,2000);
-			$text = "In file ".$point['file']. " line ".$point['line'];
-			$text .= "\n".$point['class'].'::'.$point['function']."(";
-			$d = FALSE;
-			foreach($point['args'] as $value){
-				if($d){
-					$text .= ",";
-				}else{
-					$d = TRUE;
-				}
-				$text .= $value;
-			}
-			$text .= ")";
-			$return .= nl2br(str_replace(" ","&nbsp;",htmlentities($text)));
-			$return .= "<br /><hr />";
-			$i++;
-			if($i == 15){
-				break;
-			}
+			$return .= self::niceFromTracePoint($point);
 		}
-		echo substr($return,0,1000000);
-		die("");
-		//return substr($return,0,1000);
+		return substr($return,0,1000000);
+		
+	}
+	
+	public static function niceFromTracePoint($point){
+		$text = "In file ".$point['file']. " line ".$point['line'];
+		$text .= "\n".$point['class'].'::'.$point['function']."(";
+		$d = FALSE;
+		foreach($point['args'] as $value){
+			if($d){
+				$text .= ",";
+			}else{
+				$d = TRUE;
+			}
+			$text .= $value;
+		}
+		$text .= ")";
+		$return .= nl2br(str_replace(" ","&nbsp;",htmlentities($text)));
+		
+		$return .= "<br />";
+		$return .= self::niceSourceCode($point['file'],$point['line']);
+		$return .= "<br /><hr />";
+		$i++;
+		if($i == 15){
+			break;
+		}
+		return $return;
+	}
+	
+	public static function niceSourceCode($file,$line){
+		$fileLines = file($file);
+		$start = $line - 8;
+		$end = $line + 8;
+		$current = $start;
+		for($current = $start;$current < $end ; $current++){
+			if($current == $line-1){
+				$return .= "/*HERE --->*/";
+			}
+			$return .= $fileLines{$current};
+		}
+	
+		$return = highlight_string("<?\n".$return."?>",TRUE);
+		
+		return $return;
 	}
 
 }

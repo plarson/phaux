@@ -134,7 +134,6 @@ function xmlLiveProcessOne(child) {
 		liveUpdateDOM(element, child);
 	}
 	else if(child.tagName == "script") {
-	//	document.body.innerHTML = child.innerHTML;
 		if(child.textContent){
 			eval(child.textContent);
 		}
@@ -145,10 +144,8 @@ function xmlLiveProcessOne(child) {
 			eval(child.innerText);
 		}else if(child.childNodes[1].data){
 			//Safari!
-			//document.body.innerHTML = child.childNodes[1].data;
 			eval(child.childNodes[1].data);
 		}
- 		//eval(child.firstChild.data);
 	}else /*if (child.tagName == "innerHtml")*/ {
 		var elementId = child.getAttribute("id");
 		var element = document.getElementById(elementId);
