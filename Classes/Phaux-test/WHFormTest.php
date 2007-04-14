@@ -49,15 +49,15 @@ class WHFormTest extends WHComponent {
 				with($this->firstName." ".$this->lastName. " -- ".$this->sex);
 		$cont .= $html->form()->with(
 			$html->text("First Name:").
-			$html->textInput()->value($this->firstName)->callback($this,setYourName).
+			$html->textInput()->value($this->firstName)->callback($this,'setYourName').
 			$html->br().
 			$html->text("Last Name:").
-			$html->textInput()->value($this->lastName)->callback($this,setLastName).
+			$html->textInput()->value($this->lastName)->callback($this,'setLastName').
 			$html->br().
 			$html->text("Sex:").
 			$this->renderSexSelectOn($html).
 			$html->br().
-			$html->submitButton()->callback($this,submitButton)->value("Submit!")			
+			$html->submitButton()->callback($this,'submitButton')->value("Submit!")			
 			);
 	
 		return $cont;

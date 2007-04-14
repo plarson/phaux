@@ -37,6 +37,17 @@ class WHConfiguration extends Object {
 		return "/".substr($this->baseUrl(),0,strpos($this->baseUrl(),$this->scriptName()));
 	}
 	
+	public function debugMode(){
+		return $this->configValueBySubjectAndKey('general','debug');
+	}
+	public function isDeployed(){
+		return !$this->debugMode();
+	}
+	
+	public function adminEmail(){
+		return $this->configValueBySubjectAndKey('general','admin_email');
+	}
+	
 	public function applicationName(){
 		return $this->applicationName;
 	}

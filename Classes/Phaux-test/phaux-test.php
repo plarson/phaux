@@ -7,3 +7,4 @@ include("WHDialogTest.php");
 include("WHMultiCounter.php");
 include("WHRegisteredCounter.php");
 include("WHLiveTest.php");
+include("WHExceptionTest.php");

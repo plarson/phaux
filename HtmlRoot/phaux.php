@@ -7,7 +7,7 @@
 ** Object
 */
 include_once("../Classes/Base/base.php");
-//WHError::registerErrorHandler();
+WHError::registerErrorHandler();
 $base_configuration = parse_ini_file("../Configuration/base.ini",TRUE);
 $dir = dir("../Configuration");
 $app_configurations = array();
@@ -191,6 +191,8 @@ if($_REQUEST['_lu'] == ""){
 }
 
 echo $html;
-
+if($configuration->debugMode()){
+	echo $DEBUG_ERRORS;
+}
 
 $_SESSION[$app]['session']->save();

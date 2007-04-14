@@ -59,6 +59,7 @@ class WHHtmlRoot extends Object {
 		global $app;
 		$title = $html->title()->with($this->title());
 		$baseUrl = $_SESSION[$app]['session']->configuration()->basePath();
+		$styles = "";
 		foreach($this->styles as $style => $t){
 			if($t){
 				$styles .= $html->link()->type("text/css")->href($baseUrl.$style)->rel("stylesheet");
