@@ -21,7 +21,7 @@ class WHLiveNavigation extends WHNavigation {
 			if($label == $this->labelForComponent($this->selection())){
 				$script .= ".className = 'option option-selected';";
 			}else{
-				$script .= ".className = 'option'; ";
+				$script .= ".className = 'option';";
 			}
 		}
 

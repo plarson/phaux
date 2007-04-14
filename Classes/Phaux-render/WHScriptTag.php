@@ -6,7 +6,8 @@ class WHScriptTag extends WHTag{
 	}
 	
 	public function with($contents){
-		$this->contents = '/*<![CDATA[/* */'.$contents.'/* ]]> */';
+		$this->setAttribute("type","text/javascript");
+		$this->contents = '/*<![CDATA[/* */'.$contents.'// ]]> ';
 		return $this;
 	}
 }
