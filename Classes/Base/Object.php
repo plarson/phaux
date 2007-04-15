@@ -54,6 +54,14 @@ class Object {
 			return $this->$name;
 		}
 		
+		public function hasIvar($name){
+			return property_exists($this,$name);
+		}
+		
+		public function hasMethod($name){
+			return method_exists($this,$name);
+		}
+		
 		public function subclassResponsibility ($methodName){
 			throw new WHException("Subclass " . __CLASS__ . 
 					" should Impliment $methodName");			

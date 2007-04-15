@@ -1,6 +1,6 @@
 <?php
 
-class RETime extends REDate {
+class RETime extends WHTime {
 	public function reServeType(){
 		return "time";
 	}
@@ -9,16 +9,31 @@ class RETime extends REDate {
 		if($aThing == NULL){
 			return NULL;
 		}
-		return '"'.$aThing->getHour().':'.$aThing->getMinute().':'.$aThing->getSecond().'"';
+		return '"'.$aThing->hour().':'.$aThing->minute().':'.$aThing->second().'"';
 	}
 	
-	public function fromSqlValueString($aString){
-		$parts = explode(':',$aString);
-		$date = new Date();
-		$date->setHour($parts[0]);
-		$date->setMinte($parts[1]);
-		$date->setSecond($parts[2]);
-		return $date;
+
+	
+	
+	
+	public function isCollectionModel(){
+		return FALSE;
+	}
+	
+	public function isBasic(){
+		return TRUE;
+	}
+	
+	public function reServeValueStoredWithObject(){
+		return TRUE;
+	}
+	
+	public function shouldEdit(){
+		return TRUE;
+	}
+	
+	public function needsReServeConnection (){
+		return FALSE;
 	}
 	
 }

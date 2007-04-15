@@ -7,7 +7,7 @@
 ** Object
 */
 include_once("../Classes/Base/base.php");
-WHError::registerErrorHandler();
+$errorHandler = Object::construct("WHError")->start();
 $base_configuration = parse_ini_file("../Configuration/base.ini",TRUE);
 $dir = dir("../Configuration");
 $app_configurations = array();
@@ -50,13 +50,16 @@ while(false !== ($dirent = $dir->read())){
 
 if($app_configurations[$app] == NULL){
 	header("HTTP/1.0 404 Not Found");
-	die("<h1>No such application $app </h1>");
+	echo("<h1>No such application $app </h1>");
+	$errorHandler->end();
+	exit;
 }else{
+	
 	
 	foreach($app_configurations[$app]['includes'] as $var => $value){
 		include("$value");
 	}	
-
+	
 	ini_set("session.use_cookies",$app_configurations[$app]['general']['use_cookie']);
 	ini_set("session.name","SID");
 	
@@ -72,8 +75,6 @@ if($app_configurations[$app] == NULL){
 						Object::construct($session_class),
 						"startSessionOnAppWithConfiguration"),$app,$configuration);
 	
-	
-	
 }
 
 
@@ -82,7 +83,7 @@ if($app_configurations[$app] == NULL){
 ** Might be nice if we do some cache control
 ** With out cache control it better to include the
 ** css in the page
-*/
+*
 if($_REQUEST['_sfc']){
 	if(class_exists($_REQUEST['_sfc'])){
 	
@@ -94,11 +95,10 @@ if($_REQUEST['_sfc']){
 			echo Object::construct($_REQUEST['_sfc'])->script();
 		}
 	}
+	$errorHandler->end();
 	exit;
 }
-
-
-
+*/
 
 if($_REQUEST["_r"]){
 	$_SESSION[$app]['session']->restoreRegistry($_REQUEST["_r"]);
@@ -155,7 +155,7 @@ if($REDIRECT){
 							$urlExtra.
 							"&SID=".$_SESSION[$app]['session']->sessionId().
 							"&_r=".$_SESSION[$app]['session']->currentRegistryKey());
-		
+		$errorHandler->end();
 		exit;
 	}
 }
@@ -194,5 +194,5 @@ echo $html;
 if($configuration->debugMode()){
 	echo $DEBUG_ERRORS;
 }
-
+$errorHandler->end();
 $_SESSION[$app]['session']->save();

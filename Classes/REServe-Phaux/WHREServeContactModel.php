@@ -54,8 +54,8 @@ class WHREServeContactModel extends REServe {
 				column("name",REString)->
 				column("phoneNumber",REString)->
 				column("email",REString)->
-				column("niceness",REInteger)
-				;//column("dayOfMeeting",REDate);
+				column("niceness",REInteger)->
+				column("dayOfMeeting",REDate);
 	}
 	
 	public function __toString(){
