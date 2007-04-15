@@ -9,6 +9,10 @@ class REDate extends WHDate {
 		if($aThing == NULL){
 			return NULL;
 		}
+		if(!is_object($aThing)){
+			throw new WHException("Value passed to REDate::asSqlValueStringFor
+									must be object");
+		}
 		return $aThing->asSqlValueString();
 	}
 	

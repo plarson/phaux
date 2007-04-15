@@ -552,7 +552,11 @@ abstract class REServeDriver extends Object {
 			**WE might need up updat the table
 			*/
 			try{
-				$this->updateTableForObject($anObject);
+				if($e->getCode() == 666){
+					$this->updateTableForObject($anObject);
+				}else{
+					throw $e;
+				}
 			}catch(Exception $e){
 				//Woops something else is wrong throw it
 				throw $e;

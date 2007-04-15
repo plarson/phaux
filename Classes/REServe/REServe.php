@@ -94,7 +94,11 @@ class REServe extends Object {
 				**Well we might need to add
 				*/
 				try{
-					$aReserveDriver->addClass(get_class($this));
+					if($e->getCode() == 666){
+						$aReserveDriver->addClass(get_class($this));
+					}else{
+						throw $e;
+					}
 				}catch(Exception $e){
 					//Woops something else is wrong throw it
 					throw $e;

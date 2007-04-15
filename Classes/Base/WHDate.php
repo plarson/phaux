@@ -47,9 +47,18 @@ class WHDate extends Object {
 	}
 	
 	public function fromSqlValueString($aString){
+		if($aString == NULL){
+			return NULL;
+		}
 		$parts = explode('-',$aString);
 		$this->setYear($parts[0]);
+		if($parts[1] == '00'){
+			return NULL;
+		}
 		$this->setMonth($parts[1]);
+		if($parts[2] == '00'){
+			return NULL;
+		}
 		$this->setDay($parts[2]);
 		return $this;
 	}

@@ -81,10 +81,17 @@ class WHError extends Object {
 	
 	public function checkForErrorsAndOutput($buffer){
 		global $app;
-		global $configuration;
-		
+		global $app_configurations;
 		if(!$this->cleanExit){
-			return WHException::errorPage($buffer,'');
+			
+			if(!$app_configurations[$app]['general']['debug']){
+				$message = " # ".WHException::writeErrorToTempFile($buffer);
+				
+			}else{
+				$message = $buffer;
+			}
+			
+			return WHException::errorPage($message,$app_configurations[$app]['general']['admin_email']);
 		}
 		return $buffer;
 	}
