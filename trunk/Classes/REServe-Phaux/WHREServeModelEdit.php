@@ -22,7 +22,9 @@ class WHREServeModelEdit extends WHREServeDisplay {
 			$column = $this->reserveable->columnForKeyPath($keyPath);
 			$methodName = "renderValueType".$column->typeName()."On";
 			if(!method_exists($this,$methodName)){
-				$this->error(get_class($this)." does not yet handle ".$column->typeName());
+				$this->error(get_class($this)." does not yet handle ".$column->typeName().
+							". You might want to subclass WHREServeModelEdit and 
+							create a method named $checkMethod ");
 			}else{
 				return $this->$methodName($html,$column);
 			}
@@ -45,10 +47,7 @@ class WHREServeModelEdit extends WHREServeDisplay {
 		return $this->renderValueTypeREStringOn($html,$column);
 	}
 	
-	public function renderValueTypeREDateOn($html,$column){
-		return $this->renderValueTypeREStringOn($html,$column);
-	}
-	
+
 	
 	public function renderRowOn($html,$keyPath){
 		return 	$html->div()->class("row")->with(

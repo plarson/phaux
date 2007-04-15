@@ -55,7 +55,7 @@ class REServeMySQLDriver extends REServeDriver {
 	 	$return = mysql_query($sql,$this->connection);
 		$ACTION_PRINT .= "$sql <br />";
 		if($return === FALSE){
-			throw new WHException(mysql_error());
+			throw new WHException(mysql_error(),666);
 		}
 		//die("HERE");
 		return $return;

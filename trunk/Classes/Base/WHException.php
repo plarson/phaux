@@ -23,7 +23,8 @@ class WHException extends Exception {
 	
 	public function deployedException(){
 		global $configuration; /* FIX ME PLEASE ^^^ */
-		self::writeErrorToTempFile($this->pretyException());
+		$errorNo = self::writeErrorToTempFile($this->pretyException());
+		die(self::errorPage("# " .$errorNo,$configuration->adminEmail()));
 	}
 	
 	/*
@@ -33,21 +34,23 @@ class WHException extends Exception {
 	*/
 	static function writeErrorToTempFile($message){
 		global $configuration;
-	
 		$tmpDir = sys_get_temp_dir();
 		$tmpFileName = tempnam($tmpDir,"PE-");
 		file_put_contents($tmpFileName,$message);
-		die(self::errorPage("# " .baseName($tmpFileName),$configuration->adminEmail()));
+		return baseName($tmpFileName);
+		
 	}
 	
 	static function errorPage($errorNumber,$adminEmail){
 		header("HTTP/1.0 500 Internal Server Error");
-		return ("<h1>HTTP/1.0 500 Internal Server Error</h1>
+		return ("
+			<html><head><title>500 Internal Server Error</title></head>
+			<body><h1>HTTP/1.0 500 Internal Server Error</h1>
 			The server encountered an unexpected condition which prevented 
 			it from fulfilling the request.<br /><br />
 			<b>Error ".$errorNumber."</b><br /><br />
 			Please contact the webmaster ".$adminEmail.
-			"<hr /><img src='/icon.png' />");
+			"<hr /><img src='/icon.png' /></body></html>");
 	}
 	
 	public function pretyExceptionAndDie(){
