@@ -64,4 +64,18 @@ class WHConfiguration extends Object {
 	public function configValueBySubjectAndKey($subject,$key){
 		return $this->configValues[$subject][$key];
 	}
+	
+	static function startUpOnAppWithIni($app,$app_configuration){
+	
+
+		ini_set("session.use_cookies",$app_configuration['general']['use_cookie']);
+		ini_set("session.name","SID");
+
+		$configuration_class = $app_configuration['general']['configuration_class'];
+		$configuration = Object::construct($configuration_class);
+		$configuration->setApplicationName($app)->
+											setConfigValues($app_configuration);
+
+		return $configuration;	
+	}
 }
