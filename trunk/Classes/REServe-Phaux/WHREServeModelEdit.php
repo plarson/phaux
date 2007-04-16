@@ -69,8 +69,8 @@ class WHREServeModelEdit extends WHREServeDisplay {
 					//cal".self::$numberForDateSelector.".showNavigationDropdowns();
 					cal".self::$numberForDateSelector.".showYearNavigationInput();
 					function setMultipleValues".self::$numberForDateSelector."(y,m,d) {
-						document.getElementById('WHREServeModelEdit-date-month".self::$numberForDateSelector."').selectedIndex=m;
-						document.getElementById('WHREServeModelEdit-date-day".self::$numberForDateSelector."').selectedIndex=d;
+						document.getElementById('WHREServeModelEdit-date-month".self::$numberForDateSelector."').selectedIndex=m-1;
+						document.getElementById('WHREServeModelEdit-date-day".self::$numberForDateSelector."').selectedIndex=d-1;
 						document.getElementById('WHREServeModelEdit-date-year".self::$numberForDateSelector."').value=y;
 						
 					}
