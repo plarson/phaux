@@ -34,6 +34,8 @@ class WHREServeModelEdit extends WHREServeDisplay {
 	/*
 	** This function could stand to be broken up a little bit
 	** and made more reuseable
+	** This function needs to check for valid dates.
+	**  currently it does not
 	*/
 	public function renderValueTypeREDateOn($html,$column){
 		$value = $this->reserveable->getValueForKeyPath($column->keyPath());
