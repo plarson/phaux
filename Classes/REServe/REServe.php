@@ -84,8 +84,16 @@ class REServe extends Object {
 			$aReserveDriver->reServeObject($this);
 		}catch(Exception $e){
 			/*If it fails the table might need to be updated
-			** update the table and try again */
+			** update the table and try again
+			** If the error code is not 666
+			** the table does not need to be updated
+			** another execption was thrown */
 			try{
+				if($e->getCode() == 666){
+					$aReserveDriver->addClass(get_class($this));
+				}else{
+					throw $e;
+				}
 				$aReserveDriver->updateTableForObject($this);
 				
 			}catch(Exception $e){

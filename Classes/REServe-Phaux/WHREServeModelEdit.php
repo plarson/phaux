@@ -7,7 +7,7 @@
 */
 
 class WHREServeModelEdit extends WHREServeDisplay {
-
+	protected static $numberForDateSelector = 1;
 	
 	public function renderLabelOn($html,$keyPath){
 		return $this->nameForKeyPath($keyPath); 
@@ -29,6 +29,60 @@ class WHREServeModelEdit extends WHREServeDisplay {
 				return $this->$methodName($html,$column);
 			}
 		}
+	}
+	
+	/*
+	** This function could stand to be broken up a little bit
+	** and made more reuseable
+	*/
+	public function renderValueTypeREDateOn($html,$column){
+		$value = $this->reserveable->getValueForKeyPath($column->keyPath());
+		if($value == NULL){
+			$this->error("Your class must return a date on key path ".$column->keyPath());
+		}
+		self::$numberForDateSelector++;
+		$month = $value->month();
+		$day = $value->day();
+		$year = $value->year();
+		return $html->select()->
+					id("WHREServeModelEdit-date-month".self::$numberForDateSelector)->
+					itemsAndLabels(WHDate::months())->
+					setSelectedItem($month)->
+					callback($value,'setMonth').
+				$html->text(" / ").
+				$html->select()->
+					id("WHREServeModelEdit-date-day".self::$numberForDateSelector)->
+					setItems(Object::arrayWithRange(1,31))->
+					setSelectedItem($day)->
+					callback($value,'setDay').
+				$html->space().
+				$html->textInput()->
+					id("WHREServeModelEdit-date-year".self::$numberForDateSelector)->
+					value($year)->
+					maxLengthAndSize(4)->
+					callback($value,'setYear').
+				$html->script()->with(
+					"
+					var cal".self::$numberForDateSelector." = new CalendarPopup();
+					cal".self::$numberForDateSelector.".setReturnFunction('setMultipleValues".self::$numberForDateSelector."');
+					cal".self::$numberForDateSelector.".showYearNavigation();
+					//cal".self::$numberForDateSelector.".showNavigationDropdowns();
+					cal".self::$numberForDateSelector.".showYearNavigationInput();
+					function setMultipleValues".self::$numberForDateSelector."(y,m,d) {
+						document.getElementById('WHREServeModelEdit-date-month".self::$numberForDateSelector."').selectedIndex=m;
+						document.getElementById('WHREServeModelEdit-date-day".self::$numberForDateSelector."').selectedIndex=d;
+						document.getElementById('WHREServeModelEdit-date-year".self::$numberForDateSelector."').value=y;
+						
+					}
+					").
+				$html->anchor()->
+						disableHref()->
+						id("WHREServeModelEdit-date-link".self::$numberForDateSelector)->
+						onClick("cal".self::$numberForDateSelector.".showCalendar('WHREServeModelEdit-date-link".self::$numberForDateSelector."')")->
+						with("select");
+						
+				
+		
 	}
 	
 	public function renderValueTypeREStringOn($html,$column){
@@ -86,6 +140,16 @@ class WHREServeModelEdit extends WHREServeDisplay {
 	public function updateRoot($htmlRoot){
 		parent::updateRoot($htmlRoot);
 		$htmlRoot->addUrlArg($this->reserveable->tableName()."Id",$this->reserveable->oid());
+		
+		/*
+		** The following need to be included for Date popups to work
+		** I think these scripts are overkill for what I am doing
+		** but it was one of the better JavaScript cal popups I found
+		*/
+		$htmlRoot->needsScript("date.js");
+		$htmlRoot->needsScript("anchorPosition.js");
+		$htmlRoot->needsScript("popupWindow.js");
+		$htmlRoot->needsScript("calendarPopup.js");
 		return $this;
 	}
 }

@@ -85,7 +85,7 @@ class WHError extends Object {
 		if(!$this->cleanExit){
 			
 			if(!$app_configurations[$app]['general']['debug']){
-				$message = " # ".WHException::writeErrorToTempFile($buffer);
+				$message = " # ". WHException::writeErrorToTempFile($buffer);
 				
 			}else{
 				$message = $buffer;

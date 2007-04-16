@@ -41,6 +41,13 @@ class WHREServeContactModel extends REServe {
 	}
 	
 	public function dayOfMeeting(){
+		/*
+		** Lazy initialization
+		*/
+		
+		if($this->dayOfMeeting == NULL){
+			$this->dayOfMeeting = Object::construct("WHDate");
+		}
 		return $this->dayOfMeeting;
 	}
 	
@@ -51,11 +58,11 @@ class WHREServeContactModel extends REServe {
 	
 	public function tableDefinition(){
 		return parent::tableDefinition()->
-				column("name",REString)->
-				column("phoneNumber",REString)->
-				column("email",REString)->
-				column("niceness",REInteger)->
-				column("dayOfMeeting",REDate);
+				column("name",'REString')->
+				column("phoneNumber",'REString')->
+				column("email",'REString')->
+				column("niceness",'REInteger')->
+				column("dayOfMeeting",'REDate');
 	}
 	
 	public function __toString(){

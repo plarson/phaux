@@ -17,6 +17,10 @@ class WHAnchorTag extends WHTag {
 		return $this;
 	}
 	
+	public function disableHref(){
+		$this->setAttribute("href","javascript: void(0);");
+		return $this;
+	}
 	
 	/*
 	** liveUpdateOn and liveUpdateWithCallbackOn
@@ -25,9 +29,10 @@ class WHAnchorTag extends WHTag {
 	** for they way I am doing it. It just feels hacky
 	*/ 
 	public function liveUpdateOn($jsEvent,$object,$function,$arguments = ""){
-		$this->setAttribute("href","javascript: void(0);");
+		$this->disableHref();
 		return parent::liveUpdateOn($jsEvent,$object,$function,$arguments);
 	}
+	
 	
 	public function liveUpdateWithCallbackOn(	$jsEvent,
 												$updateObject,
@@ -36,7 +41,7 @@ class WHAnchorTag extends WHTag {
 												$callbackObject,
 												$callbackFunction,
 												$callbackArguments){
-		$this->setAttribute("href","javascript: void(0);");
+		$this->disableHref();
 		return parent::liveUpdateWithCallbackOn(	$jsEvent,
 													$updateObject,
 													$updateFunction,

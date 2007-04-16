@@ -55,7 +55,21 @@ class REServeMySQLDriver extends REServeDriver {
 	 	$return = mysql_query($sql,$this->connection);
 		$ACTION_PRINT .= "$sql <br />";
 		if($return === FALSE){
-			throw new WHException(mysql_error(),666);
+			/*
+			** For some reason the following on my MySQL instlation
+			** returns NOTHING
+			*/
+			//mysql_errno($this->connection);
+			/*
+			** So I do the following it is more than a bit of 
+			** a hack.
+			** Does someone know a better way ?
+			*/
+			if(strpos(mysql_error(),"COLUMN")){
+				throw new WHException(mysql_error(),666);
+			}else{
+				throw new WHException(mysql_error(),667);
+			}
 		}
 		//die("HERE");
 		return $return;
