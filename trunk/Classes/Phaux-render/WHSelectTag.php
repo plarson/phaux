@@ -44,12 +44,24 @@ class WHSelectTag extends WHCollectionTag {
 		return $this;
 	}
 	
+	/*
+	** anArray should look like
+	** $item=>"label"
+	*/
+	public function itemsAndLabels($anArray){
+		foreach($anArray as $item => $label){
+			$this->addItem($item)->itemLabel($item,$label);			
+		}
+		return $this;		
+	}
+	
 	
 	public function labelForItem ($anItem){
 		$label = $this->labels[$this->indexForItem($anItem)];
 		if($label == NULL){
 			return $anItem;
 		}
+		return $label;
 	}
 	
 	public function indexForItem($anItem){
@@ -78,9 +90,8 @@ class WHSelectTag extends WHCollectionTag {
 	
 	public function contents(){
 		$return = "";
-	
+		
 		foreach($this->items as $position => $value){
-			
 			$option = $this->
 						htmlCanvas()->
 						option()->

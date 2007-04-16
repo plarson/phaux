@@ -6,8 +6,9 @@ class REDate extends WHDate {
 	}
 	
 	public function asSqlValueStringFor($aThing){
+	
 		if($aThing == NULL){
-			return NULL;
+			return 'NULL';
 		}
 		if(!is_object($aThing)){
 			throw new WHException("Value passed to REDate::asSqlValueStringFor

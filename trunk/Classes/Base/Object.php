@@ -155,4 +155,13 @@ class Object {
 			}
 		}
 		
+		static public function arrayWithRange($start,$end){
+			$array = array();
+			while($start <= $end){
+				$array[] = $start;
+				++$start;
+			}
+			return $array;
+		}
+		
 }
