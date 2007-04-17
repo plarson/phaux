@@ -65,11 +65,11 @@ class WHHtmlCanvas extends WHCanvas {
 	public function submitButton(){
 		return $this->constructTagWithClass("WHSubmitButtonTag");
 	}
-	/*
+	
 	public function resetButton(){
 		return $this->constructTagWithClass("WHResetButtonTag");
 	}
-	*/
+	
 	public function hiddenInput(){
 		return $this->constructTagWithClass("WHHiddenInputTag");
 	}
