@@ -49,7 +49,7 @@ class WHTime extends Object {
 	public function fromSqlValueString($aString){
 		$parts = explode(':',$aString);
 		$this->setHour($parts[0]);
-		$this->setMinte($parts[1]);
+		$this->setMinute($parts[1]);
 		$this->setSecond($parts[2]);
 		return $this;
 	}
@@ -60,7 +60,7 @@ class WHTime extends Object {
 	}
 	
 	public function __toString(){
-		return $ths->asSqlValueString();
+		return $this->asSqlValueString();
 	}
 	
 }

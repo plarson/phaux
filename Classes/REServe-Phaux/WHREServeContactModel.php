@@ -6,6 +6,8 @@ class WHREServeContactModel extends REServe {
 	protected $email;
 	protected $niceness;
 	protected $dateOfMeeting;
+	protected $timeOfMeeting;
+	
 	
 	public function name(){
 		return $this->name;
@@ -21,6 +23,17 @@ class WHREServeContactModel extends REServe {
 	}
 	public function niceness(){
 		return $this->niceness;
+	}
+	
+	public function timeOfMeeting(){
+		if($this->timeOfMeeting == NULL){
+			$this->timeOfMeeting = Object::construct("WHTime");
+		}
+		return $this->timeOfMeeting;
+	}
+	public function setTimeOfMeeting($aTime){
+		$this->timeOfMeeting = $aTime;
+		return $this;
 	}
 	
 	
@@ -62,7 +75,8 @@ class WHREServeContactModel extends REServe {
 				column("phoneNumber",'REString')->
 				column("email",'REString')->
 				column("niceness",'REInteger')->
-				column("dayOfMeeting",'REDate');
+				column("dayOfMeeting",'REDate')->
+				column("timeOfMeeting",'RETime');
 	}
 	
 	public function __toString(){

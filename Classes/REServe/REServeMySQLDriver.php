@@ -65,11 +65,13 @@ class REServeMySQLDriver extends REServeDriver {
 			** a hack.
 			** Does someone know a better way ?
 			*/
-			if(strpos(mysql_error(),"COLUMN")){
+			//die(mysql_error());
+			//if(strpos(mysql_error(),"column")){
 				throw new WHException(mysql_error(),666);
-			}else{
-				throw new WHException(mysql_error(),667);
-			}
+			//}else{
+				
+			//	throw new WHException(mysql_error(),667);
+			//}
 		}
 		//die("HERE");
 		return $return;

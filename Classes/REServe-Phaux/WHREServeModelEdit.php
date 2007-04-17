@@ -87,6 +87,25 @@ class WHREServeModelEdit extends WHREServeDisplay {
 		
 	}
 	
+	public function renderValueTypeRETimeOn($html,$column){
+		$value = $this->reserveable->getValueForKeyPath($column->keyPath());
+		return $html->textInput()->
+					value($value->hour())->
+					maxLengthAndSize(2)->
+					callback($value,'setHour').
+				$html->text(':').
+				$html->textInput()->
+					value($value->minute())->
+					maxLengthAndSize(2)->
+					callback($value,'setMinute').
+				$html->text(':').
+				$html->textInput()->
+					value($value->second())->
+					maxLengthAndSize(2)->
+					callback($value,'setSecond');
+				
+	}
+	
 	public function renderValueTypeREStringOn($html,$column){
 		return $html->
 				textInput()->
@@ -117,14 +136,15 @@ class WHREServeModelEdit extends WHREServeDisplay {
 	}
 	
 	public function renderButtonsOn($html){
-			return $html->div()->class("buttons")->with(
-						$html->span()->class("label")->with(
-							$html->submitButton()->value("Cancel Button ????!(not yet)")
-						).
-						$html->span()->class("value")->with(
-							$html->submitButton()->value("Update")
-						)
-				);
+	
+		return $html->div()->class("buttons")->with(
+					$html->span()->class("label")->with(
+						$html->resetButton()->value("Cancel")
+					).
+					$html->span()->class("value")->with(
+						$html->submitButton()->value("Update")
+					)
+			);
 	}
 	
 	public function renderContentOn($html){

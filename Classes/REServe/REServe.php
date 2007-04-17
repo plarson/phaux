@@ -94,7 +94,7 @@ class REServe extends Object {
 				}else{
 					throw $e;
 				}
-				$aReserveDriver->updateTableForObject($this);
+				$aReserveDriver->reServeObject($this);
 				
 			}catch(Exception $e){
 			

@@ -3,6 +3,17 @@
 class WHException extends Exception {
 
 	public function __toString(){
+		global $errorHandler;
+		$errorHandler->end();
+		
+		if($this->isDeployed()){
+			$this->deployedException();
+		}else{
+			$this->pretyExceptionAndDie();
+		}
+	}
+	
+	public function isDeployed(){
 		/*
 		** This folling chunk makes this code NON-PORTABLE
 		** Fix this ...
@@ -11,13 +22,10 @@ class WHException extends Exception {
 		** the wanted/needed exception class
 		*/
 		global $configuration; /* FIX ME PLEASE ^^^ */
-		global $errorHandler;
-		$errorHandler->end();
-		if($configuration->isDeployed()){
-			$this->deployedException();
-		}else{
-			$this->pretyExceptionAndDie();
+		if(!is_object($configuration)){
+			return FALSE;
 		}
+		return $configuration->isDeployed(); 
 	}
 	
 	
@@ -66,11 +74,11 @@ class WHException extends Exception {
 				" on line " .
 				$this->line.
 				"</h2>";
-				
+	
 		foreach($this->getTrace() as $point){
 			$return .= self::niceFromTracePoint($point,TRUE);
+		
 		}
-			
 		return substr($return,0,1000000);
 		
 	}
@@ -79,6 +87,7 @@ class WHException extends Exception {
 		$text = "In file ".$point['file']. " line ".$point['line'];
 		$text .= "\n".$point['class'].'::'.$point['function']."(";
 		$d = FALSE;
+		
 		foreach($point['args'] as $value){
 			if($d){
 				$text .= ",";
@@ -95,9 +104,11 @@ class WHException extends Exception {
 		$return .= self::niceSourceCode($point['file'],$point['line'],$highlight);
 		$return .= "<br /><hr />";
 		$i++;
+		
 		if($i == 15){
 			break;
 		}
+		
 		return $return;
 	}
 	
