@@ -578,9 +578,8 @@ abstract class REServeDriver extends Object {
 		//return FALSE;
 		foreach($anObject->tableDefinition()->columns() as $column){
 			foreach($s->columns() as $c){
-				
 				if($column->name() == $c->name()){
-					//echo $column->name()." == ".$c->name()."<br />";
+					
 					continue 2;
 				}
 			}
@@ -592,14 +591,13 @@ abstract class REServeDriver extends Object {
 									$column->type()->reServeType()
 							)
 					);
-					
+				
 			}else{
 				$this->currentObject($anObject);
 				$column->type()->createTableWithDbConnection($this);
 			}
-			$colArray = $s->columns();
-			$colArray[] = $column;
-			$s->setColumns($colArray);
+			//Add it to the database as well
+			$s->addColumn($column);
 			
 		}
 		

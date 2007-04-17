@@ -17,6 +17,9 @@ class REServeTableDefinition extends REServe {
 		$this->columns = $aCollection;
 		return $this;
 	}
+	public function addColumn($aColumn){
+		$this->columns[] = $aColumn;
+	}
 	
 	/*PHP Traits ? */ 
 	public function reServeIn($reServeDriver){

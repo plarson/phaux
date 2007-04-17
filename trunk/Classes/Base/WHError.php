@@ -34,8 +34,8 @@ $WHERROR_FATAL = array(
 */
 $WHERROR_TRACEBACK = array(
 					E_ERROR,
-					E_WARNING,
 					E_USER_ERROR,
+					E_USER_WARNING,
 					E_RECOVERABLE_ERROR	
 					);
 $WHERROR_CATCH = E_ALL;
@@ -63,14 +63,13 @@ class WHError extends Object {
 		global $DEBUG_ERRORS;
 		global $WHERROR_TRACEBACK;
 		//echo $errstr."\n";
-		if(strpos($errstr,"member")){
-			die("HERE");
-		}
+		
+	
 		if(in_array($errno,$WHERROR_FATAL)){
 			if(in_array($errno,$WHERROR_TRACEBACK)){
 				throw new WHException($WHERROR_TYPES[$errno], $errno);
 			}else{
-				die("$errorString in $errorfile on line $errline");
+				die("$errstr in $errfile on line $errline");
 			}
 		}else{
 			$DEBUG_ERRORS .= "\n<!--\n$errstr in $errfile on $errline\n-->\n";
@@ -78,6 +77,21 @@ class WHError extends Object {
 
 	}
 	
+	public function pretyError($errno,$errstr,$errfile,$errline){
+		$return = "<h2> Error: #$errno ".
+				$errstr.
+				" in ".
+				$errfile.
+				" on line " .
+				$errline.
+				"</h2>";
+	
+		foreach(debug_backtrace() as $point){
+			$return .= WHException::niceFromTracePoint($point,TRUE);
+		
+		}
+		return substr($return,0,1000000);
+	}
 	
 	public function checkForErrorsAndOutput($buffer){
 		global $app;
