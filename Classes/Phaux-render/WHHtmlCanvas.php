@@ -78,8 +78,8 @@ class WHHtmlCanvas extends WHCanvas {
 		return $this->constructTagWithClass("WHTableTag");
 	}
 
-	public function tableData(){
-		return $this->constructTagWithClass("WHTableDataTag");
+	public function tableData($value = ''){
+		return $this->constructTagWithClass("WHTableDataTag")->with($value);
 	}
 	public function tableRow(){
 		return $this->constructTagWithClass("WHTableRowTag");
