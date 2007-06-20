@@ -118,7 +118,7 @@ class WHComponent extends Object {
 	
 	public function updateRoot($anHtmlRoot){
 		if($anHtmlRoot->title() == ""){
-			$anHtmlRoot->setTitle("RECall");
+			$anHtmlRoot->setTitle("Phaux");
 		}
 	}
 
