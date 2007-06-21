@@ -38,6 +38,9 @@ class TicTacPhaux extends WHComponent {
 			if ($this->win()){
 				$this->showWinDialog();
 			}
+			if($this->isDraw()){
+				$this->showDrawDialog();
+			}
 			$this->lastMove = ($this->lastMove == 'X') ? 'O' : 'X';
             return true;
         } else {
@@ -50,6 +53,14 @@ class TicTacPhaux extends WHComponent {
 					Object::construct("WHInformDialog")->
 					onAnswerCallback($this,"winDialogCallback")->
 					setMessage($this->lastMove." has won this round.")	
+				);
+	}
+	
+	function showDrawDialog(){
+		$this->callDialog(
+					Object::construct("WHInformDialog")->
+					onAnswerCallback($this,"winDialogCallback")->
+					setMessage("The game ends in a draw.")	
 				);
 	}
 	
@@ -93,6 +104,15 @@ class TicTacPhaux extends WHComponent {
     function win() {
         return $this->diagonalWin() || $this->horizontalWin() || $this->verticalWin();
     }
+
+	public function isDraw(){
+		foreach($this->board as $space){
+			if($space == ''){
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public function renderHeadingOn($html){
 		return $html->headingLevel(1)->with($this->lastMove." make your move");
