@@ -19,6 +19,7 @@ class WHListTag extends WHCollectionTag {
 	}
 
 	public function contents(){
+	
 		if($this->contents == ""){
 			return $this->collectionContents();
 		}
@@ -26,7 +27,7 @@ class WHListTag extends WHCollectionTag {
 	}
 
 	public function collectionContents(){
-		
+	
 		$return = "";
 		foreach($this->items as $position => $value){
 			$listItem = $this->htmlCanvas()->listItem();

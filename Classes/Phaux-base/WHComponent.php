@@ -1,6 +1,6 @@
 <?php
 
-class WHComponent extends Object {
+abstract class WHComponent extends Object {
 	
 	/**
 	 * A dialog is a subinstance of WHComponent that replaces
@@ -120,6 +120,7 @@ class WHComponent extends Object {
 		if($anHtmlRoot->title() == ""){
 			$anHtmlRoot->setTitle("Phaux");
 		}
+		return $this;
 	}
 
 

@@ -11,3 +11,5 @@ include("WHInformDialog.php");
 include("WHYesNoDialog.php");
 include("WHHtmlRoot.php");
 include("WHLiveNavigation.php");
+include("WHDialog.php");
+include("WHFormDialog.php");

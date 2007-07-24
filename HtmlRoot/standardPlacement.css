@@ -1,5 +1,6 @@
 div.row {
 	clear:both;
+	width:100%;
 }
 div.spacer {
 	clear:both;
@@ -18,7 +19,13 @@ div.row span.label, div.buttons span.label {
 	font-weight:bold;
 	padding-top:5px;
 	width:50%;
+	
+}
 
+div.dialog-buttons {
+	clear:both;
+	text-align:center;
+	width:100%;
 }
 
 div.row span.value,div.buttons span.value {
@@ -35,11 +42,15 @@ div.row span.value span {
 	margin-left:4px;
 }
 
-
 div.buttons span.label {
 	padding-top:12px;
 }
 
 div.buttons span.value {
 	padding-top:6px;
+}
+
+div.dialog-validation {
+	border: 1px dashed #006699; 
+	padding: 4px; background: #FF9999;
 }
