@@ -125,6 +125,9 @@ abstract class WHComponent extends Object {
 
 
 	final function updateRootWithChildren($anHtmlRoot){
+		if($this->dialog != NULL){
+			$this->updateRoot($anHtmlRoot);
+		}
 		$this->thisOrDialog()->updateRoot($anHtmlRoot);
 		foreach($this->thisOrDialog()->children() as $child){
 			$child->thisOrDialog()->updateRootWithChildren($anHtmlRoot);
