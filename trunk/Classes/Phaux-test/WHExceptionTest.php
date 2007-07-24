@@ -18,6 +18,9 @@ class WHExceptionTest extends WHComponent {
 	public function includeError(){
 		include("thisFileDoesNotExist.php");
 	}
+	public function undefinedMethod(){
+		$this->foobar();
+	}
 	public function renderContentOn($html){
 		return $html->anchor()->callback($this,"throwException")->with("Throw Exception").
 				$html->br().
@@ -30,7 +33,10 @@ class WHExceptionTest extends WHComponent {
 						->with("Method on non-object").
 				$html->br().
 				$html->anchor()->callback($this,"includeError")
-								->with("Include Error");
+						->with("Include Error").
+				$html->br().
+				$html->anchor()->callback($this,"undefinedMethod")
+						->with("Undefined method");
 	}
 	
 	

@@ -62,6 +62,10 @@ class WHHtmlCanvas extends WHCanvas {
 	public function textInput(){
 		return $this->constructTagWithClass("WHTextInputTag");
 	}
+	
+	public function passwordInput(){
+		return $this->constructTagWithClass("WHPasswordInputTag");
+	}
 	public function submitButton(){
 		return $this->constructTagWithClass("WHSubmitButtonTag");
 	}

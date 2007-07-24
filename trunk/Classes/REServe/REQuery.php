@@ -123,11 +123,11 @@ class REQuery extends Object {
 		return $this;
 	}
 	
-	public function keyNameIsNull($aKeyName,$value){
+	public function keyNameIsNull($aKeyName){
 		$this->buffer .= $this->escapedValueForColumn($aKeyName)." IS NULL ";
 		return $this;
 	}
-	public function keyNameIsNotNull($aKeyName,$value){
+	public function keyNameIsNotNull($aKeyName){
 		$this->buffer .= $this->escapedValueForColumn($aKeyName)." IS NOT NULL ";
 		return $this;
 	}

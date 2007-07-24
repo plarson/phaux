@@ -42,5 +42,8 @@ class WHFormInputTag extends WHTag {
 		return $this;
 	}
 	
+	public function with($aString){
+		return $this->value($aString);
+	}
 
 }

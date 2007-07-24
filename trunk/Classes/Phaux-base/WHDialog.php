@@ -1,0 +1,65 @@
+<?
+abstract class WHDialog extends WHComponent{
+	protected $errors = array();
+	
+	public function addValidationError($aString){
+		$this->errors[] = $aString;
+	}
+	public function clearErrors(){
+		$this->errors = array();
+	}
+	public function isValid(){
+		if(size($this->errors) > 0){
+			return FALSE;
+		}
+		return TRUE;
+	}
+	public function divClass(){
+		return 'dialog-'.$this->getClass();
+	}
+
+	public function ok(){
+		$this->answer(TRUE);
+	}
+
+	/*
+	**Returns and array of callback=>labels
+	*/
+	public function buttons(){
+		return array('ok'=>'Okay');
+	}
+	
+	public function renderDialogOn($html){
+		$this->subclassResponsibility('renderDialogOn');
+	}
+	public function renderValidationErrorsOn($html){
+		if(sizeof($this->errors) > 0){
+			return $html->div()->class('dialog-validation')->with(
+				$html->unorderedList()->setItems($this->errors)
+			);
+		}else{
+				return $html;
+				
+		}
+	}
+		
+	public function renderButtonsOn($html){
+		foreach($this->buttons() as $callback => $label){
+			$buttons .= $html->span()->class('dialog-button')->with(
+					$html->submitButton()->callback($this,$callback)->with($label));
+		}
+		return $html->div()->class('dialog-buttons')->with($buttons);
+	}
+	
+	public function renderContentOn($html){
+		return $this->renderValidationErrorsOn($html).
+				$html->form()->class('dialog-form')->with(
+					$html->hiddenInput()->callback($this,'clearErrors').
+					$html->divClass($html->divClass())->with(
+						$this->renderDialogOn($html)
+						).
+					$this->renderButtonsOn($html)
+				);					
+	}
+	
+}

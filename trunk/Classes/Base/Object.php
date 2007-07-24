@@ -26,6 +26,7 @@ class Object {
 			return $object;
 		}
 		
+		
 		/*
 		**This does not work
 		** __CLASS__ returns Object and there is no 
@@ -36,7 +37,32 @@ class Object {
 		}
 		
 		function __construct(){
-			/*Do Nothing */
+			if($this->haveClassVarsBeenInitialized() == FALSE){
+				$this->classVarInitialize();
+			}
+		}
+		
+		/*
+		** "Class vars"
+		*/
+		protected function classVarNamed($aString){
+			return $GLOBALS['classVars'][get_class($this)][$aString];
+		}
+		protected function setClassVarNamed($aString,$value){
+			$GLOBALS['classVars'][get_class($this)][$aString] = $value;
+			return $this;
+		}
+		protected function haveClassVarsBeenInitialized(){
+			return is_array($GLOBALS['classVars'][get_class($this)]);
+		}
+		
+		/*stub*/
+		public function classVarInitialize(){
+			if(!is_array($GLOBALS['classVars'])){
+				$GLOBALS['classVars'] = array();
+			}
+			$GLOBALS['classVars'][get_class($this)] = array();
+			return $this;
 		}
 		
 		/*
@@ -63,7 +89,7 @@ class Object {
 		}
 		
 		public function subclassResponsibility ($methodName){
-			throw new WHException("Subclass " . __CLASS__ . 
+			throw new WHException("Subclass " . get_class($this) . 
 					" should Impliment $methodName");			
 		}
 		
@@ -94,6 +120,7 @@ class Object {
 					$result[] = $className;
 				}
 			}
+			return $result;
 		}
 		
 		public function error($errorMessage = "", $errorNumber = 0){
@@ -113,6 +140,33 @@ class Object {
 		public function getClass(){
 			return get_class($this);
 		}
+		
+		/*
+		**Copies all instance vars from anObject 
+		** that this has is common
+		*/
+		public function copyFrom($anObject){
+			foreach($this->objectVars() as $var => $value){
+				$this->$var = $anObject->getIvarNamed($var);
+			}
+			return $this;
+		}
+		
+		/*
+		** Returns an array of this objects vars
+		*/
+		public function objectVars(){
+			return get_object_vars($this);
+		}
+		
+		
+		/*
+		** Throw an exception instead of an uncatchable error
+		*/
+		public function __call($method,$args){
+			$this->error("Call to undefined method ".$this->getClass()."::".$method);
+		}
+		
 		static function unCamelCase($aString){
 			$i++;
 			$aString = ucfirst($aString);

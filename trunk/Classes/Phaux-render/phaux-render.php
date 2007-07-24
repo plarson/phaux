@@ -11,6 +11,7 @@ include("WHFormInputTag.php");
 include("WHSubmitButtonTag.php");
 include("WHResetButtonTag.php");
 include("WHTextInputTag.php");
+include("WHPasswordInputTag.php");
 include("WHHiddenInputTag.php");
 include("WHTableTag.php");
 include("WHTableCellTag.php");
