@@ -28,6 +28,17 @@ abstract class WHDialog extends WHComponent{
 	public function buttons(){
 		return array('ok'=>'Okay');
 	}
+	public function buttonCallbackForLabel($label){
+		$buttons = $this->buttons();
+		return $buttons[$label];
+	}
+
+	/*
+	**Does not work
+	*/
+	public function defaultCallback(){
+		return NULL;
+	}
 	
 	public function renderDialogOn($html){
 		$this->subclassResponsibility('renderDialogOn');
@@ -44,6 +55,10 @@ abstract class WHDialog extends WHComponent{
 	}
 		
 	public function renderButtonsOn($html){
+	
+		if($this->defaultCallback() != NULL ){
+		
+		}
 		foreach($this->buttons() as $callback => $label){
 			$buttons .= $html->span()->class('dialog-button')->with(
 					$html->submitButton()->callback($this,$callback)->with($label));

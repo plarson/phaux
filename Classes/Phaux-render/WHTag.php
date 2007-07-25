@@ -39,6 +39,7 @@ class WHTag extends Object {
 	}
 	
 	public function setAttribute($attribId,$valueString){
+	
 		$this->attributes[$attribId] = htmlentities($valueString,ENT_COMPAT);
 		return $this;
 	}
