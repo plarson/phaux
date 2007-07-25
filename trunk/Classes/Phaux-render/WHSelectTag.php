@@ -3,10 +3,14 @@
 class WHSelectTag extends WHCollectionTag {
 	
 	protected $labels = array();
+	protected $methodForLabel = NULL;
+	protected $nullLabel = NULL;
 	
 	public function tag(){
 		return "select";
 	}
+	
+	
 	
 	public function labelOnKeyPath($aStringKeyPath){
 		foreach($this->items as $position => $object){
@@ -16,6 +20,16 @@ class WHSelectTag extends WHCollectionTag {
 			}			
 			$this->labels[$object] = $value;
 		}
+		return $this;
+	}
+	
+	public function withNullLabled($aString){
+		$this->nullLabel = $aString;
+		return $this;
+	}
+	
+	public function setMethodForLabel($aString){
+		$this->methodForLabel = $aString;
 		return $this;
 	}
 	
@@ -30,6 +44,11 @@ class WHSelectTag extends WHCollectionTag {
 		}
 		$this->registerCollectionCallback($object,$function,$args,$this->items);
 		$this->setAttribute("name","_i[".$this->callbackKey."]");
+		return $this;
+	}
+	
+	public function addItemWithLabel($item,$label){
+		$this->addItem($item)->itemLabel($item,$label);	
 		return $this;
 	}
 	
@@ -57,8 +76,17 @@ class WHSelectTag extends WHCollectionTag {
 	
 	
 	public function labelForItem ($anItem){
+		
 		$label = $this->labels[$this->indexForItem($anItem)];
+	
 		if($label == NULL){
+			
+			if($this->methodForLabel != NULL 
+					&& is_object($anItem) 
+					&& $anItem->hasMethod($this->methodForLabel)){
+				
+				return $anItem->perform($this->methodForLabel,array());
+			}
 			return $anItem;
 		}
 		return $label;
@@ -66,7 +94,7 @@ class WHSelectTag extends WHCollectionTag {
 	
 	public function indexForItem($anItem){
 		foreach($this->items as $var => $value){
-			if($anItem == $value){
+			if($anItem === $value){
 				return $var;
 			}
 		}
@@ -87,18 +115,32 @@ class WHSelectTag extends WHCollectionTag {
 		return this;
 	}
 	
+	public function submitFormOnChange(){
+		$this->onChange('form.submit()');
+		return $this;
+	}
+	
 	
 	public function contents(){
 		$return = "";
 		
+		if($this->nullLabel != NULL){
+			$return .= $this->
+						htmlCanvas()->
+						option()->
+						value(NULL)->
+						with($this->nullLabel);
+		}
+		
 		foreach($this->items as $position => $value){
+	
 			$option = $this->
 						htmlCanvas()->
 						option()->
 						value($position)->
 						with($this->labelForItem($value));
 									
-			if($value == $this->selectedItem()){
+			if($value === $this->selectedItem()){
 				$option->selected();
 			}
 			$return .= $option->__toString();
