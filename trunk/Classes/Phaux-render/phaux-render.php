@@ -30,3 +30,4 @@ include("WHLinkTag.php");
 include("WHScriptTag.php");
 include("WHLiveResponceCanvas.php");
 include("WHImageTag.php");
+include('WHTextAreaTag.php');
