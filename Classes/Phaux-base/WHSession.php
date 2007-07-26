@@ -129,7 +129,20 @@ class WHSession extends Object {
 	
 	public function save(){
 		$this->saveCurrentRegistry();
+		$this->renderStep = FALSE;
 		//var_dump($this->registries);
+	}
+	
+	/*
+	** a flag that is set when Phaux is rendering
+	** and has finished processing callbacks
+	*/
+	public function startingRenderStep(){
+		$this->renderStep = TRUE;
+	}
+
+	public function isRenderStep(){
+		return $this->renderStep;
 	}
 	
 	public function saveCurrentRegistry (){

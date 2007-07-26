@@ -249,7 +249,12 @@ abstract class REServeDriver extends Object {
 	
 
 	public function objectForOidWithClassFromArray($anOid,$aClass,$flatObject){
-		if($this->getFromCache($anOid) != NULL){
+		/*
+		** If the object is in the cache and 
+		** has not been flushed use it
+		*/
+		if($this->getFromCache($anOid) != NULL && 
+				$this->getFromCache($anOid)->object() != NULL){
 			return $this->getFromCache($anOid);
 		}else{
 			$newObject = Object::construct($aClass);
@@ -270,7 +275,10 @@ abstract class REServeDriver extends Object {
 				$newObject->putValueForKeyPath($value,$column->keyPath());
 			}
 			$newObject->makeClean();
-			return $newObject;
+			/*
+			** We want the proxy object that was created in the cache
+			*/
+			return $this->getFromCache($anOid);
 		}
 	}
 	
@@ -303,7 +311,11 @@ abstract class REServeDriver extends Object {
 								setObject($anObject);
 			}
 		}else{
-			$g->setObject($anObject);
+			if($anObject->isReserveProxy()){
+				$g->setObject($anObject->object());
+			}else{
+				$g->setObject($anObject);
+			}
 			$o = $g;
 		}
 		$this->putInCacheAtKey($anObject->oid(),$o);

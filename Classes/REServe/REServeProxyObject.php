@@ -66,9 +66,11 @@ class REServeProxyObject {
 		return $this->object;
 	}
 	public function setObject($anObject){
+		
 		$this->object = $anObject;
 		return $this;
 	}
+	
 	
 	public function __call($method,$args){
 		if($this->database() == NULL){
@@ -76,15 +78,24 @@ class REServeProxyObject {
 		}
 		if($this->object == NULL){
 			if($this->objectClass == NULL){
-				
 				$this->object = $this->database()->objectForOid($this->oid());
 				$this->objectClass = get_class($this->object());
 			}else{
+				
+				/*
+				**This returns a proxy object
+				** We much fetch the real object from the 
+				** proxy object using object()
+				*/
 				$this->object = $this->database()->
-									objectForOidWithClass($this->oid(),$this->objectClass());
+									objectForOidWithClass($this->oid(),$this->objectClass())
+									->object();
+			
 			}
 		}
-		$result = $this->object()->perform($method,$args);
+	
+		$result = $this->object->perform($method,$args);
+	
 		if($result === $this->object){
 			return $this;
 		}else{
@@ -94,6 +105,6 @@ class REServeProxyObject {
 	
 	
 	public function __toString(){
-		return "REServable:".get_class($this->object)."(".$this->oid.")";
+		return "REServable(".$this->oid.")";
 	}
 }

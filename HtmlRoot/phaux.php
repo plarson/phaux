@@ -160,7 +160,7 @@ if($REDIRECT){
 	}
 }
 
-
+$_SESSION[$app]['session']->startingRenderStep();
 if($_REQUEST['_lu'] == ""){
 	$html = WHHtmlCanvas::construct("WHHtmlCanvas");
 	$html->html()->with(
