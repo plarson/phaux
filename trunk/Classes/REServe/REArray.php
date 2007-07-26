@@ -80,12 +80,12 @@ class REArray extends REServeBasicType {
 		}
 		$toAdd = array_diff_assoc($newArray,$oldArray);
 		$toRemove = array_diff_assoc($oldArray,$newArray);
-		foreach($toAdd as $var => $value){
+		foreach($toAdd as $var => &$value){
 			$this->currentKey = $var;
 			$this->currentValue = $value;
 			$this->insertWithDb($dbConnection);
 		}
-		foreach($toRemove as $var => $value){
+		foreach($toRemove as $var => &$value){
 			$this->currentKey = $var;
 			$this->currentValue = $value;
 			$this->deleteWithDb($dbConnection);
@@ -127,7 +127,9 @@ class REArray extends REServeBasicType {
 		$dbConnection->setCurrentObject($this);
 		$dbConnection->setCurrentColumn($this->tableDefinition()->columnNamed("value"));
 		$newArray = array();
-		foreach($dbConnection->collectionWithOid($this,$this->parentObject->oid()) as $i){
+		
+		$collection = $dbConnection->collectionWithOid($this,$this->parentObject->oid());
+		foreach($collection as &$i){
 			$newArray[$i['key']] = 
 						$this->valueFromType($this->valueType,
 											"value",

@@ -40,9 +40,32 @@ class WHREServeTest extends WHComponent {
 		return $this;
 	}
 	
+	public function flushTest(){
+		$this->addContact();
+		$contacts = $this->session()->db()->root()->contacts();
+		$contact = $contacts[sizeof($this->session()->db()->root()->contacts()) - 1];
+		$contact->setName('Flush Test');
+		$this->session()->db()->commitAndStart();
+		$this->session()->db()->flush();
+		$contactAgain = $contacts[sizeof($this->session()->db()->root()->contacts()) - 1];
+		if($contact !== $contactAgain){
+			$this->error((string)$contact. ' is not the same as '.(string)$contactAgain);
+		}
+		if($contact->name() != 'Flush Test'){
+			$this->error($contact->name() . ' should be "Flush Test"');
+		}
+		/*
+		**Try to commit after a flush
+		*/
+		$this->session()->db()->commitAndStart();
+	}
+	
+	public function renderFlushTestOn($html){
+		return $html->anchor()->callback($this,'flushTest')->with('Flush Test');
+	}
 	
 	public function renderContentOn($html){
-		
+		$return .= $this->renderFlushTestOn($html);
 		$return .= $html->render($this->contactList);
 		$return .= $html->anchor()->callback($this,"addContact")->with("Add New Contact");
 		if(is_object($this->currentContactComponent)){
