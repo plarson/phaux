@@ -58,14 +58,20 @@ class WHREServeSession extends WHSession {
 	** DON'T USE __sleep
 	*/
 	public function save(){
-		parent::save();
 		$this->db()->commit();
+		if($this->isRenderStep()){
+			/*
+			**
+			** FIXME:LOTS OF FLUSH PROBLEMS 
+			**
+			*/
+			//$this->db()->flush();
+		}
 		$this->db()->close();
-		//$this->db()->flush();
+		parent::save();
 		return $this;
 	}
-	
-	
+
 	/*
 	** Can't do this because we don't have 
 	** the configuration yet

@@ -4,6 +4,7 @@ class REServe extends Object {
 	protected $oid;
 	protected $lastVersion;
 	
+	
 	public function __construct(){
 		$this->makeClean();
 	}

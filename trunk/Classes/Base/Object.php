@@ -42,6 +42,10 @@ class Object {
 			}
 		}
 		
+		public function isProxyObject(){
+			return FALSE;
+		}
+		
 		/*
 		** "Class vars"
 		*/
