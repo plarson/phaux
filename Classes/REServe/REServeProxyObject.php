@@ -103,8 +103,22 @@ class REServeProxyObject {
 		}
 	}
 	
+	/*
+	** Don't hit the database if we are just asking for 
+	** the definition
+	*/
+	public function tableDefinition(){
+		if($this->object != NULL){
+			return $this->object->tableDefinition();
+		}
+		if($this->objectClass){
+			return Object::construct($this->objectClass)->tableDefinition();
+		}
+		return $this->__call('tableDefinition',array());
+	}
+	
 	
 	public function __toString(){
-		return "REServable(".$this->oid.")";
+		return "REServable__proxy_(".$this->oid.")";
 	}
 }

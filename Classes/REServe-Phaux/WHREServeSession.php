@@ -5,13 +5,16 @@ class WHREServeSession extends WHSession {
 	
 	public function start(){
 		parent::start();
-		if(!is_object($this->db)){
-			$this->db = Object::construct($this->
-						configuration()->
-						configValueBySubjectAndKey("REServe","type"));
-			$this->db->setAutomaticTableCreation($automatic_table_creation);
-		}
+		$this->db = Object::construct($this->
+				configuration()->
+				configValueBySubjectAndKey("REServe","type"));
+		$this->db->setAutomaticTableCreation($automatic_table_creation);
 		
+		$this->connect();
+		return $this;
+	}
+	
+	public function resume(){
 		$this->connect();
 		return $this;
 	}
@@ -25,7 +28,6 @@ class WHREServeSession extends WHSession {
 	}
 	
 	public function connect(){
-		
 		$values = array("type","user","password","database","port","automatic_table_creation");
 		foreach($values as $value){
 			$$value = $this->
@@ -33,6 +35,7 @@ class WHREServeSession extends WHSession {
 						configValueBySubjectAndKey("REServe",$value);
 		}										
 		$host = $host.":".$port;
+		
 		$this->db->connect($host,$user,$password,$database);
 		$this->db->startTransaction();
 	}
@@ -59,17 +62,17 @@ class WHREServeSession extends WHSession {
 	*/
 	public function save(){
 		$this->db()->commit();
-		if($this->isRenderStep()){
-			/*
-			**
-			** FIXME:LOTS OF FLUSH PROBLEMS 
-			**
-			*/
-			//$this->db()->flush();
+		/*
+		** Flushing after the render step causes problems
+		** object in arrays (they don't get saved when they change)
+		** I thing it has to do with arrays are referenced but I can't 
+		** find the problem. Please FIXME
+		*/
+		if(!$this->isRenderStep()){
+			$this->db()->flush();
 		}
 		$this->db()->close();
-		parent::save();
-		return $this;
+		return parent::save();
 	}
 
 	/*

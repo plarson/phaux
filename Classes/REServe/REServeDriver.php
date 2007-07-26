@@ -57,7 +57,7 @@ abstract class REServeDriver extends Object {
 	public function bodyOfInsertFor($anObject){
 		$d = FALSE;
 		$fieldsAndValues = $this->fieldsAndValues($anObject);
-		foreach($fieldsAndValues as $field => $value){
+		foreach($fieldsAndValues as $field => &$value){
 			if($d){
 				$fields .= " , ";
 				$values .= " , ";
@@ -75,7 +75,7 @@ abstract class REServeDriver extends Object {
 	public function bodyOfUpdateFor($anObject){
 		$d = FALSE;
 		$fieldsAndValues = $this->fieldsAndValues($anObject);
-		foreach($fieldsAndValues as $field => $value){
+		foreach($fieldsAndValues as $field => &$value){
 			if($d){
 				$sql .= " , ";
 			}else{
@@ -103,7 +103,7 @@ abstract class REServeDriver extends Object {
 	
 	public function commit(){
 		
-		foreach($this->localCache as $object){
+		foreach($this->localCache as &$object){
 			/*We store arrays in here too */
 			if(is_object($object)){
 				
@@ -186,7 +186,7 @@ abstract class REServeDriver extends Object {
 	}
 	
 	public function flush(){
-		foreach($this->localCache as $object){
+		foreach($this->localCache as &$object){
 			if(is_object($object)){
 				$object->flush();
 			}
@@ -482,7 +482,7 @@ abstract class REServeDriver extends Object {
 	}
 	
 	public function rollback(){
-		foreach($this->localCache as $object){
+		foreach($this->localCache as &$object){
 			$object->rollback();
 		}
 		$this->rollbackDbTransaction();

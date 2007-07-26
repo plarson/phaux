@@ -2,8 +2,7 @@
 
 class REServeMySQLDriver extends REServeDriver {
 	protected $connection;
-	
-		
+	protected $debugOutputFile = '/tmp/reservedebug.txt';
 	public function classForOid($anOid){
 		$oc = $this->getFromCache($anOid);
 		if($oc == NULL){
@@ -49,10 +48,14 @@ class REServeMySQLDriver extends REServeDriver {
 	
 	
 	public function executeQuery($sql){
-		/*if(strstr($sql,"ContactModel ") !== FALSE){
-			die($sql);
-		}*/
+		if($this->debugOutputFile != NULL){
+			file_put_contents($this->debugOutputFile,$sql."\n",FILE_APPEND);
+		}
+		if(!is_resource($this->connection)){
+			$this->error('Connection is not valid');
+		}
 	 	$return = mysql_query($sql,$this->connection);
+	
 		$ACTION_PRINT .= "$sql <br />";
 		if($return === FALSE){
 			/*

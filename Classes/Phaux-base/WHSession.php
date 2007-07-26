@@ -98,6 +98,7 @@ class WHSession extends Object {
 	}
 	
 	public function configuration(){
+	
 		return $_SESSION[$this->appName]['configuration'];
 	}
 	
@@ -107,14 +108,23 @@ class WHSession extends Object {
 	
 	public function startSessionOnAppWithConfiguration($appName,$configuration){
 		session_start();
+		
 		if($_SESSION[$appName]['configuration'] == NULL){
 			$_SESSION[$appName]['configuration'] = $configuration;
 		}
+	
 		if($_SESSION[$appName]["session"] == NULL){
 			$_SESSION[$appName]["session"] = $this;
 			$_SESSION[$appName]["session"]->setAppName($appName);
-			$this->start();
+			$_SESSION[$appName]["session"]->start();
+		}else{
+			$_SESSION[$appName]["session"]->resume();
 		}
+		
+		return $_SESSION[$appName]["session"];
+	}
+	
+	public function resume(){
 		return $this;
 	}
 	

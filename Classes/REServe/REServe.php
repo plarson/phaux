@@ -34,6 +34,11 @@ class REServe extends Object {
 	public function isDirty(){
 		foreach($this->tableDefinition()->columns() as $row){
 			if($row->type()->isCollectionModel()){
+				/* FIXME
+				** We say this is dirty if it has a collection
+				** so reserve will chech the collection as well
+				** Come up with something more efficiant here
+				*/
 				if($this->getValueForKeyPath($row->keyPath())){
 					return TRUE;
 				}
@@ -145,11 +150,17 @@ class REServe extends Object {
 		if($aString == NULL){
 			return NULL;
 		}
-		$toReturn = Object::construct("REServeProxyObject")->
-						setDatabase($reServeConnection)->
-						setOid((int)$aString)->
-						setObjectClass(get_class($this));
-		$reServeConnection->putInCache($toReturn);
+		$toReturn = $reServeConnection->getFromCache((int)$aString);
+		
+		if($toReturn == NULL){
+			$toReturn = Object::construct("REServeProxyObject")->
+							setDatabase($reServeConnection)->
+							setOid((int)$aString)->
+							setObjectClass(get_class($this));
+			$reServeConnection->putInCache($toReturn);
+		}else{
+			$this->error("SNAFU");
+		}
 		return $toReturn;
 	}
 	
