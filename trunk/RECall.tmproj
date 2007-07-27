@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Classes/REServe/REServeDriver.php</string>
+	<string>Classes/REServe/REServeDirectMemberAccess.php</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -223,6 +223,20 @@
 			<key>firstVisibleLine</key>
 			<integer>24</integer>
 		</dict>
+		<key>Classes/Phaux-base/WHInformDialog.php</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>70</integer>
+				<key>line</key>
+				<integer>25</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>Classes/Phaux-base/WHSession.php</key>
 		<dict>
 			<key>caret</key>
@@ -236,6 +250,20 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>79</integer>
+		</dict>
+		<key>Classes/Phaux-base/WHYesNoDialog.php</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>3</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 		<key>Classes/Phaux-base/phaux-base.php</key>
 		<dict>
@@ -852,14 +880,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>12</integer>
+				<integer>20</integer>
 				<key>line</key>
-				<integer>36</integer>
+				<integer>69</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>6</integer>
+			<integer>42</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>69</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>20</integer>
+				<key>line</key>
+				<integer>69</integer>
+			</dict>
 		</dict>
 		<key>Classes/REServe/REServeAnySubclass.php</key>
 		<dict>
@@ -894,59 +938,43 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>19</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>2</integer>
+				<integer>12</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>6</integer>
-				<key>line</key>
-				<integer>2</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>31</integer>
-				<key>line</key>
-				<integer>2</integer>
-			</dict>
 		</dict>
 		<key>Classes/REServe/REServeDriver.php</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>47</integer>
+				<integer>63</integer>
 				<key>line</key>
-				<integer>250</integer>
+				<integer>347</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>253</integer>
+			<integer>231</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>17</integer>
+				<integer>60</integer>
 				<key>line</key>
-				<integer>250</integer>
+				<integer>347</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>47</integer>
+				<integer>63</integer>
 				<key>line</key>
-				<integer>250</integer>
+				<integer>347</integer>
 			</dict>
 		</dict>
 		<key>Classes/REServe/REServeMySQLDriver.php</key>
@@ -954,30 +982,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>59</integer>
+				<integer>26</integer>
 				<key>line</key>
-				<integer>99</integer>
+				<integer>24</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>72</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>29</integer>
-				<key>line</key>
-				<integer>99</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>59</integer>
-				<key>line</key>
-				<integer>99</integer>
-			</dict>
+			<integer>0</integer>
 		</dict>
 		<key>Classes/REServe/REServeObjectId.php</key>
 		<dict>
@@ -1396,6 +1408,8 @@
 		<string>Classes/REServe/REServeMySQLDriver.php</string>
 		<string>Classes/REServe/REServeObjectId.php</string>
 		<string>Classes/REServe/REServeDriver.php</string>
+		<string>Classes/Phaux-base/WHInformDialog.php</string>
+		<string>Classes/Phaux-base/WHYesNoDialog.php</string>
 		<string>Classes/REServe/REArray.php</string>
 		<string>Classes/REServe/REServeProxyObject.php</string>
 		<string>Classes/REServe-Phaux/WHREServeList.php</string>
@@ -1404,6 +1418,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{595, 0}, {761, 1028}}</string>
+	<string>{{661, 0}, {761, 1028}}</string>
 </dict>
 </plist>

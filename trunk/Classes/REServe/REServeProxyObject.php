@@ -117,8 +117,10 @@ class REServeProxyObject {
 		return $this->__call('tableDefinition',array());
 	}
 	
-	
+
 	public function __toString(){
-		return "REServable__proxy_(".$this->oid.")";
+		return $this->__call('__toString',array());
+		//return "REServable__proxy_(".$this->oid.")";
 	}
+
 }

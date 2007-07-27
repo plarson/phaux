@@ -7,8 +7,8 @@ class REDateAndTime extends WHDateAndTime {
 	
 	
 	public function asSqlValueStringFor($aThing){
-		if($aThing == NULL){
-			return NULL;
+		if(!is_object($aThing)){
+			return "NULL";
 		}
 		return $aThing->asSqlValueString();
 	}

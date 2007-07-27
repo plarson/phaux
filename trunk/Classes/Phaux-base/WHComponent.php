@@ -43,6 +43,7 @@ abstract class WHComponent extends Object {
 		$this->subclassResponsibility("renderContentOn");
 		return $this;
 	}
+
 	
 	public function callDialog($aComponent){
 		$this->dialog = $aComponent;
