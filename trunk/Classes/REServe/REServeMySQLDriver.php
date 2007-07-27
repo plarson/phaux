@@ -2,7 +2,7 @@
 
 class REServeMySQLDriver extends REServeDriver {
 	protected $connection;
-	protected $debugOutputFile = '/tmp/reservedebug.txt';
+	protected $debugOutputFile = NULL;
 	public function classForOid($anOid){
 		$oc = $this->getFromCache($anOid);
 		if($oc == NULL){
