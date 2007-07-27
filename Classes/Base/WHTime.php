@@ -51,7 +51,7 @@ class WHTime extends Object {
 		$this->setHour($parts[0]);
 		$this->setMinute($parts[1]);
 		$this->setSecond($parts[2]);
-		return $this;
+		return "'".$this."'";
 	}
 	
 	

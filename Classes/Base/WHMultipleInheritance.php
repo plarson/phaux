@@ -14,13 +14,11 @@ class WHMultipleInheritance extends Object {
 	** protected $classes = array('Class1','Class2');
 	*/
 	protected $classes = array();
-	
-	
 	protected $objects = array();
 	
 	public function __construct(){
 		foreach($this->classes as $class){
-			$objects[] = Object::construct($class);
+			$this->objects[] = Object::construct($class);
 		}
 		return $this;
 	}
@@ -132,6 +130,7 @@ class WHMultipleInheritance extends Object {
 				return $instance;
 			}
 		}
+	
 		$this->error(get_class($this)." does not subclass $className");
 	}
 }

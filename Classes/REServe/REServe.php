@@ -14,6 +14,9 @@ class REServe extends Object {
 	}
 	
 	public function asSqlValueStringWithConnectionFor ($value, $aReserveConnection){
+		if($value == NULL){
+			return 'NULL';
+		}
 		if($value->oid() == NULL){
 			$value->reServeIn($aReserveConnection);
 		}
@@ -159,7 +162,7 @@ class REServe extends Object {
 							setObjectClass(get_class($this));
 			$reServeConnection->putInCache($toReturn);
 		}else{
-			$this->error("SNAFU");
+			return $reServeConnection->getFromCache((int)$aString);
 		}
 		return $toReturn;
 	}

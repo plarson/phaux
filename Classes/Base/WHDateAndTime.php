@@ -7,6 +7,9 @@ class WHDateAndTime extends WHMultipleInheritance {
 	
 	
 	public function fromSqlValueString($aString){
+		if($aString == ""){
+			return NULL;
+		}
 		$parts = explode(' ',$aString);
 		$fparts = $parts[0];
 		$lparts = $parts[1];
@@ -21,16 +24,19 @@ class WHDateAndTime extends WHMultipleInheritance {
 		
 		$time = $this->thisForClass("WHTime");
 		$time->setHour($lparts[0]);
-		$time->setMinte($lparts[1]);
+		$time->setMinute($lparts[1]);
 		$time->setSecond($lparts[2]);
 		return $this;
 	}
 	
 	
 	protected function asSqlValueString(){
-		return $this->thisForClass("WHDate")->asSqlValueString() 
+		$val = $this->thisForClass("WHDate")->asSqlValueString() 
 				." ".
 				$this->thisForClass("WHTime")->asSqlValueString();
+				
+		$val = str_replace("'","",$val);
+		return "'".$val."'";
 	}
 	
 	
