@@ -8,7 +8,7 @@ class WHSession extends Object {
 	protected $registries = array(); 
 	protected $currentRegistry;
 	protected $currentKey;
-	
+	protected $isHalosOn = FALSE;
 	
 	public function start(){
 		$this->currentRegistry = Object::construct("WHStateRegistry");
@@ -45,6 +45,20 @@ class WHSession extends Object {
 										
 		return $this->callbacks[$newKey];
 		
+	}
+	
+	
+	public function toggleHalos(){
+		if($this->isHalosOn){
+			$this->isHalosOn = FALSE;
+		}else{
+			$this->isHalosOn = TRUE;
+		}
+		return $this;
+	}
+	
+	public function isHalosOn(){
+		return $this->isHalosOn;
 	}
 
 	
@@ -153,6 +167,15 @@ class WHSession extends Object {
 
 	public function isRenderStep(){
 		return $this->renderStep;
+	}
+	
+	public function terminate(){
+		global $app;
+		global $errorHandler;
+		session_destroy();
+		header("Location: ".$_SESSION[$app]['configuration']->baseUrl()."/$app");
+		$errorHandler->end();
+		exit;
 	}
 	
 	public function saveCurrentRegistry (){

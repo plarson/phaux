@@ -1,35 +1,45 @@
 <?php
-
-/*
-**Not yet fleshed out.
-
-** Would like to do something like Seaside Decorations
-** I was thinking that this could simply be a model that
-** renders it's parent. 
-
-** Needs to handle answers as well.
-*/
+/**
+ * Subclass WHDecoration to create a decoration that
+ * Can be placed around an arbitray component
+ */
 
 abstract class WHDecoration extends WHComponent {
-	protected $child;
+	
+	protected $decoratedComponent;
 	
 	
-	public function setChild($aComponet){
-		$this->child = $aComponent;
+	public function decoratedComponent(){
+		return $this->decoratedComponent;
+	}
+	public function setDecoratedComponent($aComponent){
+		$this->decoratedComponent = $aComponent;
 		return $this;
 	}
-	public function child(){
-		return $this->child;
+	/*
+	** Child classes of WHDecoration should not define 
+	** renderContentOn
+	** like a regular component instead they should
+	** define renderDecorationWithComponentOn($html)
+	*/
+	final function renderContentOn($html){
+		$this->error('Should not run!');
 	}
 	
-	public function children(){
-		return array($child);
+	/*
+	** Your class should override this
+	** If you want the parent component to be
+	** drawn (you almost certainly do) you must
+	** call renderDecoratedComponentOn($html,$parentHtml)
+	*/
+	public function renderDecorationOn($html,$parentHtml){
+		return $html->div()->class('no-decoration')->with(
+					$this->renderDecoratedComponentOn($html,$parentHtml)
+				);
 	}
 	
-	public function renderChildOn($htmml){
-		return $html->render($this->child);
+	public function renderDecoratedComponentOn($html,$parentHtml){
+		return $parentHtml;
 	}
-	
-
 	
 }
