@@ -120,6 +120,10 @@ class WHHtmlCanvas extends WHCanvas {
 		return $this->constructTagWithClass("WHHtmlText")->with($aString);
 	}
 	
+	public function bold($aString){
+		return $this->constructTagWithClass("WHGenericTag")->setTag('b')->with($aString);
+	}
+	
 	public function div(){
 		return $this->constructTagWithClass("WHDivTag");
 	}

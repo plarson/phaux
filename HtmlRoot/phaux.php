@@ -62,7 +62,7 @@ if($app_configurations[$app] == NULL){
 	
 	ini_set("session.use_cookies",$app_configurations[$app]['general']['use_cookie']);
 	ini_set("session.name","SID");
-	
+	 
 	$configuration_class = $app_configurations[$app]['general']['configuration_class'];
 	$configuration = Object::construct($configuration_class);
 	$configuration->setApplicationName($app)->
@@ -127,6 +127,10 @@ if(is_array($_REQUEST["_i"])){
 if($_SESSION[$app]['mainComponent'] == NULL){
 	$main_class = $app_configurations[$app]['general']['main_class'];
 	$_SESSION[$app]['mainComponent'] = Object::construct($main_class);
+	if($configuration->debugMode()){
+		$_SESSION[$app]['mainComponent']->addDecoration(
+			Object::Construct('WHMainDevelopmentDecoration'));	
+	}
 }
 
 $htmlRoot = Object::construct("WHHtmlRoot");
@@ -161,16 +165,26 @@ if($REDIRECT){
 }
 
 $_SESSION[$app]['session']->startingRenderStep();
+
+if($configuration->debugMode()){
+	if($_SESSION[$app]['session']->isHalosOn()){
+		$_SESSION[$app]['mainComponent']->setupHaloForAll();
+	}else{
+		$_SESSION[$app]['mainComponent']->setupHaloForAll(TRUE);
+	}
+}
+	
+
 if($_REQUEST['_lu'] == ""){
 	$html = WHHtmlCanvas::construct("WHHtmlCanvas");
 	$html->html()->with(
 		$html->head()->with(
 			$htmlRoot->renderHeadContentsOn($html).
 			$html->style()->type("text/css")->with(
-				$_SESSION[$app]['mainComponent']->thisOrDialog()->styleOfThisAndChildren()
+				$_SESSION[$app]['mainComponent']->styles()
 			).
 			$html->script()->type("text/javascript")->with(
-				$_SESSION[$app]['mainComponent']->thisOrDialog()->scriptOfThisAndChildren()
+				$_SESSION[$app]['mainComponent']->scripts()
 				)
 			).
 		
