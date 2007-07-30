@@ -7,3 +7,4 @@ include_once("WHError.php");
 include_once("WHDate.php");
 include_once("WHTime.php");
 include_once("WHDateAndTime.php");
+include_once('WHDuration.php');
