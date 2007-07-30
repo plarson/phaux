@@ -82,6 +82,19 @@ class REServeMySQLDriver extends REServeDriver {
 	}
 	
 	/*
+	** Returns a multidimensional array
+	** of results produced from $sql
+	*/
+	public function executeQueryFetchArray($sql){
+		$result = $this->executeQuery($sql);
+		$return = array();
+		while($array = mysql_fetch_array($result)){
+			$return[] = $array;
+		}
+		return $return;
+	}
+	
+	/*
 	** Returns a array of results from the query
 	** Used by REQuery
 	** DON'T USE DIRECTLY UNLESS YOU KNOW WHAT YOU ARE DOING

@@ -36,7 +36,7 @@ class Object {
 			return self::construct(__CLASS__);
 		}
 		
-		function __construct(){
+		public function __construct(){
 			if($this->haveClassVarsBeenInitialized() == FALSE){
 				$this->classVarInitialize();
 			}
