@@ -19,3 +19,4 @@ include('WHHalo.php');
 include('WHWindowDecoration.php');
 include('WHPath.php');
 include('WHInspector.php');
+include('WHSessionSize.php');

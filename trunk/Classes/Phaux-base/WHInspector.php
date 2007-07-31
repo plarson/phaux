@@ -4,6 +4,7 @@ class WHInspector extends WHComponent {
 	protected $path;
 	
 	public function __construct(){
+		parent::__construct();
 		$this->path = Object::construct('WHPath');
 	}
 	public function object(){
@@ -52,6 +53,7 @@ class WHInspector extends WHComponent {
 	
 	public function renderContentOn($html){
 		return $html->render($this->path).
+				$html->headingLevel(1)->with($this->path->currentSegment()->__toString()).
 				$this->renderMembersOn($html);
 			
 	}

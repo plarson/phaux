@@ -7,6 +7,7 @@ class WHNavigation extends WHComponent {
 	protected $indexKey = 0;
 	
 	function __construct(){
+		parent::__construct();
 		$this->session()->registerObjectOnKeyPath($this,"selection");
 		return $this;
 	}

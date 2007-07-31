@@ -1,7 +1,7 @@
 <?php
 
 class WHSession extends Object {
-	protected $mainComponent;
+//	protected $mainComponent;
 	protected $callbacks = array();
 	protected $lastCallbackKey = 0;
 	protected $appName;
@@ -16,9 +16,9 @@ class WHSession extends Object {
 		$this->currentKey = 0;
 	}
 	
-	public function mainComponent($aComponent){
-		$this->mainComponent = $aComponent;
-		return $this;
+	public function mainComponent(){
+		global $app;
+		return $_SESSION[$app]['mainComponent'];
 	}
 	
 	
