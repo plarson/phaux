@@ -124,14 +124,15 @@ class REServeMySQLDriver extends REServeDriver {
 	}
 	
 	public function queryToCreateTableWithClass($anObject){
-		return parent::queryToCreateTableWithClass($anObject). ' TYPE = InnoDB';
+		return parent::queryToCreateTableWithClass($anObject). ' ENGINE = INNODB';
 	}
 	
 	public function queryToCreateObjectIdTable(){
 		return "CREATE TABLE pxxObjectLookup (
 					objectId int(11) auto_increment  PRIMARY KEY ,
 					`type` VARCHAR(254) NOT NULL,
-					`root` TINYINT(1) NOT NULL DEFAULT 0 )";
+					`root` TINYINT(1) NOT NULL DEFAULT 0 )
+					ENGINE = INNODB";
 	}
 	
 	public function collectionWithOid($model,$anOid){
@@ -150,7 +151,8 @@ class REServeMySQLDriver extends REServeDriver {
 	}
 	
 	public function objectForOidWithClass($anOid,$aClass){
-		if($this->getFromCache($anOid) != NULL){
+		if($this->getFromCache($anOid) != NULL &&
+				$this->getFromCache($anOid)->object() != NULL){
 			return $this->getFromCache($anOid);
 		}else{
 			$result = $this->executeQuery($this->queryForLookupClassWithOid($aClass,$anOid));

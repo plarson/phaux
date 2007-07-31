@@ -26,6 +26,7 @@ class WHDateAndTime extends WHMultipleInheritance {
 		$time->setHour($lparts[0]);
 		$time->setMinute($lparts[1]);
 		$time->setSecond($lparts[2]);
+	
 		return $this;
 	}
 	

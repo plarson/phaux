@@ -12,19 +12,19 @@ abstract class WHComponent extends Object {
 	 * A dialog is a subinstance of WHComponent that replaces
 	 * the view for this component. 
 	 */
-	private $dialog = NULL; 
+	protected $dialog = NULL; 
 	
 	/**
 	 * dialogCallback is the callback that a dialog component
 	 * will answer on
 	 */
-	private $dialogCallback = NULL;
+	protected $dialogCallback = NULL;
 	
 	/**
 	 * 	parentComponent is the parent componet of this dialog 
 	 *	if it is a dialog
 	 */
-	private $parentComponent = NULL;
+	protected $parentComponent = NULL;
 	
 	/**
 	 * decorations is an array of components that can add

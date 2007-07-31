@@ -42,7 +42,7 @@ class REQuery extends Object {
 	}
 	
 	public function newInstance(){
-		return new get_class($this);
+		return new $this->getClass();
 	}
 	
 	public function where(){
@@ -139,7 +139,7 @@ class REQuery extends Object {
 	
 	public function results(){
 		return $this->dbConnection->resultsFromQueryWithClass(
-				$this->__toString(),get_class($this->object)
+				$this->__toString(),$this->object->getClass()
 			);
 	}
 	

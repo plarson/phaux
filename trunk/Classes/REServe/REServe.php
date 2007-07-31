@@ -153,15 +153,19 @@ class REServe extends Object {
 		if($aString == NULL){
 			return NULL;
 		}
+		
+		
 		$toReturn = $reServeConnection->getFromCache((int)$aString);
 		
 		if($toReturn == NULL){
+			
 			$toReturn = Object::construct("REServeProxyObject")->
 							setDatabase($reServeConnection)->
 							setOid((int)$aString)->
 							setObjectClass(get_class($this));
 			$reServeConnection->putInCache($toReturn);
 		}else{
+			
 			return $reServeConnection->getFromCache((int)$aString);
 		}
 		return $toReturn;
@@ -188,6 +192,6 @@ class REServe extends Object {
 	}
 	
 	public function __toString(){
-		return "REServable:".get_class($this)."(".$this->oid.")";
+		return "REServable:"."(".$this->oid.")";
 	}
 }

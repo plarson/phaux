@@ -126,7 +126,7 @@ class WHMultipleInheritance extends Object {
 	*/
 	public function thisForClass($className){
 		foreach($this->objects as $instance){
-			if(get_class($instance) == $className){
+			if($instance->getClass() == $className){
 				return $instance;
 			}
 		}

@@ -18,7 +18,7 @@ class REServeProxyObject {
 	}
 	
 	public function isInMemory(){
-		if($this->object == NULL){
+		if($this->object === NULL){
 			return FALSE;
 		}else{
 			return TRUE;
@@ -78,8 +78,9 @@ class REServeProxyObject {
 		}
 		if($this->object == NULL){
 			if($this->objectClass == NULL){
-				$this->object = $this->database()->objectForOid($this->oid());
-				$this->objectClass = get_class($this->object());
+				$this->object = $this->database()->objectForOid($this->oid);
+				$this->objectClass = $this->object()->getClass();
+				
 			}else{
 				
 				/*
@@ -88,12 +89,16 @@ class REServeProxyObject {
 				** proxy object using object()
 				*/
 				$this->object = $this->database()->
-									objectForOidWithClass($this->oid(),$this->objectClass())
+									objectForOidWithClass($this->oid,$this->objectClass)
 									->object();
+				if(!is_object($this->object)){
+				
+					die('Object cant be null ' . $this->objectClass." ".$this->oid);
+				}
 			
 			}
 		}
-	
+		
 		$result = $this->object->perform($method,$args);
 	
 		if($result === $this->object){
@@ -119,8 +124,12 @@ class REServeProxyObject {
 	
 
 	public function __toString(){
-		return $this->__call('__toString',array());
-		//return "REServable__proxy_(".$this->oid.")";
+		/*
+		** Something is wrong here
+		** the below sometimes causes php to segfault
+		*/
+		//return $this->__call('__toString',array());
+		return "REServable__proxy_(".$this->oid.")";
 	}
 
 }
