@@ -139,7 +139,7 @@ class Object {
 		}
 		
 		public function __toString(){
-			return "An instance of ".get_class($this);
+			return "A ".get_class($this);
 		}
 		public function getClass(){
 			return get_class($this);

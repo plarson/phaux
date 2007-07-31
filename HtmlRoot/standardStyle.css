@@ -13,14 +13,14 @@ table {
 }
 
 table th {
-	background-color:lightgray;
-	border:1px black solid;
+	background-color:#E8EBF0;
+	border:1px solid #ccc;
 	text-align:left;
 	font-weight:bold;
 	
 }
 table td{
-	border:1px black solid;
+	border:1px solid #ccc;
 }
 table tr.highlight{
 	background-color:yellow;

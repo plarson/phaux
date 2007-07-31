@@ -17,7 +17,7 @@ class WHHalo extends WHDecoration{
 	** but it is the simpleist now
 	*/
 	public function inspectParent(){
-		global $app;
+	
 		$this->session()->toggleHalos();
 		$inspector = Object::construct('WHInspector')->
 						setObject($this->decoratedComponent);
@@ -27,16 +27,16 @@ class WHHalo extends WHDecoration{
 						
 		$inspector->onAnswerCallback($this->session(),'toggleHalos');
 		
-		$_SESSION[$app]['mainComponent']->callDialog(
+		$this->session()->mainComponent()->callDialog(
 				$inspector
 			);
 	}
 	
 	public function renderSourceButtonOn($html){
 		if($this->showHTML){
-			$label = 'H';
+			$label = 'R';
 		}else{
-			$label = 'S';
+			$label = 'H';
 		}
 		return $html->text('[ ').
 				$html->anchor()->callback($this,'toggleShowHTML')->with($label).

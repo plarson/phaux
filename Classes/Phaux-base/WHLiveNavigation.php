@@ -5,6 +5,7 @@ class WHLiveNavigation extends WHNavigation {
 	
 	public function __construct(){
 		global $WHLiveNavigation_ID;
+		parent::__construct();
 		++$WHLiveNavigation_ID;
 		$this->id = $WHLiveNavigation_ID;
 		

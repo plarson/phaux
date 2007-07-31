@@ -9,12 +9,21 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 				$this->renderToolbarOn($html);
 	}
 
+	public function sessionMemoryUsage(){
+		$sessionSize = Object::construct('WHSessionSize')->
+							addDecoration(Object::construct('WHWindowDecoration')->
+							setTitle('Session Usage'));
+		
+		$this->session()->mainComponent()->callDialog($sessionSize);
+	}
 	
 	public function renderToolbarOn($html){
 		return $html->div()->id('toolbar')->with(
 					$html->anchor()->callback($this->session(),'terminate')->with('New Session').
 					$html->space().
-					$html->anchor()->callback($this->session(),'toggleHalos')->with('Toggle Halos')
+					$html->anchor()->callback($this->session(),'toggleHalos')->with('Toggle Halos').
+					$html->space().
+					$html->anchor()->callback($this,'sessionMemoryUsage')->with('Session Memory')
 				);
 	}
 	
