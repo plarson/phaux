@@ -207,10 +207,9 @@ abstract class REServeDriver extends Object {
 			return NULL;
 		}
 		if(is_object($o)){
-			if($o->isInMemory()){
-				return $o;
-			}
+			return $o;
 		}
+		$this->error('No In Cache');
 	}
 	
 	public function insertObject($anObject){
@@ -235,7 +234,8 @@ abstract class REServeDriver extends Object {
 	}
 	
 	public function objectForOid($anOid){
-		if($this->getFromCache($anOid) != NULL){
+		if($this->getFromCache($anOid) != NULL && 
+				$this->getFromCache($anOid)->object() != NULL){
 			return $this->getFromCache($anOid);
 		}else{
 			$coid = $this->classForOid($anOid);
@@ -253,18 +253,21 @@ abstract class REServeDriver extends Object {
 		** If the object is in the cache and 
 		** has not been flushed use it
 		*/
+	
 		if($this->getFromCache($anOid) != NULL && 
 				$this->getFromCache($anOid)->object() != NULL){
+					
 			return $this->getFromCache($anOid);
 		}else{
+			
 			$newObject = Object::construct($aClass);
 			$newObject->setOid($anOid);
-			$this->putInCache($newObject);
+						
 			foreach($newObject->tableDefinition()->columns() as $column){
 				$this->setCurrentObject($newObject);
 				$this->setCurrentColumn($column);
 				$rawValue = $flatObject[$column->keyPath()];
-			
+				
 				if($column->type()->needsReServeConnection()){
 					$value = $column->type()->
 							fromSqlValueStringWithConnection($rawValue,$this);	
@@ -273,12 +276,16 @@ abstract class REServeDriver extends Object {
 				}
 				
 				$newObject->putValueForKeyPath($value,$column->keyPath());
+				
 			}
+		
 			$newObject->makeClean();
 			/*
 			** We want the proxy object that was created in the cache
 			*/
-			return $this->getFromCache($anOid);
+		
+			return $this->putInCache($newObject);
+			//return $this->getFromCache($anOid);
 		}
 	}
 	
@@ -300,7 +307,7 @@ abstract class REServeDriver extends Object {
 			throw new WHException("Only REServeable objects belong in the cache");
 		}
 		$g = $this->localCache[$anObject->oid()];
-		if($g == NULL){
+		if($g === NULL){
 			if($anObject->isReserveProxy()){
 				$o = $anObject;
 			}else{
@@ -317,7 +324,9 @@ abstract class REServeDriver extends Object {
 				$g->setObject($anObject);
 			}
 			$o = $g;
+		
 		}
+			
 		$this->putInCacheAtKey($anObject->oid(),$o);
 		return $o;
 	}

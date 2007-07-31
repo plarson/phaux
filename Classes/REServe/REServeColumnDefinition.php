@@ -51,7 +51,7 @@ class REServeColumnDefinition extends REServe {
 	}
 	
 	public function typeName(){
-		return get_class($this->type);
+		return $this->type->getClass();
 	}
 	
 	public function valueStored(){

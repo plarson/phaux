@@ -90,12 +90,12 @@ class REArray extends REServeBasicType {
 			$this->currentValue = $value;
 			$this->deleteWithDb($dbConnection);
 		}
+		
 		$dbConnection->putInCacheAtKey($this->tableName().$this->parentObject->oid(),$newArray);
 		$oldArray = $dbConnection->getFromCache($this->tableName().$this->parentObject->oid());
 		
 		$dbConnection->setCurrentObject($this->parentObject);	
-		return $this;
-		
+		return $this;	
 	}
 	
 	public function insertWithDb ($dbConnection){
@@ -129,7 +129,10 @@ class REArray extends REServeBasicType {
 		$newArray = array();
 		
 		$collection = $dbConnection->collectionWithOid($this,$this->parentObject->oid());
-		foreach($collection as &$i){
+		$ok = FALSE;
+		foreach($collection as $i){
+		
+				
 			$newArray[$i['key']] = 
 						$this->valueFromType($this->valueType,
 											"value",
@@ -142,6 +145,7 @@ class REArray extends REServeBasicType {
 	}
 	
 	public function valueFromType($aType,$aKeyPath,$flatObject,$dbConnection){
+	
 		$aType = Object::construct($aType);
 		if($aType->needsReserveConnection()){
 			$value = $this->newFrom($aKeyPath)->
@@ -151,6 +155,7 @@ class REArray extends REServeBasicType {
 							fromSqlValueString($flatObject[$aKeyPath]);
 			
 		}
+		
 		return $value;
 	}
 	

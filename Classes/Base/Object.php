@@ -1,6 +1,7 @@
 <?php
 
 class Object {
+
 		/*
 		**Allows a more Smalltalk like syntax
 		** self::construct("Object")->whatever();
@@ -23,6 +24,13 @@ class Object {
 			}else{
 				$object = new $class();
 			}
+			/*
+			if(FALSE){
+				$p = new WHProxyObjectLogCall();
+				$object = $p->__setObject($object);
+			}
+			*/
+						
 			return $object;
 		}
 		
@@ -50,14 +58,14 @@ class Object {
 		** "Class vars"
 		*/
 		protected function classVarNamed($aString){
-			return $GLOBALS['classVars'][get_class($this)][$aString];
+			return $GLOBALS['classVars'][$this->getClass()][$aString];
 		}
 		protected function setClassVarNamed($aString,$value){
-			$GLOBALS['classVars'][get_class($this)][$aString] = $value;
+			$GLOBALS['classVars'][$this->getClass()][$aString] = $value;
 			return $this;
 		}
 		protected function haveClassVarsBeenInitialized(){
-			return is_array($GLOBALS['classVars'][get_class($this)]);
+			return is_array($GLOBALS['classVars'][$this->getClass()]);
 		}
 		
 		/*stub*/
@@ -65,7 +73,7 @@ class Object {
 			if(!is_array($GLOBALS['classVars'])){
 				$GLOBALS['classVars'] = array();
 			}
-			$GLOBALS['classVars'][get_class($this)] = array();
+			$GLOBALS['classVars'][$this->getClass()] = array();
 			return $this;
 		}
 		
@@ -93,7 +101,7 @@ class Object {
 		}
 		
 		public function subclassResponsibility ($methodName){
-			throw new WHException("Subclass " . get_class($this) . 
+			throw new WHException("Subclass " . $this->getClass() . 
 					" should Impliment $methodName");			
 		}
 		
@@ -120,7 +128,7 @@ class Object {
 		public function subClasses(){
 			$result = array();
 			foreach(get_declared_classes() as $className){
-				if(is_subclass_of(Object::construct($className),get_class($this))){
+				if(is_subclass_of(Object::construct($className),$this->getClass())){
 					$result[] = $className;
 				}
 			}
@@ -139,10 +147,10 @@ class Object {
 		}
 		
 		public function __toString(){
-			return "A ".get_class($this);
+			return "A ".$this->getClass();
 		}
 		public function getClass(){
-			return get_class($this);
+			return (string)get_class($this);
 		}
 		
 		/*
