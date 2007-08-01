@@ -80,16 +80,17 @@ class REArray extends REServeBasicType {
 		}
 		$toAdd = array_diff_assoc($newArray,$oldArray);
 		$toRemove = array_diff_assoc($oldArray,$newArray);
-		foreach($toAdd as $var => &$value){
-			$this->currentKey = $var;
-			$this->currentValue = $value;
-			$this->insertWithDb($dbConnection);
-		}
 		foreach($toRemove as $var => &$value){
 			$this->currentKey = $var;
 			$this->currentValue = $value;
 			$this->deleteWithDb($dbConnection);
 		}
+		foreach($toAdd as $var => &$value){
+			$this->currentKey = $var;
+			$this->currentValue = $value;
+			$this->insertWithDb($dbConnection);
+		}
+	
 		
 		$dbConnection->putInCacheAtKey($this->tableName().$this->parentObject->oid(),$newArray);
 		$oldArray = $dbConnection->getFromCache($this->tableName().$this->parentObject->oid());
