@@ -378,7 +378,8 @@ abstract class REServeDriver extends Object {
 	
 	public function queryForLookupCollectionWithOid($reCollection,$anOid){
 		return "SELECT * FROM ".$reCollection->tableName(). " WHERE ".
-					$this->escapedColumnName('parentId'). ' = ' . (int)$anOid;
+					$this->escapedColumnName('parentId'). ' = ' . (int)$anOid. ' ORDER BY '.
+					$this->escapedColumnName('key');
 	}
 	
 	public function queryForNewObjectOfClass($aClass){
