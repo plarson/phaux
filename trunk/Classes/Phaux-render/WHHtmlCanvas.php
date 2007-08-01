@@ -117,11 +117,21 @@ class WHHtmlCanvas extends WHCanvas {
 	}
 	
 	public function text($aString){
-		return $this->constructTagWithClass("WHHtmlText")->with($aString);
+		return $this->constructTagWithClass("WHHtmlText")->with(htmlspecialchars($aString));
 	}
 	
 	public function bold($aString){
-		return $this->constructTagWithClass("WHGenericTag")->setTag('b')->with($aString);
+		return $this->constructTagWithClass("WHGenericTag")->setTag('b')->with(htmlspecialchars($aString));
+	}
+	
+	
+	public function pre($aString){
+		return $this->constructTagWithClass("WHHtmlText")->with(htmlspecialchars($aString));
+	}
+	
+	public function paragraph($aString){
+		return $this->constructTagWithClass("WHGenericTag")->setTag('p')->with(htmlspecialchars($aString));
+		
 	}
 	
 	public function div(){
@@ -137,7 +147,7 @@ class WHHtmlCanvas extends WHCanvas {
 	}
 	
 	public function space(){
-		return $this->text("&nbsp;");
+		return $this->constructTagWithClass("WHHtmlText")->with('&nbsp;');
 	}
 	
 	public function script(){

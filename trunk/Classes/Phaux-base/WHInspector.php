@@ -16,6 +16,17 @@ class WHInspector extends WHComponent {
 	}
 
 	public function renderMemberValueOn($html,$memberValue){
+		
+		/*
+		**use var_dump
+		*
+		ob_start();
+		var_dump($memberValue);
+		$contents = ob_get_contents();
+		ob_end_clean();
+		return $contents;
+		*/
+		
 		if(is_array($memberValue)){
 			foreach($memberValue as $key=>$value){
 				$return .= $key.
@@ -31,6 +42,7 @@ class WHInspector extends WHComponent {
 					with((string)$memberValue);
 		}
 		return $memberValue;
+		
 	}
 
 	/*

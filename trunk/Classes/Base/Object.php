@@ -230,4 +230,35 @@ class Object {
 			return $array;
 		}
 		
+		/*
+		**Takes a string that is formatted ..
+		**   <field1><TAB><field2><TAB>...<NEWLINE>
+		** 			...
+		**   <field1><TAB><field2><TAB>...<NEWLINE>
+		** and returns a multidimensional array that
+		** repersents the text
+		*/
+			
+		static public function excelPasteToArray($aString){
+			$list = trim($aString);
+			if(strpos($list,"\n") !== FALSE){
+				$parts = explode("\n",$list);
+			}else{
+				$parts = explode("\r",$list);
+			}
+			foreach($parts as $value){
+				$fields[] = explode("\t",trim($value));
+			}
+			return $fields;	
+			
+		}
+		
+		static public function arrayToArrayExcelPaste($anMDArray){
+			$return = '';
+			foreach($anMDArray as $row){
+				$return .= implode("\t",$row)."\n";
+			}
+			return $return;
+		}
+		
 }

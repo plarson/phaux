@@ -47,6 +47,16 @@ class WHSession extends Object {
 		
 	}
 	
+	/*
+	** Forget removes all callbacks and
+	** the state registry
+	** Essentially disabling the user from using her back
+	** button
+	*/
+	public function forget(){
+		$this->callbacks = array();
+		$this->registries = array();
+	}
 	
 	public function toggleHalos(){
 		if($this->isHalosOn){
@@ -86,7 +96,7 @@ class WHSession extends Object {
 		return 200;
 	}
 	public function maxCallbacks(){
-		return 1000;
+		return 2000;
 	}
 	
 	public function appName(){

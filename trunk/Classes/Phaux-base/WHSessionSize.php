@@ -5,6 +5,7 @@ class WHSessionSize extends WHComponent {
 	protected $processedObjects = array();
 	
 	public function __construct(){
+		set_time_limit(0);
 		parent::__construct();
 		$this->processObject($this->session());
 	}
@@ -140,8 +141,16 @@ class WHSessionSize extends WHComponent {
 		return $html->headingLevel('1')->with($this->serializedSize(). ' bytes when serialized');
 	}
 	
+	public function renderXdebugOn($html){
+		if(function_exists('xdebug_memory_usage') && function_exists('xdebug_peak_memory_usage')){
+			return $html->paragraph('Xdebug reports Memory Usage at '.xdebug_memory_usage().
+									' and peak memory usage at '.xdebug_peak_memory_usage());
+		}
+	}
+	
 	public function renderContentOn($html){
 		return $this->renderSerializedSizeOn($html).
+				$this->renderXdebugOn($html).
 				$this->renderExplanationOn($html).
 				$this->renderUsageTableOn($html);
 	}

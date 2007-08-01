@@ -23,7 +23,9 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 					$html->space().
 					$html->anchor()->callback($this->session(),'toggleHalos')->with('Toggle Halos').
 					$html->space().
-					$html->anchor()->callback($this,'sessionMemoryUsage')->with('Session Memory')
+					$html->anchor()->callback($this,'sessionMemoryUsage')->with('Session Memory').
+					$html->space().
+					$html->anchor()->callback($this->session(),'forget')->with('Forget')
 				);
 	}
 	
