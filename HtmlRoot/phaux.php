@@ -108,7 +108,9 @@ $REDIRECT = FALSE;
 
 if($_REQUEST["_k"]){
 	//var_dump($_SESSION[$app]['session']);
-	$_SESSION[$app]['session']->callbackByKey($_REQUEST["_k"])->run();
+	if(is_object($_SESSION[$app]['session']->callbackByKey($_REQUEST["_k"]))){
+		$_SESSION[$app]['session']->callbackByKey($_REQUEST["_k"])->run();
+	}
 	$REDIRECT = TRUE;
 	
 }

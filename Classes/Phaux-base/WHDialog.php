@@ -9,7 +9,7 @@ abstract class WHDialog extends WHComponent{
 		$this->errors = array();
 	}
 	public function isValid(){
-		if(size($this->errors) > 0){
+		if(sizeof($this->errors) > 0){
 			return FALSE;
 		}
 		return TRUE;

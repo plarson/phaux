@@ -53,4 +53,5 @@ div.buttons span.value {
 div.dialog-validation {
 	border: 1px dashed #006699; 
 	padding: 4px; background: #FF9999;
+	color:black;
 }
