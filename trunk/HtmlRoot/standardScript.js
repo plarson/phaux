@@ -16,24 +16,23 @@ function xmlLiveUpdaterForForm(aForm,uri){
 			if (aForm.childNodes[i].type == "checkbox" ||
 					aForm.childNodes[i].type == "radio" ) {
 				if (aForm.childNodes[i].checked) {
-					newUri = addParameter(uri,aForm.childNodes[i].name,aForm.childNodes[i].value);
+					newUri = addParameter(newUri,aForm.childNodes[i].name,aForm.childNodes[i].value);
 				}else if (aForm.childNodes[i].type != "radio" ){
-					newUri = addParameter(uri,aForm.childNodes[i].name,aForm.childNodes[i].value);
-				}else{
-					newUri = addParameter(uri,aForm.childNodes[i].name,aForm.childNodes[i].value);
+					newUri = addParameter(newUri,aForm.childNodes[i].name,aForm.childNodes[i].value);
 				}
+			}else{
+			
+				newUri = addParameter(newUri,aForm.childNodes[i].name,aForm.childNodes[i].value);
 			}
 		}else if(aForm.childNodes[i].tagName == "SELECT") {
-			newUri = addParameter(uri,
+			newUri = addParameter(newUri,
 						aForm.childNodes[i].name,
 						aForm.childNodes[i].options[sel.selectedIndex].value);
 		}else if (aForm.childNodes[i].tagName == "TEXTAREA") {
-			newUri = addParameter(uri,aForm.childNodes[i].name,aForm.childNodes[i].value);
+			newUri = addParameter(newUri,aForm.childNodes[i].name,aForm.childNodes[i].value);
 		}
 	}
-
 	return xmlLiveUpdaterUri(newUri);
-
 }
 function createDataPacket(parameters) {
 	var dataPacket = "";

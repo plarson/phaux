@@ -92,11 +92,20 @@ class WHSession extends Object {
 		return $this->currentRegistry;
 	}
 	
+	/*
+	** If an application has 10 registered
+	** objects the back button will work
+	** 20 times
+	*/
 	public function maxRegistries (){
 		return 200;
 	}
+	/*
+	**How many callbacks do you have on a page at a time?
+	** 500 seams like a lot but it is possibable
+	*/
 	public function maxCallbacks(){
-		return 2000;
+		return 500;
 	}
 	
 	public function appName(){
