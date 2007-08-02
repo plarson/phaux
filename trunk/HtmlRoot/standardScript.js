@@ -8,7 +8,33 @@ function addParameter(uri, key, value)
 	return uri + separator + key + "=" + escape(value);
 }
 
+function xmlLiveUpdaterForForm(aForm,uri){
+	var newUri = uri;
+	for (i=0; i<aForm.childNodes.length; i++) {
+		
+		if (aForm.childNodes[i].tagName == "INPUT") {
+			if (aForm.childNodes[i].type == "checkbox" ||
+					aForm.childNodes[i].type == "radio" ) {
+				if (aForm.childNodes[i].checked) {
+					newUri = addParameter(uri,aForm.childNodes[i].name,aForm.childNodes[i].value);
+				}else if (aForm.childNodes[i].type != "radio" ){
+					newUri = addParameter(uri,aForm.childNodes[i].name,aForm.childNodes[i].value);
+				}else{
+					newUri = addParameter(uri,aForm.childNodes[i].name,aForm.childNodes[i].value);
+				}
+			}
+		}else if(aForm.childNodes[i].tagName == "SELECT") {
+			newUri = addParameter(uri,
+						aForm.childNodes[i].name,
+						aForm.childNodes[i].options[sel.selectedIndex].value);
+		}else if (aForm.childNodes[i].tagName == "TEXTAREA") {
+			newUri = addParameter(uri,aForm.childNodes[i].name,aForm.childNodes[i].value);
+		}
+	}
 
+	return xmlLiveUpdaterUri(newUri);
+
+}
 function createDataPacket(parameters) {
 	var dataPacket = "";
 	for(var i=0; i<parameters.length; i++) {
@@ -152,7 +178,11 @@ function xmlLiveProcessOne(child) {
 		if(child.firstChild.data){
 			element.innerHTML = child.firstChild.data;
 		}else{
-			element.innerHTML = xmlAsString(child);
+			var iHtml = '';
+			for(i=0; i < child.childNodes.length; i++) {
+				iHtml = iHtml + xmlAsString(child.childNodes[i]);
+			}
+			element.innerHTML = iHtml;
 		}
 	}
 	

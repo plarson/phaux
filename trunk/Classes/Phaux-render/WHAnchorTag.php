@@ -18,7 +18,7 @@ class WHAnchorTag extends WHTag {
 	}
 	
 	public function disableHref(){
-		$this->setAttribute("href","javascript: void(0);");
+		$this->setAttribute("href","javascript:void(0);");
 		return $this;
 	}
 	
