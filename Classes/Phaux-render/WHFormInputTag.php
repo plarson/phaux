@@ -15,6 +15,8 @@ class WHFormInputTag extends WHTag {
 		$this->subclassResponsibility("type");
 	}
 
+
+
 	/*
 	**Register a callback for processing the user data
 	** the first argument of the callback called will be

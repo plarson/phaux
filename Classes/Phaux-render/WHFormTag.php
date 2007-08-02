@@ -12,6 +12,30 @@ class WHFormTag extends WHTag {
 		$this->setAttribute("method","POST");
 	}
 	
+	
+	/*
+	** Enable live updates for forms
+	** don't call liveUpdateFunctionWithUrl directly call
+	** liveUpdateOnSubmit
+	*/
+	public function liveUpdateFunctionWithUrl($url){
+		return "xmlLiveUpdaterForForm(document.getElementById('".
+						$this->attributeAt('id')."'),'$url'); return false;";
+	}
+	
+	/*
+	** $object should be the component that you want to call the render method on
+	** $function should be the render method for the ajax redraw
+	*/
+	public function liveUpdateOnSubmit($object,$function,$arguments = ""){
+		$renderKey = $this->createCallback($object,$function,$arguments);
+		if($this->attributeAt('id') == ''){
+			$this->setAttribute('id','auto-ajax-form-id-'.$renderKey);
+		}
+		$this->setAttribute('action',
+					'javascript:'.$this->liveUpdateFunction($renderKey));
+		return $this;
+	}
 	public function tag(){
 		return "form";
 	}

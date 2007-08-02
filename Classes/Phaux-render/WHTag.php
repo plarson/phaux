@@ -44,6 +44,10 @@ class WHTag extends Object {
 		return $this;
 	}
 		
+	public function attributeAt($attribID){
+		return $this->attributes[$attribID];
+	}
+		
 	public function __call($method,$arguments){
 		if(count($arguments) != 1){
 			throw new WHException("Generic attribute can only have one argument");
@@ -52,6 +56,9 @@ class WHTag extends Object {
 		return $this;
 	}
 		
+	public function liveUpdateFunctionWithUrl($url){
+		return "xmlLiveUpdaterUri('$url');";
+	}
 	
 	public function liveUpdateFunction($renderKey,$callbackKey = ""){
 		global $app;
@@ -61,8 +68,8 @@ class WHTag extends Object {
 		}
 		$url .= "&_r=".$_SESSION[$app]['session']->currentRegistryKey();
 		$url .= "&_lu=$renderKey";
+		return $this->liveUpdateFunctionWithUrl($url);
 		
-		return "xmlLiveUpdaterUri('$url');";
 	}
 		
 	public function liveUpdateOn($jsEvent,$object,$function,$arguments = ""){
