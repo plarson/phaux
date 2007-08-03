@@ -27,7 +27,7 @@ function xmlLiveUpdaterForForm(aForm,uri){
 		}else if(aForm.childNodes[i].tagName == "SELECT") {
 			newUri = addParameter(newUri,
 						aForm.childNodes[i].name,
-						aForm.childNodes[i].options[sel.selectedIndex].value);
+						aForm.childNodes[i].options[aForm.childNodes[i].selectedIndex].value);
 		}else if (aForm.childNodes[i].tagName == "TEXTAREA") {
 			newUri = addParameter(newUri,aForm.childNodes[i].name,aForm.childNodes[i].value);
 		}

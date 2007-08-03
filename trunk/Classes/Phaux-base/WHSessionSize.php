@@ -3,11 +3,12 @@
 class WHSessionSize extends WHComponent {
 	protected $summaryTable = array();
 	protected $processedObjects = array();
-	
+	protected $session; //Here so the inspector can see it
 	public function __construct(){
 		set_time_limit(0);
 		parent::__construct();
 		$this->processObject($this->session());
+		$this->session = $this->session();
 	}
 	
 	public function serializedSize(){

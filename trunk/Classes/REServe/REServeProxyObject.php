@@ -124,12 +124,12 @@ class REServeProxyObject {
 	
 
 	public function __toString(){
-		/*
-		** Something is wrong here
-		** the below sometimes causes php to segfault
-		*/
-		//return $this->__call('__toString',array());
-		return "REServable__proxy_(".$this->oid.")";
+		if($this->objectClass != ''){
+			$type = $this->objectClass;
+		}else{
+			$type = 'UNKNOWN';
+		}
+		return 'Reserveable:'.$type.'('.$this->oid.')';
 	}
 
 }
