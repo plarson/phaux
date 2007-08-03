@@ -44,12 +44,4 @@ class WHWindowDecoration extends WHDecoration {
 			);
 	}
 	
-	public function style(){
-		return  '.window-titlebar {
-					background-color: #aaaaaa; padding: 5px; margin-bottom: 5px}
-				.window-close {float: right}
-			   	.window-title {}
-			    .window-content {clear: both; }
-			';
-	}
 }

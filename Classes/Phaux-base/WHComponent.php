@@ -80,6 +80,11 @@ abstract class WHComponent extends Object {
 		return $this;
 	}
 	
+	public function inform($aString){
+		$this->callDialog(Object::Construct('WHInformDialog')->setMessage($aString));
+		return $this;
+	}
+	
 	public function onAnswerCallback($object,$method,$arguments = ""){
 	
 		if($arguments == ""){

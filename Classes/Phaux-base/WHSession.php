@@ -105,7 +105,7 @@ class WHSession extends Object {
 	** 500 seams like a lot but it is possibable
 	*/
 	public function maxCallbacks(){
-		return 500;
+		return 1000;
 	}
 	
 	public function appName(){

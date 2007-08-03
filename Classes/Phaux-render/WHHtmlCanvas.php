@@ -96,6 +96,16 @@ class WHHtmlCanvas extends WHCanvas {
 		return Object::construct("WHTableHeadingTag");
 	}
 	
+	public function tableBody(){
+		return $this->constructTagWithClass("WHGenericTag")->setTag('tbody');
+	}
+	public function tableHead(){
+		return $this->constructTagWithClass("WHGenericTag")->setTag('thead');
+	}
+	public function tableFoot(){
+		return $this->constructTagWithClass("WHGenericTag")->setTag('tfoot');
+	}
+	
 	public function listItem (){
 		return $this->constructTagWithClass("WHListItemTag");
 	}

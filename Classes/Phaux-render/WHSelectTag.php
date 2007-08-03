@@ -18,7 +18,7 @@ class WHSelectTag extends WHCollectionTag {
 			if(is_object($value)){
 				$value = $value->__toString();
 			}			
-			$this->labels[$object] = $value;
+			$this->itemLabel($object,$value);
 		}
 		return $this;
 	}
