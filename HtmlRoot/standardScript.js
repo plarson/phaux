@@ -32,7 +32,7 @@ function xmlLiveUpdaterForForm(aForm,uri){
 			newUri = addParameter(newUri,aForm.childNodes[i].name,aForm.childNodes[i].value);
 		}
 	}
-	return xmlLiveUpdaterUri(newUri);
+	xmlLiveUpdaterUri(newUri);
 }
 function createDataPacket(parameters) {
 	var dataPacket = "";

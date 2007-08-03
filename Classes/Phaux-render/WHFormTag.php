@@ -20,7 +20,7 @@ class WHFormTag extends WHTag {
 	*/
 	public function liveUpdateFunctionWithUrl($url){
 		return "xmlLiveUpdaterForForm(document.getElementById('".
-						$this->attributeAt('id')."'),'$url'); return false;";
+						$this->attributeAt('id')."'),'$url');";
 	}
 	
 	/*
