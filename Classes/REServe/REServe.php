@@ -34,20 +34,19 @@ class REServe extends Object {
 	/**
 	 * Check for changes 
 	 */
-	public function isDirty(){
-		foreach($this->tableDefinition()->columns() as $row){
-			if($row->type()->isCollectionModel()){
-				/* FIXME
-				** We say this is dirty if it has a collection
-				** so reserve will chech the collection as well
-				** Come up with something more efficiant here
-				*/
-				if($this->getValueForKeyPath($row->keyPath())){
+	public function isDirtyWithConnection($dbConnection){
+		foreach($this->tableDefinition()->columns() as $column){
+			if($column->type()->isCollectionModel()){
+				$reArray = $column->type(); 
+				$reArray->setParentObject($this)->			
+								setTableNameFromObjectAndColumn($this,$column)->
+								setDbConnection($dbConnection);
+				if($reArray->isDirtyFromValue($this->perform($column->keyPath(),array()))){
 					return TRUE;
 				}
 			}else{
-				if(!($this->getValueForKeyPath($row->keyPath()) 
-						=== $this->lastVersion()->getValueForKeyPath($row->keyPath()))){
+				if(!($this->getValueForKeyPath($column->keyPath()) 
+						=== $this->lastVersion()->getValueForKeyPath($column->keyPath()))){
 					
 					return TRUE;
 							

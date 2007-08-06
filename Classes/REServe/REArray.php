@@ -39,9 +39,15 @@ class REArray extends REServeBasicType {
 				!is_object($dbConnection->currentColumn())){
 			throw new WHException("Unable to aquire something from the driver");
 		}
-		$this->tableName = $dbConnection->currentObject()->tableName().
-								"_".$dbConnection->currentColumn()->name();
+		$this->setTableNameFromObjectAndColumn($dbConnection->currentObject(),
+												$dbConnection->currentColumn());
+												
 		return $this;
+	}
+	
+	public function setTableNameFromObjectAndColumn($anObject,$aColumn){
+		$this->tableName = $anObject->tableName().'_'.$aColumn->name();
+		return $this;	
 	}
 	
 	public function tableName(){
@@ -207,6 +213,16 @@ class REArray extends REServeBasicType {
 	public function parentObject(){
 		return $this->parentObject;
 	}
+	
+	public function setParentObject($anObject){
+		$this->parentObject = $anObject;
+		return $this;
+	}
+	public function setDbConnection($aDbConnection){
+		$this->dbConnection = $aDbConnection;
+		return $this;
+	}
+	
 	public function currentKey(){
 		return $this->currentKey;
 	}
@@ -235,13 +251,19 @@ class REArray extends REServeBasicType {
 	
 	public function isDirtyFromValue($newArray){
 		/*The old version of the array is stored in cache*/
-		$this->oldArray = $this->dbConnection->getFromCache($this->tableName().$
-												$this->parentObject->oid());
-												
-		$toAdd = array_diff_assoc($newArray,$oldArray);
-		$toRemove = array_diff_assoc($oldArray,$newArray);
+		$oldArray = $this->dbConnection->getFromCache($this->tableName().
+													$this->parentObject->oid());
+		if(!is_array($oldArray)){
+			return false;
+		}			
+		if(sizeof(array_diff_assoc($newArray,$oldArray)) > 0){
+			return true;
+		}
+		if(sizeof(array_diff_assoc($oldArray,$newArray)) > 0){
+			return true;
+		}
 		
-		return $this;
+		return false;
 	}
 	
 }
