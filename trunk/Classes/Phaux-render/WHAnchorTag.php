@@ -9,6 +9,11 @@ class WHAnchorTag extends WHTag {
 		return 'a';
 	}
 	
+	public function withText($aString){
+		$this->with($this->htmlCanvas->text($aString));
+		return $this;
+	}
+	
 	public function position(){
 		return $this->positionKey;
 	}
