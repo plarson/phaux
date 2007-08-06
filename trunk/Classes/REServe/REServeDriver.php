@@ -33,9 +33,7 @@ abstract class REServeDriver extends Object {
 		foreach($anObject->tableDefinition()->columns() as $column){
 			$this->setCurrentColumn($column);
 			if($column->shouldUpdateValue()){
-
 				$rawValue = $anObject->getValueForKeyPath($column->keyPath());
-				
 				$field = $this->escapedColumnName($column->name());
 				if($column->type()->needsReServeConnection()){
 					$value = $column->
@@ -106,11 +104,8 @@ abstract class REServeDriver extends Object {
 		foreach($this->localCache as &$object){
 			/*We store arrays in here too */
 			if(is_object($object)){
-				
-				if($object->isDirty()){
-					
+				if($object->isDirtyWithConnection($this)){
 					$this->updateObject($object);
-					
 					$object->makeClean();
 				}
 			}

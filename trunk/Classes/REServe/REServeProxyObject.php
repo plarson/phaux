@@ -25,9 +25,9 @@ class REServeProxyObject {
 		}
 	}
 	
-	public function isDirty(){
+	public function isDirtyWithConnection($aDbConnection){
 		if($this->isInMemory()){
-			return $this->object->isDirty();
+			return $this->object->isDirtyWithConnection($aDbConnection);
 		}else{
 			return FALSE;
 		}
