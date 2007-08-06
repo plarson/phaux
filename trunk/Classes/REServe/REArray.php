@@ -178,8 +178,8 @@ class REArray extends REServeBasicType {
 	public function tableDefinition(){
 		return Object::construct("REServeTableDefinition")->
 				column("oid","REServeCollectionId",'objectId',FALSE)->
-				column('parentId',REInteger)->
-				column('key',REInteger)->
+				column('parentId','REInteger','parentId',TRUE,TRUE)->
+				column('key','REInteger')->
 				column('value',$this->valueType());
 	}
 	

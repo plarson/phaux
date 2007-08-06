@@ -142,7 +142,11 @@ abstract class REServeDriver extends Object {
 	public function createTableForObject($anObject){
 		$sql = $this->queryToCreateTableWithObject($anObject);
 		$this->executeQuery($sql);
-			
+		foreach($anObject->tableDefinition()->columns() as $column){
+			if($column->isIndexed()){
+				$this->executeQuery($this->queryToCreateIndexForObjectOn($column,$anObject));
+			}
+		}
 		return $this;
 	}
 	
@@ -427,6 +431,10 @@ abstract class REServeDriver extends Object {
 					' ' . $this->$aType();
 	}
 	
+	
+	public function queryToCreateIndexForObjectOn($aColumn,$anObject){
+		return 'CREATE INDEX '.$aColumn->name().' ON '.$anObject->tableName(). ' ('.$aColumn->name().')';
+	}
 	
 	public function queryToCreateTableWithObject($anObject){
 		$d = FALSE;
