@@ -45,7 +45,7 @@ class REServeTableDefinition extends REServe {
 		throw WHException("No such column named $aName");
 	}
 	
-	public function column($aKeyPath,$aClass,$aRowName = "",$shouldUpdateValue = TRUE){
+	public function column($aKeyPath,$aClass,$aRowName = "",$shouldUpdateValue = TRUE,$indexed = FALSE){
 		if($aRowName == ""){
 			$aRowName = $aKeyPath;
 		}
@@ -56,6 +56,7 @@ class REServeTableDefinition extends REServe {
 								setName($aRowName)->
 								setKeyPath($aKeyPath)->
 								setType($aClass)->
+								setIndexed($indexed)->
 								setShouldUpdateValue($shouldUpdateValue);
 								
 		return $this;

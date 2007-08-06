@@ -2,8 +2,8 @@
 
 class REServeMySQLDriver extends REServeDriver {
 	protected $connection;
-	protected $debugOutputFile = NULL;
-	//protected $debugOutputFile = '/tmp/reservedebug.txt';
+	//protected $debugOutputFile = NULL;
+	protected $debugOutputFile = '/tmp/reservedebug.txt';
 	public function classForOid($anOid){
 		$oc = $this->getFromCache($anOid);
 		if($oc == NULL){
@@ -123,8 +123,8 @@ class REServeMySQLDriver extends REServeDriver {
 		return $this->connection;
 	}
 	
-	public function queryToCreateTableWithClass($anObject){
-		return parent::queryToCreateTableWithClass($anObject). ' ENGINE = INNODB';
+	public function queryToCreateTableWithObject($anObject){
+		return parent::queryToCreateTableWithObject($anObject). ' ENGINE=InnoDB';
 	}
 	
 	public function queryToCreateObjectIdTable(){
@@ -132,7 +132,7 @@ class REServeMySQLDriver extends REServeDriver {
 					objectId int(11) auto_increment  PRIMARY KEY ,
 					`type` VARCHAR(254) NOT NULL,
 					`root` TINYINT(1) NOT NULL DEFAULT 0 )
-					ENGINE = INNODB";
+					ENGINE=InnoDB";
 	}
 	
 	public function collectionWithOid($model,$anOid){

@@ -5,6 +5,7 @@ class REServeColumnDefinition extends REServe {
 	protected $keyPath;
 	protected $type;
 	protected $updateValue;
+	protected $indexed = FALSE;
 	
 	public function __construct(){
 		$this->updateValue = TRUE;
@@ -12,6 +13,15 @@ class REServeColumnDefinition extends REServe {
 	
 	public function name(){
 		return $this->name;
+	}
+	
+	public function setIndexed($aBool){
+		$this->indexed = $aBool;
+		return $this;
+	}
+	
+	public function isIndexed(){
+		return $this->indexed;
 	}
 	
 	public function setName($aString){
