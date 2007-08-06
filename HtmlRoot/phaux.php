@@ -154,13 +154,21 @@ if(isset($_REQUEST['_lu'])){
 }
 
 if($REDIRECT){
-	$_SESSION[$app]['session']->save();
+	
 	if($app_configurations[$app]['general']['redirect_after_callback'] == 1){
+		$_SESSION[$app]['session']->save();
 		$urlExtra = $htmlRoot->getExtraUrl();
 		header("Location: ".$_SESSION[$app]['configuration']->baseUrl()."/$app".
 							$urlExtra.
 							"&SID=".$_SESSION[$app]['session']->sessionId().
 							"&_r=".$_SESSION[$app]['session']->currentRegistryKey());
+							
+		/*
+		** I am just using xdebug for now
+		*/
+		if($configuration->debugMode() && function_exists('xdebug_time_index')){
+			$_SESSION[$app]['session']->setDebugCallbackTime(xdebug_time_index());
+		}
 		$errorHandler->end();
 		exit;
 	}
@@ -182,13 +190,15 @@ if($_REQUEST['_lu'] == ""){
 	$html->html()->with(
 		$html->head()->with(
 			$htmlRoot->renderHeadContentsOn($html).
-			$html->style()->type("text/css")->with(
+		
+			$html->style()->with(
 				$_SESSION[$app]['mainComponent']->styles()
 			).
 			$html->script()->type("text/javascript")->with(
 				$_SESSION[$app]['mainComponent']->scripts()
 				)
 			).
+			
 		
 			$html->body()->with(
 				$_SESSION[$app]['mainComponent']->renderOn($html)

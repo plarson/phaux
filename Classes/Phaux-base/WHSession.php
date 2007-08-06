@@ -9,6 +9,7 @@ class WHSession extends Object {
 	protected $currentRegistry;
 	protected $currentKey;
 	protected $isHalosOn = FALSE;
+	protected $debugCallbackTime; 
 	
 	public function start(){
 		$this->currentRegistry = Object::construct("WHStateRegistry");
@@ -71,6 +72,14 @@ class WHSession extends Object {
 		return $this->isHalosOn;
 	}
 
+	public function debugCallbackTime(){
+		return $this->debugCallbackTime;
+	}
+	
+	public function setDebugCallbackTime($aFloat){
+		$this->debugCallbackTime = $aFloat;
+		return $this;
+	}
 	
 	/*
 	**Register a value of an object to follow the users back button and
