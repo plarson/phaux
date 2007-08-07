@@ -172,6 +172,14 @@ abstract class REServeDriver extends Object {
 		return "DECIMAL($m,$d)";
 	}
 	
+	public function decimal($m = 64,$d = 2){
+		return $this->decimalIntegerSizeAndScals($m,$d);
+	}
+	
+	public function money(){
+		return $this->decimalIntegerSizeAndScals(65,2);
+	}
+	
 	public function double(){
 		return "DOUBLE";
 	}
@@ -448,9 +456,15 @@ abstract class REServeDriver extends Object {
 				}else{
 					$d = TRUE;
 				}
+				
 				$type = $column->type()->reServeType();
-				$sql .= $this->escapedColumnName($column->name()). ' '. 
-						$this->$type(). ' ';
+				if(is_array($type)){
+					$fe = array_shift($type);
+					$type = $this->perform($fe,$type);
+				}else{
+					$type = $this->$type();
+				}
+				$sql .= $this->escapedColumnName($column->name()). ' '. $type. ' ';
 			}else{
 				$column->type()->createTableWithDbConnection($this);
 			}
