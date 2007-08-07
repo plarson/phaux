@@ -20,3 +20,4 @@ include_once("REQuery.php");
 include_once("REDate.php");
 include_once("RETime.php");
 include_once("REDateAndTime.php");
+include('REDecimal.php');
