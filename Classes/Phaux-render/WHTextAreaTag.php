@@ -7,7 +7,7 @@ class WHTextAreaTag extends WHTag {
 	}
 	
 	public function value($aString){
-		return $this->with($aString);
+		return $this->with(htmlentities($aString));
 	}
 	
 	/*
