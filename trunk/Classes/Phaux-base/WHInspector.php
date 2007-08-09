@@ -28,13 +28,15 @@ class WHInspector extends WHComponent {
 		*/
 		
 		if(is_array($memberValue)){
-			foreach($memberValue as $key=>$value){
-				$return .= $key.
-						" => " .
-						$this->renderMemberValueOn($html,$value). 
-						$html->br();
+			if(TRUE || sizeof($memberValue) < 10){
+				foreach($memberValue as $key=>$value){
+					$return .= $key.
+							" => " .
+							$this->renderMemberValueOn($html,$value). 
+							$html->br();
+				}
+				return 'array('.$html->br().$return.')';
 			}
-			return 'array('.$html->br().$return.')';
 		}
 		if(is_object($memberValue)){
 			return $html->anchor()->
