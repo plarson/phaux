@@ -30,6 +30,16 @@ class WHDateAndTime extends WHMultipleInheritance {
 		return $this;
 	}
 	
+		
+	public function fromString($aString){
+		if(strtotime($aString) === FALSE){
+			return FALSE;
+		}			
+		$this->thisForClass("WHDate")->fromUnixTimestamp(strtotime($aString));
+		$this->thisForClass("WHTime")->fromUnixTimestamp(strtotime($aString));
+		return $this;
+	}
+	
 	
 	protected function asSqlValueString(){
 		$val = $this->thisForClass("WHDate")->asSqlValueString() 
@@ -40,9 +50,15 @@ class WHDateAndTime extends WHMultipleInheritance {
 		return "'".$val."'";
 	}
 	
-	
+	/*
+	**Returns a string that is nicly formatted for 
+	** humans
+	*/
+	public function asNiceString(){
+		return $this->thisForClass("WHDate")->asNiceString().', '.$this->thisForClass("WHTime")->asNiceString() ;
+	}
 	
 	public function __toString(){
-		return $this->asSqlValueString();
+		return $this->asNiceString();
 	}
 }

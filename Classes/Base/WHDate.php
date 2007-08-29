@@ -1,15 +1,43 @@
 <?php
 
+/*
+** This class is US centric 
+** Localization would be very nice but is is a fair
+** amount of effort 
+*/
+
 class WHDate extends Object {
 	protected $year;
 	protected $month;
 	protected $day;
 	
 	public function __construct(){
-		$today = time();
-		$this->year = date("Y",$today);
-		$this->month = (int)date("m",$today);
-		$this->day = date("j",$today);
+		$this->fromUnixTimestamp(time());
+	}
+
+
+	public function yesterday(){
+		$this->fromString('yesterday');
+		return $this;
+	}
+	public function tomorrow(){
+		$this->fromString('tomorrow');
+		return $this;
+	}
+	
+	public function fromString($aString){
+		if(strtotime($aString) === FALSE){
+			return FALSE;
+		}			
+		$this->fromUnixTimestamp(strtotime($aString));
+		return $this;
+	}
+	
+	public function fromUnixTimestamp($aTimeStamp){
+			$this->year = date("Y",$aTimeStamp);
+			$this->month = (int)date("m",$aTimeStamp);
+			$this->day = date("j",$aTimeStamp);
+			return $this;
 	}
 	
 	public function year(){
@@ -142,7 +170,7 @@ class WHDate extends Object {
 						5=>"May",
 						6=>"June",
 						7=>"July",
-						8=>"Augest",
+						8=>"August",
 						9=>"September",
 						10=>"October",
 						11=>"November",
@@ -159,10 +187,24 @@ class WHDate extends Object {
 	public function asAmericanString(){
 		return self::monthNameForInt($this->month).
 				" ".
-				$this->day.
-				self::ordinalSuffixForDay($anInt).
-				" ".
+				(int)$this->day.
+				self::ordinalSuffixForDay($this->day).
+				", ".
 				$this->year;
+	}
+	
+	public function asNiceString(){
+		if($this == Object::construct('WHDate')){
+			return 'Today';
+		}
+		if($this == Object::construct('WHDate')->yesterday()){
+			return 'Yesterday';
+		}
+		if($this == Object::construct('WHDate')->tomorrow()){
+			return 'Tomorrow';
+		}
+		
+		return $this->asAmericanString();
 	}
 	
 	public function __toString(){

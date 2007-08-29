@@ -20,6 +20,10 @@ table th {
 	color : #666;
 	
 }
+
+table tfoot{
+	font-weight:bold;
+}
 table td{
 	border:1px solid #ccc;
 }

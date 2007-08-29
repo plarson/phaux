@@ -12,7 +12,7 @@ $base_configuration = parse_ini_file("../Configuration/base.ini",TRUE);
 $dir = dir("../Configuration");
 $app_configurations = array();
 
-if($_REQUEST['app'] == NULL){
+if(!isset($_REQUEST['app'])){
 	$path_portions = explode('/', $_SERVER['PATH_INFO']);
 	$app = $path_portions[1];
 	$_REQUEST['app'] = $app;
@@ -38,7 +38,7 @@ while(false !== ($dirent = $dir->read())){
 			}
 		}
 		foreach($base_configuration as $section =>$values){
-			if(!$new_conf[$section]){
+			if(!isset($new_conf[$section])){
 				$new_conf[$section] = $values;
 			}
 		}
