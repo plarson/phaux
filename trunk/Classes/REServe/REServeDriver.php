@@ -20,6 +20,13 @@ abstract class REServeDriver extends Object {
 		return $this;
 	}
 	
+	public function addClasses($anArray){
+		foreach($anArray as $class){
+			$this->addClass($class);
+		}
+		return $this;
+	}
+	
 	public function automaticTableCreation(){
 		return $this->automaticTableCreation;
 	}
@@ -536,6 +543,15 @@ abstract class REServeDriver extends Object {
 		$this->executeQuery($this->queryToRemoveRootFlag());
 		$this->executeQuery($this->queryToSetRootFlagForOid($anObject->oid()));
 		return $this;
+	}
+	
+	public function isSetup(){
+		try{
+			$this->queryFor('REServeTableDefinition')->limit(0,1);
+			return true;
+		}catch(Exception $e){
+			return false;
+		}
 	}
 	
 	public function setupDatabase(){

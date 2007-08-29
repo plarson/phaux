@@ -51,12 +51,24 @@ class WHTime extends Object {
 		$this->setHour($parts[0]);
 		$this->setMinute($parts[1]);
 		$this->setSecond($parts[2]);
-		return "'".$this."'";
+		return $this;
+	}
+	
+	public function fromUnixTimestamp($aTimeStamp){
+		
+		$this->hour = date("G",$aTimeStamp);
+		$this->minute = date("i",$aTimeStamp);
+		$this->second = date("s",$aTimeStamp);
+		return $this;
 	}
 	
 	
 	public function asSqlValueString(){
 		return sprintf("%02d:%02d:%02d",$this->hour,$this->minute,$this->second);
+	}
+	
+	public function asNiceString(){
+		return $this->asSqlValueString();
 	}
 	
 	public function __toString(){

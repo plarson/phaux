@@ -54,7 +54,6 @@ class WHError extends Object {
 		global $WHERROR_CATCH;
 		set_error_handler(array("WHError","errorHandler"));
 		error_reporting($WHERROR_CATCH);
-		return $this;
 	}
 
 	static function errorHandler($errno,$errstr,$errfile,$errline){

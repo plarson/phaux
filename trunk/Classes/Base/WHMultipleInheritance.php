@@ -102,6 +102,7 @@ class WHMultipleInheritance extends Object {
 				return $instance;
 			}
 		}
+		$this->error("No such method $name");
 	}
 	
 	public function hasIvar($name){

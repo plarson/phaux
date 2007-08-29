@@ -48,14 +48,14 @@ class WHREServeModelEdit extends WHREServeDisplay {
 		$year = $value->year();
 		return $html->select()->
 					id("WHREServeModelEdit-date-month".self::$numberForDateSelector)->
-					itemsAndLabels(WHDate::months())->
-					setSelectedItem($month)->
+					itemsAndLabels(Object::arrayWithRange(1,12))->
+					setSelectedItem((int)$month)->
 					callback($value,'setMonth').
 				$html->text(" / ").
 				$html->select()->
 					id("WHREServeModelEdit-date-day".self::$numberForDateSelector)->
 					setItems(Object::arrayWithRange(1,31))->
-					setSelectedItem($day)->
+					setSelectedItem((int)$day)->
 					callback($value,'setDay').
 				$html->space().
 				$html->textInput()->
@@ -89,6 +89,12 @@ class WHREServeModelEdit extends WHREServeDisplay {
 	
 	public function renderValueTypeRETimeOn($html,$column){
 		$value = $this->reserveable->getValueForKeyPath($column->keyPath());
+		
+		if(!is_object($value)){
+			var_dump($value);
+			$value = Object::construct('WHTime');
+			$this->reserveable->setByKeyPath($column->keyPath(),$value);
+		}
 		return $html->textInput()->
 					value($value->hour())->
 					maxLengthAndSize(2)->

@@ -218,6 +218,7 @@ function() { return uri; }, xmlProcessResults);
 
 function xmlLiveUpdater(uriFunc, processResultsFunc)
 {
+
     var request = false;
 
     if (window.XMLHttpRequest) {
@@ -245,7 +246,7 @@ function xmlLiveUpdater(uriFunc, processResultsFunc)
 	   window.status = "Sending commands...";
 
         request.send(uri.split("?")[1]);
-
+	
         return false;
 
     }

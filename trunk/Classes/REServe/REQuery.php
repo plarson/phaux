@@ -65,6 +65,9 @@ class REQuery extends Object {
 		return $this;
 	}
 	
+	public function limit($start,$offset){
+		$this->buffer .= " LIMIT $start OFFSET $offset ";
+	}
 	public function escapedValueForKeyNamed($aKeyName){
 		
 		foreach($this->object->tableDefinition()->columns() as $column){
@@ -94,7 +97,7 @@ class REQuery extends Object {
 		if($column->type()->needsReServeConnection()){
 			$value = $column->
 						type()->
-						asSqlValueStringWithConnectionFor($value,$this);
+						asSqlValueStringWithConnectionFor($value,$this->dbConnection);
 		}else{
 				$value= $column->type()->asSqlValueStringFor($value);
 		}
@@ -124,11 +127,11 @@ class REQuery extends Object {
 	}
 	
 	public function keyNameIsNull($aKeyName){
-		$this->buffer .= $this->escapedValueForColumn($aKeyName)." IS NULL ";
+		$this->buffer .= $this->escapedValueForKeyNamed($aKeyName) ." IS NULL ";
 		return $this;
 	}
 	public function keyNameIsNotNull($aKeyName){
-		$this->buffer .= $this->escapedValueForColumn($aKeyName)." IS NOT NULL ";
+		$this->buffer .= $this->escapedValueForKeyNamed($aKeyName) ." IS NOT NULL ";
 		return $this;
 	}
 	

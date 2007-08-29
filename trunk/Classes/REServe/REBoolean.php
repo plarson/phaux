@@ -2,7 +2,11 @@
 
 class REBoolean extends REInteger {
 	public function asSqlValueStringFor($aThing){
-		return (boolean) $aThing;
+		if($aThing){
+			return '1';
+		}else{
+			return '0';
+		}
 	}
 	public function fromSqlValueString($aString){
 		return (boolean) $aString;
