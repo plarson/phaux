@@ -37,6 +37,7 @@ class WHConfiguration extends Object {
 		return "/".substr($this->baseUrl(),0,strpos($this->baseUrl(),$this->scriptName()));
 	}
 	
+	
 	public function debugMode(){
 		return $this->configValueBySubjectAndKey('general','debug');
 	}
@@ -65,9 +66,12 @@ class WHConfiguration extends Object {
 		return $this->configValues[$subject][$key];
 	}
 	
+	public function useCookie(){
+		return $this->configValueBySubjectAndKey('general','use_cookie');
+	}
+	
 	static function startUpOnAppWithIni($app,$app_configuration){
 	
-
 		ini_set("session.use_cookies",$app_configuration['general']['use_cookie']);
 		ini_set("session.name","SID");
 
