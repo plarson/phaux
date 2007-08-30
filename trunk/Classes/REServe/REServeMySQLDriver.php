@@ -57,7 +57,6 @@ class REServeMySQLDriver extends REServeDriver {
 		}
 	 	$return = mysql_query($sql,$this->connection);
 	
-		$ACTION_PRINT .= "$sql <br />";
 		if($return === FALSE){
 			/*
 			** For some reason the following on my MySQL instlation

@@ -206,6 +206,23 @@ class WHSession extends Object {
 		exit;
 	}
 	
+	public function url(){
+		global $app;
+		$url = $this->configuration()->baseUrl().
+							"/".
+							$this->appName.
+							"?_r=".$this->currentRegistryKey();
+							
+		if(!$this->configuration()->useCookie()){
+			$url .= "&SID=".$this->sessionId();
+		}
+		return $url;
+	}
+	
+	public function urlWithCallbackKey($aNumber){
+		return $this->url()."&_k=".$aNumber;
+	}
+	
 	public function saveCurrentRegistry (){
 		if($this->maxRegistries() <= count($this->registries)){
 			unset($this->registeries[count($this->registries) - $this->maxRegistries()]);

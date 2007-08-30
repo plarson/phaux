@@ -38,14 +38,9 @@ class WHHtmlRoot extends Object {
 	}
 	
 	public function getExtraUrl(){
-		$return = $this->pathExtra."?";
-		$d = FALSE;
+	
 		foreach($this->urlArgs as $var => $value){
-			if($d){
-				$return .= "&";
-			}else{
-				$d = TRUE;
-			}
+			$return .= "&";
 			$return .= $var."=".$value;
 		}
 		return $return;

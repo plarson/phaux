@@ -61,11 +61,7 @@ class WHAnchorTag extends WHTag {
 	public function callback($object,$function,$arguments = ""){
 		global $app;
 		$this->registerCallback($object,$function,$arguments);
-		$url = $_SESSION[$app]['session']->configuration()->baseUrl().
-			"/$app?SID=".$_SESSION[$app]['session']->sessionId()."&_k=".
-			$this->callbackKey.
-			"&_r=".$_SESSION[$app]['session']->currentRegistryKey();
-		
+		$url = $_SESSION[$app]['session']->urlWithCallbackKey($this->callbackKey);
 		$this->setAttribute("href",$url);
 		return $this;		
 	}

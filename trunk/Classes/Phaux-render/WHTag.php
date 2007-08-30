@@ -62,11 +62,12 @@ class WHTag extends Object {
 	
 	public function liveUpdateFunction($renderKey,$callbackKey = ""){
 		global $app;
-		$url = $_SESSION[$app]['session']->configuration()->appUrl();
+	
 		if($callbackKey != ""){
-			$url .= "&_k=".$callbackKey;
+			$url = $_SESSION[$app]['session']->urlWithCallbackKey($callbackKey);
+		}else{
+			$url = $_SESSION[$app]['session']->url();
 		}
-		$url .= "&_r=".$_SESSION[$app]['session']->currentRegistryKey();
 		$url .= "&_lu=$renderKey";
 		return $this->liveUpdateFunctionWithUrl($url);
 		

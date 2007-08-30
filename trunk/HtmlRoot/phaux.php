@@ -158,10 +158,7 @@ if($REDIRECT){
 	if($app_configurations[$app]['general']['redirect_after_callback'] == 1){
 		$_SESSION[$app]['session']->save();
 		$urlExtra = $htmlRoot->getExtraUrl();
-		header("Location: ".$_SESSION[$app]['configuration']->baseUrl()."/$app".
-							$urlExtra.
-							"&SID=".$_SESSION[$app]['session']->sessionId().
-							"&_r=".$_SESSION[$app]['session']->currentRegistryKey());
+		header("Location: ".$_SESSION[$app]['session']->url().$urlExtra);
 							
 		/*
 		** I am just using xdebug for now
