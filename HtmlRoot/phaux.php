@@ -6,6 +6,18 @@
 ** It might be better to move most of it out to an 
 ** Object
 */
+if(get_magic_quotes_gpc()){
+	foreach($_REQUEST as $var => $value){
+		if(is_array($_REQUEST[$var])){
+			foreach($_REQUEST[$var] as $iVar => $iValue){
+				$_REQUEST[$var][$iVar] = stripslashes($iValue);
+			}
+		}else{
+			$_REQUEST[$var] = stripslashes($value);
+		}
+	}
+}
+
 include_once("../Classes/Base/base.php");
 $errorHandler = Object::construct("WHError")->start();
 $base_configuration = parse_ini_file("../Configuration/base.ini",TRUE);

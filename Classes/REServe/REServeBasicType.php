@@ -8,7 +8,7 @@ class REServeBasicType extends Object {
 	
 	public function asSqlValueStringFor($aThing){
 		//$this->error("\"$aThing\"");
-		return "\"$aThing\"";
+		return "\"".addslashes($aThing)."\"";
 	}
 	
 	public function fromSqlValueString($aString){

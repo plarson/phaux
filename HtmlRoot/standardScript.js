@@ -132,8 +132,7 @@ function liveUpdateDOM(target, template) {
 
 			childrenFound = true;
 			if (!liveUpdateDOM(target[child.tagName], child))
-	
-			target[child.tagName] = child.firstChild.data;
+				target[child.tagName] = child.firstChild.data;
 		}
 
 	
@@ -182,6 +181,7 @@ function xmlLiveProcessOne(child) {
 				iHtml = iHtml + xmlAsString(child.childNodes[i]);
 			}
 			element.innerHTML = iHtml;
+			
 		}
 	}
 	
@@ -274,4 +274,33 @@ function xmlLiveUpdater(uriFunc, processResultsFunc)
 
     return update;
 
+}
+
+function containsDOM (container, containee) {
+  var isParent = false;
+  do {
+    if ((isParent = container == containee))
+      break;
+    containee = containee.parentNode;
+  }
+  while (containee != null);
+  return isParent;
+}
+
+function checkMouseEnter (element, evt) {
+  if (element.contains && evt.fromElement) {
+    return !element.contains(evt.fromElement);
+  }
+  else if (evt.relatedTarget) {
+    return !containsDOM(element, evt.relatedTarget);
+  }
+}
+
+function checkMouseLeave (element, evt) {
+  if (element.contains && evt.toElement) {
+    return !element.contains(evt.toElement);
+  }
+  else if (evt.relatedTarget) {
+    return !containsDOM(element, evt.relatedTarget);
+  }
 }
