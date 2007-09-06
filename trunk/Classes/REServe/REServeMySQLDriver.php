@@ -25,6 +25,9 @@ class REServeMySQLDriver extends REServeDriver {
 	public function escapedColumnName($aString){
 		return '`'.$aString.'`';
 	}
+	public function escapedValue($aString){
+		return mysql_real_escape_string($aString,$this->connection);
+	}
 	
 	public function lastOidFromTable($aTable){
 		/*Mysql will only ever return the last ID
@@ -87,7 +90,7 @@ class REServeMySQLDriver extends REServeDriver {
 	public function executeQueryFetchArray($sql){
 		$result = $this->executeQuery($sql);
 		$return = array();
-		while($array = mysql_fetch_array($result)){
+		while($array = mysql_fetch_assoc($result)){
 			$return[] = $array;
 		}
 		return $return;
