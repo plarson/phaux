@@ -1,4 +1,4 @@
-<?
+<?php
 abstract class WHFormDialog extends WHDialog {
 	
 	

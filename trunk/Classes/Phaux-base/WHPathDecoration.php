@@ -1,4 +1,4 @@
-<?
+<?php
 
 class WHPathDecoration extends WHWindowDecoration{
 
