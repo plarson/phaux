@@ -1,4 +1,4 @@
-<?
+<?php
 class WHInspector extends WHComponent {
 
 	protected $path;

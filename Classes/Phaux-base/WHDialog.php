@@ -1,4 +1,4 @@
-<?
+<?php
 abstract class WHDialog extends WHComponent{
 	protected $errors = array();
 	
