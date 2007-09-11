@@ -121,6 +121,9 @@ function hideDebug() {
 }
 
 function xmlAsString(element){
+	if(element.xml){
+		return element.xml;
+	}
 	return (new XMLSerializer()).serializeToString(element);
 }
 
