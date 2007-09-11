@@ -28,7 +28,7 @@ class WHREServeSession extends WHSession {
 	}
 	
 	public function connect(){
-		$values = array("type","user","password","database","port","automatic_table_creation");
+		$values = array("host","type","user","password","database","port","automatic_table_creation");
 		foreach($values as $value){
 			$$value = $this->
 						configuration()->

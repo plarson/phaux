@@ -209,7 +209,7 @@ if($_REQUEST['_lu'] == ""){
 			).
 			
 		
-			$html->body()->with(
+			$html->body()->id('main-body')->with(
 				$_SESSION[$app]['mainComponent']->renderOn($html)
 				)
 		);
