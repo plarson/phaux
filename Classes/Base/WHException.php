@@ -113,6 +113,9 @@ class WHException extends Exception {
 	}
 	
 	public static function niceSourceCode($file,$line,$highlight = TRUE){
+		if($file == ''){
+			return '';
+		}
 		$fileLines = file($file);
 		$start = $line - 8;
 		$end = $line + 8;
