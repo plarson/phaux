@@ -4,8 +4,7 @@
 = Faking it with Phaux =
 This tutorial should serve as in introduction to Phaux. To get started either
 download Phaux from [http://code.google.com/p/phaux/ the phaux homepage] or
-get the latest version from the [http://code.google.com/p/phaux/source
-subversion repository].
+get the latest version from the [http://code.google.com/p/phaux/source subversion repository].
 
 === Getting Phaux ===
 You should either untar the download or more the Phaux source tree somewhere
@@ -295,20 +294,23 @@ behavior.
 
 === My Own Application ===
 
-Each application has it's own simple config file. If you look in the Configuration directory
-you will see a list of ini files. The name you give to the file corresponds to the application
-name as it appears in the URL. All ini files inherit there values from base.ini. Open up 
-base.ini in your favorite text editor. 
+Each application has it's own simple config file. If you look in the
+Configuration directory you will see a list of ini files. The name you give to
+the file corresponds to the application name as it appears in the URL. All ini
+files inherit there values from base.ini. Open up base.ini in your favorite
+text editor.
 
-The config file is divided up into sections general, server, includes, styles, and scripts.
-You can add your own sections and values but creating custom configurations is beyond the 
-scope of this document. The general section described some basic things about your application. 
-The main_class value is the subclass of WHComponent that you want displayed to the user
-when first come to you application. 
+The config file is divided up into sections general, server, includes, styles,
+and scripts. You can add your own sections and values but creating custom
+configurations is beyond the scope of this document. The general section
+described some basic things about your application. The main_class value is
+the subclass of WHComponent that you want displayed to the user when first
+come to you application.
 
-The includes section list any files that you application needs in order to work. The styles and 
-scripts sections do the same thing for styles and scripts that includes does for PHP files. 
-The key name (for example Render) must be unique.
+The includes section list any files that you application needs in order to
+work. The styles and scripts sections do the same thing for styles and scripts
+that includes does for PHP files. The key name (for example Render) must be
+unique.
 
 Please, If you have any questions send an email to the Phaux-dev group,
 [http://groups.google.com/group/phaux-dev].
