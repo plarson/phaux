@@ -1,4 +1,4 @@
-#labels
+#labels Phase-Implementation,Phase-Design
 #Describes A Phaux Introduction
 
 = Faking it with Phaux =
