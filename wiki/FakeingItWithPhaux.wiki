@@ -3,8 +3,7 @@
 = Faking it with Phaux =
 This tutorial should serve as in introduction to Phaux. To get started either
 download Phaux from [http://code.google.com/p/phaux/ the phaux homepage] or
-get the latest version from the [http://code.google.com/p/phaux/source
-subversion repository].
+get the latest version from the [http://code.google.com/p/phaux/source subversion repository].
 
 === Getting Phaux ===
 You should either untar the download or more the Phaux source tree somewhere
@@ -316,4 +315,5 @@ Please, If you have any questions send an email to the Phaux-dev group,
 [http://groups.google.com/group/phaux-dev].
 
 
+ 
  
