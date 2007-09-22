@@ -6,7 +6,7 @@ download Phaux from [http://code.google.com/p/phaux/ the phaux homepage] or
 get the latest version from the [http://code.google.com/p/phaux/source subversion repository].
 
 === Getting Phaux ===
-You should either untar the download or more the Phaux source tree somewhere
+You should either untar the download or move the Phaux source tree somewhere
 in your Apache DocRoot path. Phaux also requires at least PHP 5.2.Installing
 and configuring Apache or PHP5 is beyond the scope of this tutorial.
 
@@ -315,6 +315,7 @@ Please, If you have any questions send an email to the Phaux-dev group,
 [http://groups.google.com/group/phaux-dev].
 
 
+ 
  
  
  
