@@ -38,7 +38,7 @@ number you see displayed on the page. Phaux does the work of maintaining
 state, in this case the value of the number, for you transparently. Phaux is
 able to do that by keeping track of who you are with a unique session id, SID.
 
-There is a nother URL argument that you might not see, _k. _k is the way Phaux
+There is another URL argument that you might not see, _k. _k is the way Phaux
 knows what action the User wants to perform.
 
 Click on "Toggle Halos", it's on the development toolbar at the bottom of your
@@ -91,7 +91,7 @@ public function renderContentOn($html){
 }
 }}}
 
-Render content on tells Phaux how the component should be rendered. It does
+renderContentOn() tells Phaux how the component should be rendered. It does
 that by returning an Instance of WHHtmlCanvas or more accurately returning an
 object that can be converted to a string or a string. renderContentOn gets
 passed one variable, by convention named $html, that is an instance of
@@ -140,7 +140,7 @@ in the form of
 method callback(object,method,[array of optional arguments])
 }}}
 
-With input callbacks the first argument is always what the user put in the
+With input callbacks the first argument is always what the user inputs into the
 input box and the optional arguments follow it.
 
 You will notice that the add method simply adds one to the counter instance
@@ -314,6 +314,7 @@ Please, If you have any questions send an email to the Phaux-dev group,
 [http://groups.google.com/group/phaux-dev].
 
 
+ 
  
  
  
