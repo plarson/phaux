@@ -1,5 +1,5 @@
+#summary Key Paths and There Uses In Phaux and REServe
 #labels Phase-Implementation,Phase-Design
-#Describes Key Paths and There Uses In Phaux and REServe
 
 = Key Paths =
 
@@ -25,3 +25,4 @@ class Barstool extends Object {
                             // chain method calls
     }
 } 
+ 
