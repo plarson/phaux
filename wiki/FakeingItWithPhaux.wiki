@@ -32,7 +32,7 @@ counter application. The counter is a very simple application that displays a
 number and allows you to increase or decrease that number. Go ahead and click
 the "++" and "--" links.
 
-Take a look at the URL. You will notice two URL one named SID (we will deal
+Take a look at the URL. You will notice two URL args one named SID (we will deal
 with the other later) but no URL arguments that specifies the value of the
 number you see displayed on the page. Phaux does the work of maintaining
 state, in this case the value of the number, for you transparently. Phaux is
@@ -58,8 +58,7 @@ rendered on the page.
 The other URL argument, _r, is the unique registry key. The registry is a way
 to store things that might be specific to the current view. That is it can
 store things that do follow the back and forward buttons of your users
-browser. It allows Phaux to do things like navigation. An explanation of how
-to use the state registry will be covered later in this document.
+browser. It allows Phaux to do things like navigation. 
 
 Phaux applications work as a series of interacting components. When an
 application is first accessed a new session is created and the main component
@@ -315,6 +314,7 @@ Please, If you have any questions send an email to the Phaux-dev group,
 [http://groups.google.com/group/phaux-dev].
 
 
+ 
  
  
  
