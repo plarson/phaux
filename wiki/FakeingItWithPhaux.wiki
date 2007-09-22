@@ -1,4 +1,4 @@
-#Describes A Phaux Introduction
+#summary A Phaux Introduction
 
 = Faking it with Phaux =
 This tutorial should serve as in introduction to Phaux. To get started either
@@ -315,5 +315,7 @@ Please, If you have any questions send an email to the Phaux-dev group,
 [http://groups.google.com/group/phaux-dev].
 
 
+ 
+ 
  
  
