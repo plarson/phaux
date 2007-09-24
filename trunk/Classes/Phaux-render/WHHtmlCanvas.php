@@ -122,6 +122,14 @@ class WHHtmlCanvas extends WHCanvas {
 		return $this->constructTagWithClass("WHSelectTag");
 	}
 	
+	public function radioButtonGroup(){
+		return Object::construct('WHRadioButtonGroup');
+	}
+	
+	public function radioButton(){
+		return $this->constructTagWithClass("WHRadioButtonTag");
+	}
+	
 	public function option(){
 		return $this->constructTagWithClass("WHOptionTag");
 	}

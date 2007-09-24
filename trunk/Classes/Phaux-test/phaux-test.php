@@ -9,3 +9,4 @@ include("WHRegisteredCounter.php");
 include("WHLiveTest.php");
 include("WHExceptionTest.php");
 include("TicTacPhaux.php");
+include('WHHangman.php');
