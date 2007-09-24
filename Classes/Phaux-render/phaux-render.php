@@ -23,6 +23,7 @@ include("WHListTag.php");
 include("WHOptionTag.php");
 include("WHListItemTag.php");
 include("WHSelectTag.php");
+include("WHRadioButtonGroup.php");
 include("WHRadioButtonTag.php");
 include("WHCheckBoxTag.php");
 include("WHDivTag.php");

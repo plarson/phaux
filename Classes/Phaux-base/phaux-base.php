@@ -13,6 +13,7 @@ include("WHHtmlRoot.php");
 include("WHLiveNavigation.php");
 include("WHDialog.php");
 include("WHFormDialog.php");
+include('WHChoiceDialog.php');
 include('WHDecoration.php');
 include("WHMainDevelopmentDecoration.php");
 include('WHHalo.php');

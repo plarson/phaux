@@ -29,7 +29,7 @@ class WHInformDialog extends WHComponent {
 	
 	
 	public function renderContentOn($html){
-		return $html->div()->class($this->divClass)->with(
+		return $html->div()->class($this->divClass())->with(
 			$this->renderMessageOn($html).
 			$this->renderButtonsOn($html)
 		);

@@ -101,10 +101,10 @@ abstract class WHComponent extends Object {
 	}
 	
 	public function answer($aValue){
+		$this->restoreParentComponent();
 		if($this->dialogCallback){
 			$this->dialogCallback->runWithArgument($aValue);
 		}
-		$this->restoreParentComponent();
 		return $this;
 	}
 	
