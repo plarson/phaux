@@ -94,7 +94,7 @@ class WHNavigation extends WHComponent {
 	}
 	
 	public function renderComponentLabelOn($html,$component){
-		$link = $html->anchor()->
+		$link = $html->anchor()->class('whnavigation-link')->
 						callback($this,"setSelection",array($component))->
 						with($this->labelForComponent($component));
 	
@@ -112,5 +112,6 @@ class WHNavigation extends WHComponent {
 	public function children(){
 		return $this->components();
 	}
+	
 	
 }
