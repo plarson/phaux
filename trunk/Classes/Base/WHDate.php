@@ -193,6 +193,10 @@ class WHDate extends Object {
 				$this->year;
 	}
 	
+	public function asSwedishString(){
+		return sprintf("%04d-%02d-%02d",$this->year,$this->month,$this->day);
+	}
+	
 	public function asNiceString(){
 		if($this == Object::construct('WHDate')){
 			return 'Today';

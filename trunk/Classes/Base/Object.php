@@ -58,22 +58,22 @@ class Object {
 		** "Class vars"
 		*/
 		protected function classVarNamed($aString){
-			return $GLOBALS['classVars'][$this->getClass()][$aString];
+			return $_SESSION['classVars'][$this->getClass()][$aString];
 		}
 		protected function setClassVarNamed($aString,$value){
-			$GLOBALS['classVars'][$this->getClass()][$aString] = $value;
+			$_SESSION['classVars'][$this->getClass()][$aString] = $value;
 			return $this;
 		}
 		protected function haveClassVarsBeenInitialized(){
-			return is_array($GLOBALS['classVars'][$this->getClass()]);
+			return is_array($_SESSION['classVars'][$this->getClass()]);
 		}
 		
 		/*stub*/
 		public function classVarInitialize(){
-			if(!is_array($GLOBALS['classVars'])){
-				$GLOBALS['classVars'] = array();
+			if(!is_array($_SESSION['classVars'])){
+				$_SESSION['classVars'] = array();
 			}
-			$GLOBALS['classVars'][$this->getClass()] = array();
+			$_SESSION['classVars'][$this->getClass()] = array();
 			return $this;
 		}
 		
@@ -257,6 +257,20 @@ class Object {
 			$return = '';
 			foreach($anMDArray as $row){
 				$return .= implode("\t",$row)."\n";
+			}
+			return $return;
+		}
+		
+		static public function implodeArrayWithKey($implodeGlue,$keyValueGlue,$array){
+			$first = TRUE;
+			$return = '';
+			foreach($array as $var => $value){
+				if($first){
+					$first = FALSE;
+				}else{
+					$return .= $implodeGlue;
+				}
+				$return .= $var.$keyValueGlue.$value;
 			}
 			return $return;
 		}
