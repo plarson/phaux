@@ -162,7 +162,7 @@ class WHPlot extends WHComponent {
 	
 	public function updateRoot($anHtmlRoot){
 		$anHtmlRoot->needsScript('mochikit/MochiKit.js');
-		$anHtmlRoot->needsScript('plotkit/PlotKit_packed.js');
+		$anHtmlRoot->needsScript('plotkit/PlotKit_Packed.js');
 	}
 	
 }
