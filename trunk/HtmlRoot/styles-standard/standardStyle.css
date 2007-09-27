@@ -6,6 +6,11 @@ body {
 	font-family : Trebuchet MS, Arial, Helvetica, sans-serif;
 	font-size   : 11px;
 }
+input,select,textarea {
+	font-family : Trebuchet MS, Arial, Helvetica, sans-serif;
+	font-size   : 11px;
+	
+}
 table { 
 	border-collapse: collapse; 
 	border:1px black solid;
