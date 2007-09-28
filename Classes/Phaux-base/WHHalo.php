@@ -17,19 +17,14 @@ class WHHalo extends WHDecoration{
 	** but it is the simpleist now
 	*/
 	public function inspectParent(){
-	
 		$this->session()->toggleHalos();
-		$inspector = Object::construct('WHInspector')->
-						setObject($this->decoratedComponent);
-						
-		$inspector->addDecoration(Object::construct('WHWindowDecoration')->
-							setTitle('Object Inspector'));
-						
-		$inspector->onAnswerCallback($this->session(),'toggleHalos');
-		
-		$this->session()->mainComponent()->callDialog(
-				$inspector
-			);
+		$this->inspectObject($this->decoratedComponent);
+		/*
+		**Yikes! This looks like a bad idea
+		*/
+		$this->session()->mainComponent()->thisOrDialog()->
+			onAnswerCallback($this->session(),'toggleHalos');
+		return $this;
 	}
 	
 	public function renderSourceButtonOn($html){
@@ -46,6 +41,12 @@ class WHHalo extends WHDecoration{
 	public function renderInspectButtonOn($html){
 		return $html->text('[ ').
 				$html->anchor()->callback($this,'inspectParent')->with('I').
+				$html->text(' ]');
+	}
+	
+	public function renderPHPSourceButtonOn($html){
+		return $html->text('[ ').
+				$html->anchor()->callback($this,'inspectParent')->with('P').
 				$html->text(' ]');
 	}
 	
@@ -79,8 +80,8 @@ class WHHalo extends WHDecoration{
 	
 	public function style(){
 		return '
-			.halo {border-style: solid; border-width: 1px; margin: 4px; border-color: #aaaaaa}
-			.halo-header {font-size: 10pt; background-color: #cccccc; margin-bottom: 4px}
+			.halo {border-style: solid; border-width: 1px; margin: 4px; border-color: #ccc}
+			.halo-header {font-size: 10pt; background-color: #E8EBF0; margin-bottom: 4px; border-bottom:1px #ccc solid;}
 			.halo-mode {float: right}
 			.halo-icons {float: left}
 			.halo-contents {clear: both} 

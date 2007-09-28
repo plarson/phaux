@@ -22,3 +22,4 @@ include('WHPath.php');
 include('WHInspector.php');
 include('WHSessionSize.php');
 include('WHPathDecoration.php');
+include('WHWorkspace.php');
