@@ -3,6 +3,7 @@
 class WHProxyObjectLogCall {
 	protected $__object;
 	protected $__callOutput = '/tmp/reservedebug.txt';
+	protected $__loggingEnabled = TRUE;
 	
 	public function __object(){
 		return $this->object;
@@ -20,9 +21,11 @@ class WHProxyObjectLogCall {
 			$callMethod = '__call';
 		}
 		
-		if($this->__callOutput != NULL){
-			file_put_contents($this->__callOutput,
+		if($this->__loggingEnabled){
+			if($this->__callOutput != NULL){
+				file_put_contents($this->__callOutput,
 					'Call to '.get_class($this->__object)." $method\n",FILE_APPEND);
+			}
 		}
 		
 		if($this->__object === NULL){

@@ -1,17 +1,19 @@
 <?php
 class WHInspector extends WHComponent {
-
+	protected $workspace;
 	protected $path;
 	
 	public function __construct(){
 		parent::__construct();
 		$this->path = Object::construct('WHPath');
+		$this->workspace = Object::construct('WHWorkspace')->setContext($this);
 	}
 	public function object(){
 		return $this->path->currentSegment();
 	}
 	public function setObject($anObject){
 		$this->path->pushSegmentWithName($anObject,$anObject->__toString());
+		$this->workspace->setContext($anObject);
 		return $this;
 	}
 
@@ -46,6 +48,10 @@ class WHInspector extends WHComponent {
 		return $memberValue;
 		
 	}
+	
+	public function children(){
+		return array($this->path,$this->workspace);
+	}
 
 	/*
 	**This method is to long and should be cleaned up
@@ -65,10 +71,15 @@ class WHInspector extends WHComponent {
 				);
 	}
 	
+	public function renderWorkspaceOn($html){
+		return $html->render($this->workspace);
+	}
+	
 	public function renderContentOn($html){
 		return $html->render($this->path).
 				$html->headingLevel(1)->with($this->path->currentSegment()->__toString()).
-				$this->renderMembersOn($html);
+				$this->renderMembersOn($html).
+				$this->renderWorkspaceOn($html);
 			
 	}
 }

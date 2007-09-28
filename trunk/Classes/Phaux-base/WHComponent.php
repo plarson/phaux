@@ -85,6 +85,17 @@ abstract class WHComponent extends Object {
 		return $this;
 	}
 	
+	public function inspectObject($anObject){
+		$inspector = Object::construct('WHInspector')->
+						setObject($anObject);
+		$inspector->addDecoration(Object::construct('WHWindowDecoration')->
+							setTitle('Object Inspector'));
+		$this->session()->mainComponent()->callDialog(
+				$inspector
+			);
+		return $this;
+	}
+	
 	public function onAnswerCallback($object,$method,$arguments = ""){
 	
 		if($arguments == ""){
