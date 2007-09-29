@@ -54,7 +54,7 @@ class WHWorkspace extends WHComponent {
 **used so we can redifine this
 */
 function evalWithThis($__this,$phpCode){
-
 	$phpCode = str_replace('$this','$__this',$phpCode);
+	
 	return eval($phpCode);
 }
