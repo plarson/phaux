@@ -88,13 +88,15 @@ class WHException extends Exception {
 		$text .= "\n".$point['class'].'::'.$point['function']."(";
 		$d = FALSE;
 		
-		foreach($point['args'] as $value){
-			if($d){
-				$text .= ",";
-			}else{
-				$d = TRUE;
+		if($point['args']){
+			foreach($point['args'] as $value){
+				if($d){
+					$text .= ",";
+				}else{
+					$d = TRUE;
+				}
+				$text .= $value;
 			}
-			$text .= $value;
 		}
 		$text .= ")";
 		$return .= "<h4>".	
@@ -116,18 +118,20 @@ class WHException extends Exception {
 		if($file == ''){
 			return '';
 		}
-		$fileLines = file($file);
-		$start = $line - 8;
-		$end = $line + 8;
-		$current = $start;
-		for($current = $start;$current < $end ; $current++){
-			if($current == $line-1){
-				$return .= "/*HERE --->*/";
+		if(is_file($file)){
+			$fileLines = file($file);
+			$start = $line - 8;
+			$end = $line + 8;
+			$current = $start;
+			for($current = $start;$current < $end ; $current++){
+				if($current == $line-1){
+					$return .= "/*HERE --->*/";
+				}
+				$return .= $fileLines{$current};
 			}
-			$return .= $fileLines{$current};
-		}
-		if($highlight){
-			$return = highlight_string("<?\n".$return."?>",TRUE);
+			if($highlight){
+				$return = highlight_string("<?\n".$return."?>",TRUE);
+			}
 		}
 
 		return $return;

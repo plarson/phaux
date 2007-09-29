@@ -116,7 +116,8 @@ class WHPlot extends WHComponent {
 					height($this->height)->
 					with(
 					$html->div()->class('whplot-plot')->
-						
+							width($this->width)->
+							height($this->height)->
 							id($id)
 				);
 	}

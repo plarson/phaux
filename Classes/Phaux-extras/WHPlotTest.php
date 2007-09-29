@@ -22,7 +22,9 @@ class WHPlotTest extends WHComponent{
 						setLabelForTick('2','Three');
 		$this->plots['Pie Chart'] = Object::construct('WHPlot')->
 						setType('pie')->
-						setDataNamed('foo1',array(0=>5,1=>4,2=>6));
+						setDataNamed('foo1',array(0=>5,1=>4,2=>6))->
+						setWidth('200px')->
+						setHeight('200px');
 				
 	}
 	

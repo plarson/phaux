@@ -49,6 +49,10 @@ class WHConfiguration extends Object {
 		return $this->configValueBySubjectAndKey('general','admin_email');
 	}
 	
+	public function allowedWorkspaceIpAddr(){
+		return $this->configValueBySubjectAndKey('general','workspace_ipaddr');
+	}
+	
 	public function applicationName(){
 		return $this->applicationName;
 	}

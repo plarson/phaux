@@ -72,7 +72,11 @@ class WHInspector extends WHComponent {
 	}
 	
 	public function renderWorkspaceOn($html){
-		return $html->render($this->workspace);
+		$hostAllow = $this->session()->configuration()->allowedWorkspaceIpAddr();
+		
+		if($hostAllow == '' || $hostAllow == $_SERVER['REMOTE_ADDR']){
+			return $html->render($this->workspace);
+		}
 	}
 	
 	public function renderContentOn($html){
