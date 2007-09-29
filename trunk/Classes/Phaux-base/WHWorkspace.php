@@ -8,9 +8,16 @@ class WHWorkspace extends WHComponent {
 	public function evalCode($phpCode){
 		$this->code = $phpCode;
 		ob_start();
-		evalWithThis($this->context,$phpCode);
+		self::evalWithThis($this->context,$phpCode);
 		$this->results = ob_get_flush();
 		return $this;
+	}
+	/*
+	**used so we can redifine this
+	*/
+	static function evalWithThis($__this,$phpCode){
+		$phpCode = str_replace('$this','$__this',$phpCode);
+		return eval($phpCode);
 	}
 	
 	public function setContext($anObject){
@@ -50,11 +57,3 @@ class WHWorkspace extends WHComponent {
 	
 }
 
-/*
-**used so we can redifine this
-*/
-function evalWithThis($__this,$phpCode){
-	$phpCode = str_replace('$this','$__this',$phpCode);
-	
-	return eval($phpCode);
-}
