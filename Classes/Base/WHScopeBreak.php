@@ -3,7 +3,6 @@
 class WHScopeBreak extends WHProxyObjectLogCall{
 	protected $__loggingEnabled = FALSE;
 	public function __get($nm){
-
 		return $this->__object->getIvarNamed($nm);
 	}
 	

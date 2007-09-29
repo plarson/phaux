@@ -87,8 +87,13 @@ class Object {
 		
 		/*
 		** Get an instance var
+		** If it's an instance var convert it
+		** to an ArrayObject so the refernece is maintained
 		*/
-		public function getIvarNamed($name){
+		public function &getIvarNamed($name){
+			if(is_array($this->$name)){
+				return Object::construct('ArrayObject',$this->$name);
+			}
 			return $this->$name;
 		}
 		
