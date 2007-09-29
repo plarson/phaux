@@ -93,6 +93,7 @@ class Object {
 		public function &getIvarNamed($name){
 			if(is_array($this->$name)){
 				return Object::construct('ArrayObject',$this->$name);
+				
 			}
 			return $this->$name;
 		}
