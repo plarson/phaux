@@ -155,6 +155,7 @@ class TicTacPhaux extends WHComponent {
 	}
 	
 	public function updateRoot($anHtmlRoot){
+		parent::updateRoot($anHtmlRoot);
 		$anHtmlRoot->setTitle("Tic-Tac-Phaux");
 	}
 	

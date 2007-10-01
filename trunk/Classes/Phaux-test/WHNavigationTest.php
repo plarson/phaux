@@ -32,6 +32,7 @@ class WHNavigationTest extends WHComponent {
 	
 	
 	public function updateRoot($anHtmlRoot){
+		parent::updateRoot($anHtmlRoot);
 		$anHtmlRoot->setTitle("Navigation Test");
 	}
 }
