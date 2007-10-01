@@ -148,14 +148,6 @@ if($_SESSION[$app]['mainComponent'] == NULL){
 $htmlRoot = Object::construct("WHHtmlRoot");
 $_SESSION[$app]['mainComponent']->updateRootWithChildren($htmlRoot);
 
-foreach($app_configurations[$app]['styles'] as $var => $value){
-	$htmlRoot->needsStyle($value);
-}
-
-foreach($app_configurations[$app]['scripts'] as $var => $value){
-	$htmlRoot->needsScript($value);
-}
-
 /*
 ** If this is a live update we don't want to redirect
 */
@@ -179,6 +171,14 @@ if($REDIRECT){
 		$errorHandler->end();
 		exit;
 	}
+}
+
+foreach($app_configurations[$app]['styles'] as $var => $value){
+	$htmlRoot->needsStyle($value);
+}
+
+foreach($app_configurations[$app]['scripts'] as $var => $value){
+	$htmlRoot->needsScript($value);
 }
 
 $_SESSION[$app]['session']->startingRenderStep();
