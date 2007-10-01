@@ -263,6 +263,9 @@ abstract class WHComponent extends Object {
 		if($anHtmlRoot->title() == ""){
 			$anHtmlRoot->setTitle("Phaux");
 		}
+		foreach($this->decorations() as $decoration){
+			$decoration->updateRoot($anHtmlRoot);
+		}
 		return $this;
 	}
 
@@ -275,6 +278,7 @@ abstract class WHComponent extends Object {
 		foreach($this->thisOrDialog()->children() as $child){
 			$child->thisOrDialog()->updateRootWithChildren($anHtmlRoot);
 		}
+
 		return $this;
 	}
 
