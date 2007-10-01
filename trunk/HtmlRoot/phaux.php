@@ -6,7 +6,7 @@
 ** It might be better to move most of it out to an 
 ** Object
 */
-error_reporting(E_STRICT);
+error_reporting(E_ALL);
 if(get_magic_quotes_gpc()){
 	foreach($_REQUEST as $var => $value){
 		if(is_array($_REQUEST[$var])){
@@ -19,10 +19,9 @@ if(get_magic_quotes_gpc()){
 	}
 }
 
-include_once("../Classes/Base/base.php");
+include("../Classes/Base/base.php");
 $errorHandler = Object::construct("WHError")->start();
 $base_configuration = parse_ini_file("../Configuration/base.ini",TRUE);
-$dir = dir("../Configuration");
 $app_configurations = array();
 
 if(!isset($_REQUEST['app'])){
@@ -33,31 +32,29 @@ if(!isset($_REQUEST['app'])){
 	$app = $_REQUEST['app'];
 }
 //var_dump($_SERVER);
-/*
-**Parse the ini config files and set up the applications
-*/
 
-while(false !== ($dirent = $dir->read())){
-	if($dirent != "base.ini" &&
-		
-			$dirent[0] != '.'){
-		$fparts = explode(".",$dirent);
-		$app_configurations[$fparts[0]] = $base_configuration;
-		$new_conf = parse_ini_file("../Configuration/$dirent",TRUE);
-		
-		foreach($new_conf as $section => $values){
-			if(is_array($base_configuration[$section])){
-				$new_conf[$section] = array_merge($base_configuration[$section],$values);
-			}
+/* FIXME
+** Currently Phaux parses the INI file on every request 
+** This is excessive. We should only parse the ini file
+** at the start of a session and use the configuration 
+** from the last session if present
+*/
+if(eregi('^[A-Z_0-9_.]*$', $app) && file_exists('../Configuration/'.$app.'.ini')){
+	$app_configurations[$app] = $base_configuration;
+	$new_conf = parse_ini_file('../Configuration/'.$app.'.ini',TRUE);
+	
+	foreach($new_conf as $section => $values){
+		if(is_array($base_configuration[$section])){
+			$new_conf[$section] = array_merge($base_configuration[$section],$values);
 		}
-		foreach($base_configuration as $section =>$values){
-			if(!isset($new_conf[$section])){
-				$new_conf[$section] = $values;
-			}
-		}
-		
-		$app_configurations[$fparts[0]] = $new_conf;
 	}
+	foreach($base_configuration as $section =>$values){
+		if(!isset($new_conf[$section])){
+			$new_conf[$section] = $values;
+		}
+	}
+	
+	$app_configurations[$app] = $new_conf;
 }
 
 
