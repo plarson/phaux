@@ -23,3 +23,4 @@ include('WHInspector.php');
 include('WHSessionSize.php');
 include('WHPathDecoration.php');
 include('WHWorkspace.php');
+include('WHModelDecoration.php');
