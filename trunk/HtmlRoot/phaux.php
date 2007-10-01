@@ -6,6 +6,7 @@
 ** It might be better to move most of it out to an 
 ** Object
 */
+error_reporting(E_STRICT);
 if(get_magic_quotes_gpc()){
 	foreach($_REQUEST as $var => $value){
 		if(is_array($_REQUEST[$var])){

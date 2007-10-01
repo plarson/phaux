@@ -72,7 +72,7 @@ class WHMultipleInheritance extends Object {
 		$this->error("No such ivar");
 	}
 
-	public function getIvarNamed($name){
+	public function &getIvarNamed($name){
 		if($this->hasIvar($name)){
 			$object = $this->whoHasIvar($name);
 			return $object->getIvarNamed($name);

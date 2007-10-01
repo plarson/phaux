@@ -68,6 +68,9 @@ class Object {
 		}
 		protected function haveClassVarsBeenInitialized(){
 			$cv = $this->classVarStorage();
+			if(!in_array($this->getClass(),$cv)){
+				return FALSE;
+			}
 			return is_array($cv[$this->getClass()]);
 		}
 
