@@ -45,9 +45,7 @@ class Object {
 		}
 		
 		public function __construct(){
-			if($this->haveClassVarsBeenInitialized() == FALSE){
-				$this->classVarInitialize();
-			}
+		
 		}
 		
 		public function isProxyObject(){
@@ -58,17 +56,30 @@ class Object {
 		** "Class vars"
 		*/
 		protected function classVarNamed($aString){
+			if($this->haveClassVarsBeenInitialized() == FALSE){
+				$this->classVarInitialize();
+			}
 			$cv = $this->classVarStorage();
 			return $cv[$this->getClass()][$aString];
 		}
 		protected function setClassVarNamed($aString,$value){
+			if($this->haveClassVarsBeenInitialized() == FALSE){
+				$this->classVarInitialize();
+			}
+		
 			$cv = $this->classVarStorage();
 			$cv[$this->getClass()][$aString] = $value;
 			return $this;
 		}
 		protected function haveClassVarsBeenInitialized(){
 			$cv = $this->classVarStorage();
-			if(!in_array($this->getClass(),$cv)){
+			/*The below carches PHP 
+			** IEEEE!!
+			if($cv->offsetExists($this->getClass()))){
+				return FALSE;
+			}
+			*/
+			if(!isset($cv[$this->getClass()])){
 				return FALSE;
 			}
 			return is_array($cv[$this->getClass()]);
@@ -84,17 +95,21 @@ class Object {
 			/*
 			**Use session if it exists
 			*/
+		
 			if(isset($_SESSION)){
+				
 				if(!is_array($_SESSION['classVars'])){
 					$_SESSION['classVars'] = array();
 				}
-				return $_SESSION['classVars'];
+				
+				//return the reference
+				return Object::construct('ArrayObject',$_SESSION['classVars']);
 			}else{
 				global $__CLASSVARS;
 				if(!is_array($__CLASSVARS)){
 					$__CLASSVARS = array();
 				}
-				return $__CLASSVARS;
+				return Object::construct('ArrayObject',$__CLASSVARS);
 			}
 			
 		}
