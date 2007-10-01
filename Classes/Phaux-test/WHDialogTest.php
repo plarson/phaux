@@ -18,19 +18,32 @@ class WHDialogTest extends WHComponent {
 		return $this->yesNoAnswer;
 	}
 	
-	public function yesNoDialog(){
-		$this->callDialog(Object::construct("WHYesNoDialog")->
+	public function yesNoComponent(){
+		return Object::construct("WHYesNoDialog")->
 								setMessage("This is a yes no dialog.")->
-								onAnswerCallback($this,"setYesNoAnswer"));
+								onAnswerCallback($this,"setYesNoAnswer");
+	}
+	
+	public function yesNoDialog(){
+		$this->callDialog($this->yesNoComponent());
+	}
+	
+	public function yesNoModel(){
+		$this->callModel($this->yesNoComponent());
+		return $this;
 	}
 	
 	public function renderContentOn($html){
 		return $html->anchor()->
 						callback($this,"showDialog")->
 						with("Show dialog").
-				$html->space().
+				$html->br().
 				$html->anchor()->
 						callback($this,"yesNoDialog")->
-						with("Yes no dialog - ".$this->yesNoAnswer);
+						with("Yes no dialog - ".$this->yesNoAnswer).
+				$html->br().
+				$html->anchor()->
+						callback($this,'yesNoModel')->
+						with('Yes No model - '.$this->yesNoAnswer);
 	}
 }

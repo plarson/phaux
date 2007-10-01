@@ -307,3 +307,43 @@ function checkMouseLeave (element, evt) {
     return !containsDOM(element, evt.relatedTarget);
   }
 }
+
+
+
+
+function windowBounds() {
+	var x = window.innerWidth
+		|| document.documentElement.clientWidth
+		|| document.body.clientWidth
+		|| 0;
+	var y = window.innerHeight
+		|| document.documentElement.clientHeight
+		|| document.body.clientHeight
+		|| 0;
+	return [x, y];
+}
+
+function fullscreen(element) {
+	element = $(element);
+	var bounds = windowBounds();
+	element.style.position = "absolute";
+	element.style.left = element.style.top = 0;
+	element.style.width = bounds[0] + "px";
+	element.style.height = bounds[1] + "px";
+}
+function visualCenter(element) {
+	element = $(element);
+	var extent = elementDimensions(element);
+	var bounds = windowBounds();
+	var x = (bounds[0] - extent.w) / 2;
+	var y = (bounds[1] - extent.h) / 3.5;
+	x = x < 0 ? 0 : x; y = y < 0 ? 0 : y;
+	element.style.position = "absolute";
+	element.style.left = x + "px";
+	element.style.top = y + "px";
+	
+}
+function updateModelBox(){
+	fullscreen("model-overlay");
+	visualCenter("model-window");
+}
