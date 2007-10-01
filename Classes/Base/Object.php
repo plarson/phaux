@@ -58,23 +58,42 @@ class Object {
 		** "Class vars"
 		*/
 		protected function classVarNamed($aString){
-			return $_SESSION['classVars'][$this->getClass()][$aString];
+			$cv = $this->classVarStorage();
+			return $cv[$this->getClass()][$aString];
 		}
 		protected function setClassVarNamed($aString,$value){
-			$_SESSION['classVars'][$this->getClass()][$aString] = $value;
+			$cv = $this->classVarStorage();
+			$cv[$this->getClass()][$aString] = $value;
 			return $this;
 		}
 		protected function haveClassVarsBeenInitialized(){
-			return is_array($_SESSION['classVars'][$this->getClass()]);
+			$cv = $this->classVarStorage();
+			return is_array($cv[$this->getClass()]);
+		}
+
+		public function classVarInitialize(){
+			$cv = $this->classVarStorage();
+			$cv[$this->getClass()] = array();
+			return $this;
 		}
 		
-		/*stub*/
-		public function classVarInitialize(){
-			if(!is_array($_SESSION['classVars'])){
-				$_SESSION['classVars'] = array();
+		public function classVarStorage(){
+			/*
+			**Use session if it exists
+			*/
+			if(isset($_SESSION)){
+				if(!is_array($_SESSION['classVars'])){
+					$_SESSION['classVars'] = array();
+				}
+				return $_SESSION['classVars'];
+			}else{
+				global $__CLASSVARS;
+				if(!is_array($__CLASSVARS)){
+					$__CLASSVARS = array();
+				}
+				return $__CLASSVARS;
 			}
-			$_SESSION['classVars'][$this->getClass()] = array();
-			return $this;
+			
 		}
 		
 		/*
