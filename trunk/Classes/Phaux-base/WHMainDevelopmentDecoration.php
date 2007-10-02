@@ -35,6 +35,7 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 							'/Render Secs:'.xdebug_time_index());
 	}
 	
+	
 	public function renderToolbarOn($html){
 		return $html->div()->id('toolbar')->with(
 					$html->anchor()->callback($this->session(),'terminate')->with('New Session').

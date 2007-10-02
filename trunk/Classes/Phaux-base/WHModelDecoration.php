@@ -37,6 +37,7 @@ class WHModelDecoration extends WHDecoration {
 	public function updateRoot($anHtmlRoot){
 		parent::updateRoot($anHtmlRoot);
 		$anHtmlRoot->needsScript('mochikit/MochiKit.js');
+		
 		return $this;
 	}
 	

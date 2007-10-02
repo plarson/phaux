@@ -213,6 +213,13 @@ if($_REQUEST['_lu'] == ""){
 		);
 		
 }else{
+	/*
+	**For live request we need to save the current
+	** registry as is before we call session save.
+	** session save will perserve the current registry
+	** and prepare a new one
+	*/
+	$_SESSION[$app]['session']->currentRegistry()->saveState();
 	$html = WHHtmlCanvas::construct("WHLiveResponceCanvas");
 	if(is_object($_SESSION[$app]['session']->callbackByKey($_REQUEST['_lu']))){
 		$html->html()->with(
@@ -228,4 +235,5 @@ if($configuration->debugMode()){
 	echo $DEBUG_ERRORS;
 }
 $errorHandler->end();
+
 $_SESSION[$app]['session']->save();
