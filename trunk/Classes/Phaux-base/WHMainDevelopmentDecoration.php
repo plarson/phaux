@@ -46,18 +46,15 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 		/*
 		**Yikes kind of kludgy
 		*/
-		if($this->showPhpErrors && $this->showUserErrors){
-			$showErrors = $this->session()->debugErrors();
-		}else{
-			foreach($this->session()->debugErrors() as $error){
-				if($this->showPhpErrors && $error->isPhpError()){
-					$showErrors[] = $error;
-				}
-				if($this->showUserErrors && $error->isUserError()){
-					$showErrors[] = $error;
-				}
+		foreach($this->session()->debugErrors() as $error){
+			if($this->showPhpErrors && $error->isPhpError()){
+				$showErrors[] = $error;
+			}
+			if($this->showUserErrors && $error->isUserError()){
+				$showErrors[] = $error;
 			}
 		}
+		
 		return implode("<br />",$showErrors);
 	} 
 	
@@ -79,8 +76,10 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 		return 
 			
 			$html->div()->id('toolbar-console')->with(
-					$html->anchor()->callback($this->session(),'clearDebugErrors')->
-									with('Clear Console').
+					$html->anchor()->liveUpdateWithCallbackOn('onClick',
+									$this,'renderErrorConsoleOn',array(),
+									$this->session(),'clearDebugErrors',array())->
+									with('Clear Console').	
 					$html->space().
 					$html->space().
 					$html->anchor()->class($this->activeIfTrue($this->showPhpErrors))->
@@ -94,8 +93,9 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 					)
 				).
 				$html->script()->with('
-				var objDiv = document.getElementById("toolbar-console");
-				objDiv.scrollTop = objDiv.scrollHeight;');
+					var objDiv = document.getElementById("console-output");
+					objDiv.scrollTop = objDiv.scrollHeight;
+				');
 				
 	}
 	
@@ -158,15 +158,16 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 				padding:2px;
 				text-decoration:none;
 				color:black;
+				margin-right:2px;
 			}
 			
 			#toolbar a:active{
 				border:1px inset;
-				background: #a3a3a3; 
+				background: #d0d0d0; 
 			}
 			#toolbar a.active{
 				border:1px inset;
-				background: #a3a3a3; 
+				background: #d0d0d0; 
 			}
 			
 			#toolbar-console {

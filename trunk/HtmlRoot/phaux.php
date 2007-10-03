@@ -44,7 +44,7 @@ if(eregi('^[A-Z_0-9_.]*$', $app) && file_exists('../Configuration/'.$app.'.ini')
 	$new_conf = parse_ini_file('../Configuration/'.$app.'.ini',TRUE);
 	
 	foreach($new_conf as $section => $values){
-		if(is_array($base_configuration[$section])){
+		if(isset($base_configuration[$section]) && is_array($base_configuration[$section])){
 			$new_conf[$section] = array_merge($base_configuration[$section],$values);
 		}
 	}
