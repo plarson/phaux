@@ -2,6 +2,9 @@
 
 class WHMainDevelopmentDecoration extends WHDecoration {
 	protected $showErrorConsole = FALSE;	
+	protected $showUserErrors = TRUE;
+	protected $showPhpErrors = TRUE;
+	
 	
 	public function renderDecorationOn($html,$parentHtml){
 		return $this->renderDecoratedComponentOn($html,$parentHtml).
@@ -29,8 +32,33 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 		return $this;
 	}
 	
+	public function toggleUserErrors(){
+		$this->showUserErrors = !$this->showUserErrors;
+		return $this;
+	}
+	public function togglePhpErrors(){
+		$this->showPhpErrors = !$this->showPhpErrors;
+		return $this;
+	}
+	
 	public function errorConsoleContent(){
-		return implode("<br />",$this->session()->debugErrors());
+		$showErrors = array();
+		/*
+		**Yikes kind of kludgy
+		*/
+		if($this->showPhpErrors && $this->showUserErrors){
+			$showErrors = $this->session()->debugErrors();
+		}else{
+			foreach($this->session()->debugErrors() as $error){
+				if($this->showPhpErrors && $error->isPhpError()){
+					$showErrors[] = $error;
+				}
+				if($this->showUserErrors && $error->isUserError()){
+					$showErrors[] = $error;
+				}
+			}
+		}
+		return implode("<br />",$showErrors);
 	} 
 	
 	public function renderTimeIndexOn($html){
@@ -51,7 +79,16 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 		return 
 			
 			$html->div()->id('toolbar-console')->with(
-					$html->anchor()->callback($this->session(),'clearDebugErrors')->with('Clear Console').
+					$html->anchor()->callback($this->session(),'clearDebugErrors')->
+									with('Clear Console').
+					$html->space().
+					$html->space().
+					$html->anchor()->class($this->activeIfTrue($this->showPhpErrors))->
+							callback($this,'togglePhpErrors')->
+							with('PHP Errors').
+					$html->anchor()->class($this->activeIfTrue($this->showUserErrors))->
+							callback($this,'toggleUserErrors')->
+							with('User Errors').
 					$html->div()->id('console-output')->with(
 						$this->errorConsoleContent()
 					)
