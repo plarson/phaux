@@ -21,7 +21,7 @@ class WHNavigation extends WHComponent {
 	}
 	
 	public function selection (){
-		if($this->selection == NULL){
+		if($this->selection == NULL && isset($this->components[0])){
 			$this->selection = $this->components[0];
 		}
 		return $this->selection;

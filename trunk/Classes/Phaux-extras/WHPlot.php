@@ -135,8 +135,8 @@ class WHPlot extends WHComponent {
 					']];'."\n";
 			$dataNames[] = $dataName;
 		}
-	
-		$dataStringToPass .= '['.implode(',',$dataNames).']';
+		
+		$dataStringToPass = '['.implode(',',$dataNames).']';
 		$jscript .= 'if (hasCanvas) {';
 		$jscript .= 'var plot'.$this->id.' = new EasyPlot("'.$this->type.'",opts,$("whplot-'.$this->id.'"),'.$dataStringToPass.');}';
 		//$jscript .= 'addLoadEvent( function (){'.$jscript.'});';

@@ -57,6 +57,7 @@ abstract class WHComponent extends Object {
 	** ideas??
 	*/
 	final function renderOn($html){
+		$return = '';
 		if($this->thisOrDialog() !== $this){
 			$return .=  $this->thisOrDialog()->renderOn($html);
 		}else{
@@ -244,6 +245,7 @@ abstract class WHComponent extends Object {
 	}
 	
 	public function styleOfDecorations(){
+		$return = '';
 		if($this->thisOrDialog() !== $this){
 			$return .= $this->thisOrDialog()->styleOfDecorations();
 		}
@@ -314,6 +316,7 @@ abstract class WHComponent extends Object {
 	}
 	
 	public function scriptOfDecorations(){
+		$return = '';
 		if($this->thisOrDialog() !== $this){
 			$return .= $this->thisOrDialog()->scriptOfDecorations();
 		}

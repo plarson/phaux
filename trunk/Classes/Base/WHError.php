@@ -36,13 +36,22 @@ $WHERROR_TRACEBACK = array(
 					E_ERROR,
 					E_USER_ERROR,
 					E_USER_WARNING,
-					E_RECOVERABLE_ERROR	
+					E_RECOVERABLE_ERROR,
 					);
 $WHERROR_CATCH = E_ALL;
 
-class WHError extends Object {
+/*
+**An array of non fatal errors thrown
+** The reason we need to use a global here is 
+** because you can not register an error handler
+** on an object
+*/
+$WHERROR_NON_FATAL_ERRORS = array();
+
+class WHErrorHandler extends Object {
 	protected $cleanExit = FALSE;
 	protected $errorUrl = "/error.php";
+	protected $nonFatalErrors = array();
 	
 	public function start(){
 		$this->registerErrorHandler();
@@ -52,7 +61,7 @@ class WHError extends Object {
 	
 	static function registerErrorHandler(){
 		global $WHERROR_CATCH;
-		set_error_handler(array("WHError","errorHandler"));
+		set_error_handler(array("WHErrorHandler","errorHandler"));
 		error_reporting($WHERROR_CATCH);
 	}
 
@@ -61,6 +70,7 @@ class WHError extends Object {
 		global $WHERROR_TYPES;
 		global $DEBUG_ERRORS;
 		global $WHERROR_TRACEBACK;
+		global $WHERROR_NON_FATAL_ERRORS;
 		//echo $errstr."\n";
 		
 	
@@ -71,9 +81,14 @@ class WHError extends Object {
 				die("$errstr in $errfile on line $errline");
 			}
 		}else{
-			$DEBUG_ERRORS .= "\n<!--\n$errstr in $errfile on $errline\n-->\n";
+			$WHERROR_NON_FATAL_ERRORS[] = "$errstr in $errfile on $errline";
 		}
 
+	}
+	
+	static function nonFatalErrorsThrown(){
+		global $WHERROR_NON_FATAL_ERRORS;
+		return $WHERROR_NON_FATAL_ERRORS;
 	}
 	
 	public function pretyError($errno,$errstr,$errfile,$errline){

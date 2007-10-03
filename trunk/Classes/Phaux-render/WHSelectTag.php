@@ -76,10 +76,7 @@ class WHSelectTag extends WHCollectionTag {
 	
 	
 	public function labelForItem ($anItem){
-		
-		$label = $this->labels[$this->indexForItem($anItem)];
-	
-		if($label == NULL){
+		if(!isset($this->labels[$this->indexForItem($anItem)])){
 			
 			if($this->methodForLabel != NULL 
 					&& is_object($anItem) 
@@ -89,6 +86,7 @@ class WHSelectTag extends WHCollectionTag {
 			}
 			return $anItem;
 		}
+		$label = $this->labels[$this->indexForItem($anItem)];
 		return $label;
 	}
 	

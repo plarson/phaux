@@ -20,7 +20,7 @@ if(get_magic_quotes_gpc()){
 }
 
 include("../Classes/Base/base.php");
-$errorHandler = Object::construct("WHError")->start();
+$errorHandler = Object::construct("WHErrorHandler")->start();
 $base_configuration = parse_ini_file("../Configuration/base.ini",TRUE);
 $app_configurations = array();
 
@@ -110,13 +110,13 @@ if($_REQUEST['_sfc']){
 }
 */
 
-if($_REQUEST["_r"]){
+if(isset($_REQUEST["_r"]) && is_int($_REQUEST["_r"])){
 	$_SESSION[$app]['session']->restoreRegistry($_REQUEST["_r"]);
 }
 
 $REDIRECT = FALSE;
 
-if($_REQUEST["_k"]){
+if(isset($_REQUEST["_k"])){
 	//var_dump($_SESSION[$app]['session']);
 	if(is_object($_SESSION[$app]['session']->callbackByKey($_REQUEST["_k"]))){
 		$_SESSION[$app]['session']->callbackByKey($_REQUEST["_k"])->run();
@@ -125,7 +125,7 @@ if($_REQUEST["_k"]){
 	
 }
 
-if(is_array($_REQUEST["_i"])){
+if(isset($_REQUEST["_i"]) && is_array($_REQUEST["_i"])){
 	foreach($_REQUEST["_i"] as $key => $value){
 		//var_dump($_SESSION[$app]['session']);
 		if(is_object($_SESSION[$app]['session']->callbackByKey($key))){
@@ -136,7 +136,7 @@ if(is_array($_REQUEST["_i"])){
 	$REDIRECT = TRUE;
 }
 
-if($_SESSION[$app]['mainComponent'] == NULL){
+if(!isset($_SESSION[$app]['mainComponent'])){
 	$main_class = $app_configurations[$app]['general']['main_class'];
 	$_SESSION[$app]['mainComponent'] = Object::construct($main_class);
 	if($configuration->debugMode()){
@@ -192,7 +192,7 @@ if($configuration->debugMode()){
 }
 	
 
-if($_REQUEST['_lu'] == ""){
+if(!isset($_REQUEST['_lu']) || $_REQUEST['_lu'] == ""){
 	$html = WHHtmlCanvas::construct("WHHtmlCanvas");
 	$html->html()->with(
 		$html->head()->with(
@@ -232,7 +232,7 @@ if($_REQUEST['_lu'] == ""){
 
 echo $html;
 if($configuration->debugMode()){
-	echo $DEBUG_ERRORS;
+	$_SESSION[$app]['session']->addArrayToDebugErrors(WHErrorHandler::nonFatalErrorsThrown());
 }
 $errorHandler->end();
 

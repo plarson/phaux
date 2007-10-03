@@ -10,6 +10,7 @@ class WHSession extends Object {
 	protected $currentKey;
 	protected $isHalosOn = FALSE;
 	protected $debugCallbackTime; 
+	protected $debugErrors = array();
 	
 	public function start(){
 		$this->currentRegistry = Object::construct("WHStateRegistry");
@@ -78,6 +79,27 @@ class WHSession extends Object {
 	
 	public function setDebugCallbackTime($aFloat){
 		$this->debugCallbackTime = $aFloat;
+		return $this;
+	}
+	public function debugErrors(){
+		return $this->debugErrors;
+	}
+	
+	public function clearDebugErrors(){
+		$this->debugErrors = array();
+		return $this;
+	}
+	
+	public function addArrayToDebugErrors($anArray){
+		if(!is_array($anArray)){
+			$this->error('You must pass an array to addArrayToDebugErrors but you passed '.
+							print_r($anArray));
+		}
+		$this->debugErrors = array_merge($this->debugErrors,$anArray);
+		return $this;
+	}
+	public function addDebugError($aString){
+		$this->debugErrors[] = $aString;
 		return $this;
 	}
 	
@@ -151,11 +173,13 @@ class WHSession extends Object {
 	public function startSessionOnAppWithConfiguration($appName,$configuration){
 		session_start();
 		
-		if($_SESSION[$appName]['configuration'] == NULL){
+		if(!isset($_SESSION[$appName]['configuration'])){
+					
 			$_SESSION[$appName]['configuration'] = $configuration;
 		}
 	
-		if($_SESSION[$appName]["session"] == NULL){
+		if(!isset($_SESSION[$appName]["session"])){
+					
 			$_SESSION[$appName]["session"] = $this;
 			$_SESSION[$appName]["session"]->setAppName($appName);
 			$_SESSION[$appName]["session"]->start();
