@@ -82,6 +82,7 @@ class Object {
 				return FALSE;
 			}
 			*/
+		
 			if(!isset($cv[$this->getClass()])){
 				return FALSE;
 			}
@@ -91,6 +92,7 @@ class Object {
 		public function classVarInitialize(){
 			$cv = $this->classVarStorage();
 			$cv[$this->getClass()] = array();
+			
 			return $this;
 		}
 		
@@ -102,17 +104,17 @@ class Object {
 			if(isset($_SESSION)){
 				
 				if(!isset($_SESSION['classVars']) || !is_array($_SESSION['classVars'])){
-					$_SESSION['classVars'] = array();
+					$_SESSION['classVars'] = Object::construct('ArrayObject',$_SESSION['classVars']);
 				}
 				
 				//return the reference
-				return Object::construct('ArrayObject',$_SESSION['classVars']);
+				return $_SESSION['classVars'];
 			}else{
 				global $__CLASSVARS;
 				if(!is_array($__CLASSVARS)){
-					$__CLASSVARS = array();
+					$__CLASSVARS = Object::construct('ArrayObject',$__CLASSVARS);
 				}
-				return Object::construct('ArrayObject',$__CLASSVARS);
+				return $__CLASSVARS;
 			}
 			
 		}
