@@ -29,7 +29,7 @@ class WHConfiguration extends Object {
 	
 	public function baseUrl(){
 		//die(var_dump($url));
-		return $_SERVER['PHP_SELF'];
+		return $_SERVER['SCRIPT_NAME'];
 		
 	}
 	public function basePath(){
