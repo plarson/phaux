@@ -60,6 +60,9 @@ class Object {
 				$this->classVarInitialize();
 			}
 			$cv = $this->classVarStorage();
+			if(!isset($cv[$this->getClass()][$aString])){
+				return FALSE;
+			}
 			return $cv[$this->getClass()][$aString];
 		}
 		protected function setClassVarNamed($aString,$value){
@@ -98,7 +101,7 @@ class Object {
 		
 			if(isset($_SESSION)){
 				
-				if(!is_array($_SESSION['classVars'])){
+				if(!isset($_SESSION['classVars']) || !is_array($_SESSION['classVars'])){
 					$_SESSION['classVars'] = array();
 				}
 				
