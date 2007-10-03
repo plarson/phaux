@@ -13,7 +13,7 @@ class WHConfiguration extends Object {
 	}
 	
 	public function scriptName(){
-		return "recall.php";
+		return "phaux.php";
 	}
 	
 	public function setScriptName($aString){
@@ -29,12 +29,11 @@ class WHConfiguration extends Object {
 	
 	public function baseUrl(){
 		//die(var_dump($url));
-		return $_SERVER['SCRIPT_NAME'];
+		return $_SERVER['PHP_SELF'];
 		
 	}
 	public function basePath(){
-	
-		return "/".substr($this->baseUrl(),0,strpos($this->baseUrl(),$this->scriptName()));
+		return substr($this->baseUrl(),0,strpos($this->baseUrl(),$this->scriptName()));
 	}
 	
 	
