@@ -71,7 +71,7 @@ class WHErrorHandler extends Object {
 		global $DEBUG_ERRORS;
 		global $WHERROR_TRACEBACK;
 		global $WHERROR_NON_FATAL_ERRORS;
-		//echo $errstr."\n";
+		//die($errstr."\n");
 		
 	
 		if(in_array($errno,$WHERROR_FATAL)){
@@ -81,7 +81,11 @@ class WHErrorHandler extends Object {
 				die("$errstr in $errfile on line $errline");
 			}
 		}else{
-			$WHERROR_NON_FATAL_ERRORS[] = "$errstr in $errfile on $errline";
+			$WHERROR_NON_FATAL_ERRORS[] = Object::construct('WHError')->
+											setNumber($errno)->
+											setString($errstr)->
+											setFile($errfile)->
+											setLine($errline);
 		}
 
 	}

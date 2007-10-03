@@ -9,6 +9,9 @@ class WHExceptionTest extends WHComponent {
 	public function triggerError(){
 		trigger_error("Generic error",E_USER_ERROR);
 	}
+	public function triggerUserWarning(){
+		trigger_error("Generic warning",E_USER_WARNING);
+	}
 	public function parseError(){
 		include("BogusFile.php");
 	}
@@ -25,6 +28,9 @@ class WHExceptionTest extends WHComponent {
 		return $html->anchor()->callback($this,"throwException")->with("Throw Exception").
 				$html->br().
 				$html->anchor()->callback($this,"triggerError")->with("Trigger Error").
+				$html->br().
+				$html->anchor()->callback($this,"triggerUserWarning")->
+									with("Trigger Warning (will show up in development console)").
 				$html->br().
 				$html->anchor()->callback($this,"parseError")
 					->with("Trigger Parse Error (I can't catch this)").

@@ -204,6 +204,9 @@ class WHSession extends Object {
 	}
 	
 	public function save(){
+		if($this->configuration()->debugMode()){
+			$this->addArrayToDebugErrors(WHErrorHandler::nonFatalErrorsThrown());
+		}
 		$this->saveCurrentRegistry();
 		$this->renderStep = FALSE;
 		//var_dump($this->registries);
