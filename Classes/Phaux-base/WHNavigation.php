@@ -110,6 +110,9 @@ class WHNavigation extends WHComponent {
 	
 	
 	public function children(){
+		if($this->selection() == NULL){
+			return array();
+		}
 		return array($this->selection());
 	}
 	

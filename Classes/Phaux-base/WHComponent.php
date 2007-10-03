@@ -192,6 +192,9 @@ abstract class WHComponent extends Object {
 			$this->dialog->setupHaloForAll($remove);
 		}
 		foreach($this->children() as $child){
+			if(!is_object($child)){
+				$this->error('Your component should return an array of children from children()');
+			}
 			$child->setupHaloForAll($remove);
 		}
 		if($remove){
