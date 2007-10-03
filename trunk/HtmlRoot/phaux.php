@@ -110,7 +110,8 @@ if($_REQUEST['_sfc']){
 }
 */
 
-if(isset($_REQUEST["_r"]) && is_int($_REQUEST["_r"])){
+if(isset($_REQUEST["_r"])){
+	
 	$_SESSION[$app]['session']->restoreRegistry($_REQUEST["_r"]);
 }
 
