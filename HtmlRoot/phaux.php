@@ -231,9 +231,5 @@ if(!isset($_REQUEST['_lu']) || $_REQUEST['_lu'] == ""){
 }
 
 echo $html;
-if($configuration->debugMode()){
-	$_SESSION[$app]['session']->addArrayToDebugErrors(WHErrorHandler::nonFatalErrorsThrown());
-}
 $errorHandler->end();
-
 $_SESSION[$app]['session']->save();
