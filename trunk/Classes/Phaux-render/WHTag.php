@@ -76,7 +76,7 @@ class WHTag extends Object {
 	public function liveUpdateOn($jsEvent,$object,$function,$arguments = ""){
 		$renderKey = $this->createCallback($object,$function,$arguments);
 		$this->setAttribute($jsEvent,
-			$this->liveUpdateFunction($renderKey));
+			$this->liveUpdateFunction($renderKey,$this->callbackKey));
 		return $this;
 	}
 		

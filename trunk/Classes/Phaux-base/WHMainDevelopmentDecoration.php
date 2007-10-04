@@ -83,10 +83,14 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 					$html->space().
 					$html->space().
 					$html->anchor()->class($this->activeIfTrue($this->showPhpErrors))->
-							callback($this,'togglePhpErrors')->
+							liveUpdateWithCallbackOn('onClick',
+												$this,'renderErrorConsoleOn',array(),
+												$this,'togglePhpErrors',array())->
 							with('PHP Errors').
 					$html->anchor()->class($this->activeIfTrue($this->showUserErrors))->
-							callback($this,'toggleUserErrors')->
+							liveUpdateWithCallbackOn('onClick',
+												$this,'renderErrorConsoleOn',array(),
+												$this,'toggleUserErrors',array())->
 							with('User Errors').
 					$html->div()->id('console-output')->with(
 						$this->errorConsoleContent()

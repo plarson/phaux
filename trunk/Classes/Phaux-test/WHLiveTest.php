@@ -51,10 +51,15 @@ class WHLiveTest extends WHComponent {
 					** the last line $this,"setMessage",array($message)
 					** tells the anchor what callback to run when the action occurs
 					*/
-						
+					
+					/* Old and still supported way	
 								liveUpdateWithCallbackOn("onClick",
 													$this,"renderMessageOn",array(),
 													$this,"setMessage",array($message)).
+					*/
+					callback($this,'setMessage',array($message))->
+					liveUpdateOn('onClick',$this,'renderMessageOn').								
+					
 				$html->br();
 	}
 	
