@@ -13,7 +13,8 @@ class WHConfiguration extends Object {
 	}
 	
 	public function scriptName(){
-		return "phaux.php";
+		
+		return $this->configValueBySubjectAndKey('server','script_name');
 	}
 	
 	public function setScriptName($aString){
