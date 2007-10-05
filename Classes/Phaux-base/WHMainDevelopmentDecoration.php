@@ -4,7 +4,7 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 	protected $showErrorConsole = FALSE;	
 	protected $showUserErrors = TRUE;
 	protected $showPhpErrors = TRUE;
-	
+	protected $showToolbar = true;
 	
 	public function renderDecorationOn($html,$parentHtml){
 		return $this->renderDecoratedComponentOn($html,$parentHtml).
@@ -38,6 +38,11 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 	}
 	public function togglePhpErrors(){
 		$this->showPhpErrors = !$this->showPhpErrors;
+		return $this;
+	}
+	
+	public function toggleToolbar(){
+		$this->showToolbar = !$this->showToolbar;
 		return $this;
 	}
 	
@@ -111,7 +116,27 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 	}
 	
 	public function renderToolbarOn($html){
+		if($this->showToolbar){
+			return $this->renderActiveToolbarOn($html);
+		}else{
+			return $this->renderInactiveToolbarOn($html);
+		}
+	}
+	
+	public function renderInactiveToolbarOn($html){
+		 return $html->div()->id('toolbar')->class('toolbar-inactive')->with(
+				$html->anchor()->
+						callback($this,'toggleToolbar')->
+					//	liveUpdateOn('onClick',$this,'renderToolbarOn')->
+						with($html->text('>')));
+	}
+	
+	public function renderActiveToolbarOn($html){
 		return $html->div()->id('toolbar')->with(
+					$html->anchor()->
+							callback($this,'toggleToolbar')->
+							//liveUpdateOn('onClick',$this,'renderToolbarOn')->
+							with($html->text('<')).
 					$html->anchor()->
 							callback($this->session(),'terminate')->
 							with('New Session').
@@ -156,6 +181,10 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 				font-size: 8pt; 
 				z-index: 20;
 				height:15px;
+			}
+			.toolbar-inactive{
+				width:13px;
+				right:15px;
 			}
 			#toolbar a{
 				border:1px outset;
