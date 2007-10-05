@@ -155,6 +155,12 @@ function xmlLiveProcessOne(child) {
 	** Leaving the functionality in for future reference
 	*/
 	
+	/*
+	** If we get an html tag we can expect that it is unexpected
+	** and most likely an error. Replace the contents of the
+	** entire page
+	*/ 
+
 	if (child.tagName == "dom") {
 		var elementId = child.getAttribute("id");
 		var element = document.getElementById(elementId);
@@ -195,12 +201,11 @@ function xmlLiveProcessOne(child) {
 function xmlProcessResults(response) {
 	
 	for(i=0; i < response.documentElement.childNodes.length; i++) {
-		
+	
 		var child = response.documentElement.childNodes[i];
 		xmlLiveProcessOne(child);
 
 	}
-
 }
 
 
@@ -211,7 +216,7 @@ function xmlLiveUpdaterUri(uri) {
 	** The &amp; s 
 	*/
 	uri = uri.replace("&amp;","&");
-	
+
     return xmlLiveUpdater(
 function() { return uri; }, xmlProcessResults);
 
@@ -228,12 +233,12 @@ function xmlLiveUpdater(uriFunc, processResultsFunc)
        	request = new XMLHttpRequest();
     }
 
+
     update();
     function update()
     {
 		
        if(request && request.readyState < 4)
-
             request.abort();
 
             
@@ -258,7 +263,7 @@ function xmlLiveUpdater(uriFunc, processResultsFunc)
 		if(request.readyState == 4) {
 
 		     window.status = "Getting new instructions...";
-			
+		
 			if(request && request.responseXML && request.responseXML.documentElement) {
 				
 				processResultsFunc(request.responseXML);
@@ -266,8 +271,14 @@ function xmlLiveUpdater(uriFunc, processResultsFunc)
 				window.status = "Done";
 
 			} else {
+				/*
+				**If we are here assume we reseived an error
+				** and we should replace the entire contents of
+				** the page with the responce
+				*/
 				
-				document.location.reload();
+				document.documentElement.innerHTML = request.responseText;
+				//document.location.reload();
 
 			}
 

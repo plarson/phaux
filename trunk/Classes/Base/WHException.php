@@ -79,7 +79,8 @@ class WHException extends Exception {
 			$return .= self::niceFromTracePoint($point,TRUE);
 		
 		}
-		return substr($return,0,1000000);
+		return '<html><head><title>500 Uncaught Exception</title></head>
+				<body>'.substr($return,0,1000000).'</body></html>';
 		
 	}
 	

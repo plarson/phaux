@@ -25,7 +25,8 @@ class WHExceptionTest extends WHComponent {
 		$this->foobar();
 	}
 	public function renderContentOn($html){
-		return $html->anchor()->callback($this,"throwException")->with("Throw Exception").
+		return $html->div()->id('whexceptiontest')->with(
+				$html->anchor()->callback($this,"throwException")->with("Throw Exception").
 				$html->br().
 				$html->anchor()->callback($this,"triggerError")->with("Trigger Error").
 				$html->br().
@@ -42,7 +43,13 @@ class WHExceptionTest extends WHComponent {
 						->with("Include Error").
 				$html->br().
 				$html->anchor()->callback($this,"undefinedMethod")
-						->with("Undefined method");
+						->with("Undefined method").
+				$html->br().
+				$html->anchor()->callback($this,'thorwException')->
+						liveUpdateOn("onClick",$this,'renderContentOn')->
+						with('Live Exception Test')
+			);
+				
 	}
 	
 	
