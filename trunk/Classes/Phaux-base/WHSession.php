@@ -9,6 +9,7 @@ class WHSession extends Object {
 	protected $currentRegistry;
 	protected $currentKey;
 	protected $isHalosOn = FALSE;
+	protected $isProfilerOn = FALSE;
 	protected $debugCallbackTime; 
 	protected $debugErrors = array();
 	
@@ -61,16 +62,20 @@ class WHSession extends Object {
 	}
 	
 	public function toggleHalos(){
-		if($this->isHalosOn){
-			$this->isHalosOn = FALSE;
-		}else{
-			$this->isHalosOn = TRUE;
-		}
+		$this->isHalosOn = !$this->isHalosOn;
 		return $this;
 	}
 	
 	public function isHalosOn(){
 		return $this->isHalosOn;
+	}
+	
+	public function toggleProfiler(){
+		$this->isProfilerOn = !$this->isProfilerOn;
+	}
+	
+	public function isProfilerOn(){
+		return $this->isProfilerOn;
 	}
 
 	public function debugCallbackTime(){

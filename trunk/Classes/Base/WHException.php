@@ -58,7 +58,7 @@ class WHException extends Exception {
 			it from fulfilling the request.<br /><br />
 			<b>Error ".$errorNumber."</b><br /><br />
 			Please contact the webmaster ".$adminEmail.
-			"<hr /><img src='/icon.png' /></body></html>");
+			"<hr /><img src='../icon.png' /></body></html>");
 	}
 	
 	public function pretyExceptionAndDie(){
@@ -126,9 +126,9 @@ class WHException extends Exception {
 			$current = $start;
 			for($current = $start;$current < $end ; $current++){
 				if($current == $line-1){
-					$return .= "/*HERE --->*/";
+					$return .= "/*--->*/";
 				}
-				$return .= $fileLines{$current};
+				$return .= $fileLines[$current];
 			}
 			if($highlight){
 				$return = highlight_string("<?\n".$return."?>",TRUE);
