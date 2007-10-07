@@ -28,8 +28,9 @@ class WHInspector extends WHComponent {
 		ob_end_clean();
 		return $contents;
 		*/
-		
+		$return ='';
 		if(is_array($memberValue)){
+		
 			if(TRUE || sizeof($memberValue) < 10){
 				foreach($memberValue as $key=>$value){
 					$return .= $key.
@@ -57,6 +58,7 @@ class WHInspector extends WHComponent {
 	**This method is to long and should be cleaned up
 	*/
 	public function renderMembersOn($html){
+		$return = '';
 		foreach($this->object()->objectVars() as $var => $value){
 			$return .= $html->tableData()->with($var);
 			$return .= $html->tableData()->with($this->renderMemberValueOn($html,$value));

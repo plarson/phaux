@@ -190,6 +190,13 @@ class WHHtmlCanvas extends WHCanvas {
 		return Object::construct($aTagName)->setHtmlCanvas($this);
 	}
 	
+	public function makeLiveResponce(){
+		$this->setDocType('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+		<!DOCTYPE xsl:stylesheet [ <!ENTITY nbsp "&#160;"> ]>');
+		$this->setMimeType("text/xml");
+		return $this;
+	}
+	
 	function __toString(){
 		header("Content-type: ".$this->mimeType());
 		return $this->docType.

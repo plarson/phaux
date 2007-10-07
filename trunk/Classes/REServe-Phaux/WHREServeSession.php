@@ -8,7 +8,9 @@ class WHREServeSession extends WHSession {
 		$this->db = Object::construct($this->
 				configuration()->
 				configValueBySubjectAndKey("REServe","type"));
-		$this->db->setAutomaticTableCreation($automatic_table_creation);
+		$this->db->setAutomaticTableCreation(
+				$this->configuration()->
+					configValueBySubjectAndKey("REServe","automatic_table_creation"));
 		
 		$this->connect();
 		return $this;

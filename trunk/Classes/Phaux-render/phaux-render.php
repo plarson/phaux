@@ -29,7 +29,6 @@ include("WHCheckBoxTag.php");
 include("WHDivTag.php");
 include("WHLinkTag.php");
 include("WHScriptTag.php");
-include("WHLiveResponceCanvas.php");
 include("WHImageTag.php");
 include('WHTextAreaTag.php');
 include('WHStyleTag.php');
