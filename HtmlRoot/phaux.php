@@ -192,9 +192,10 @@ if($configuration->debugMode()){
 	}
 }
 	
+$html = WHHtmlCanvas::construct($app_configurations[$app]['general']['render_class']);
 
 if(!isset($_REQUEST['_lu']) || $_REQUEST['_lu'] == ""){
-	$html = WHHtmlCanvas::construct("WHHtmlCanvas");
+	
 	$html->html()->with(
 		$html->head()->with(
 			$htmlRoot->renderHeadContentsOn($html).
@@ -221,7 +222,7 @@ if(!isset($_REQUEST['_lu']) || $_REQUEST['_lu'] == ""){
 	** and prepare a new one
 	*/
 	$_SESSION[$app]['session']->currentRegistry()->saveState();
-	$html = WHHtmlCanvas::construct("WHLiveResponceCanvas");
+	$html->makeLiveResponce();
 	if(is_object($_SESSION[$app]['session']->callbackByKey($_REQUEST['_lu']))){
 		$html->html()->with(
 					$_SESSION[$app]['session']->

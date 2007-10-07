@@ -43,6 +43,7 @@ class WHPath extends WHComponent {
 	}
 
 	public function renderContentOn($html){
+		$return = '';
 		foreach($this->stack as $position => $association){
 			$segment = $association[1];
 			$name = $association[0];
