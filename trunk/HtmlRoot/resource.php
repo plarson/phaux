@@ -31,7 +31,7 @@ foreach($resourceDirs as $dir){
 	if(is_file($dir.'/'.$resource)){
 		$offset = 3600 * 24;	
 		header('Expires: ' . gmdate("D, d M Y H:i:s", time() + $offset) . ' GMT');
-		header('Cache-control: public, must-revalidate');
+		header('Cache-control: public');
 	  	header('Content-Length: '.filesize($dir.'/'.$resource));
 		$gmt_mtime = gmdate('D, d M Y H:i:s', filemtime($dir.'/'.$resource) ) . ' GMT';
 		header('Last-Modified: '.$gmt_mtime);
