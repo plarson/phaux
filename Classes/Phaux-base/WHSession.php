@@ -167,7 +167,6 @@ class WHSession extends Object {
 	}
 	
 	public function configuration(){
-	
 		return $_SESSION[$this->appName]['configuration'];
 	}
 	

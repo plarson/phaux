@@ -181,6 +181,7 @@ function xmlLiveProcessOne(child) {
 		}
 	}else /*if (child.tagName == "innerHtml")*/ {
 		var elementId = child.getAttribute("id");
+		
 		var element = document.getElementById(elementId);
 		if(child.firstChild.data){
 			element.innerHTML = child.firstChild.data;
