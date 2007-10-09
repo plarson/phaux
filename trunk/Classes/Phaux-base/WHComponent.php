@@ -86,6 +86,7 @@ abstract class WHComponent extends Object {
 		return $this;
 	}
 	
+	
 	public function callModel($aComponent){
 		$this->callDialog(
 			$aComponent->addDecoration(Object::construct('WHModelDecoration')
