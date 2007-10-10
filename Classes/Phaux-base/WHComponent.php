@@ -208,7 +208,9 @@ abstract class WHComponent extends Object {
 	
 
 	public function restoreParentComponent(){
-		$this->parentComponent->restoreSelf();
+		if(is_object($this->parentComponent)){
+			$this->parentComponent->restoreSelf();
+		}
 	}
 	
 	public function restoreSelf(){
