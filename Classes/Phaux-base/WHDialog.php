@@ -49,7 +49,7 @@ abstract class WHDialog extends WHComponent{
 				$html->unorderedList()->setItems($this->errors)
 			);
 		}else{
-				return $html;
+				return '';
 				
 		}
 	}
@@ -67,14 +67,16 @@ abstract class WHDialog extends WHComponent{
 	}
 	
 	public function renderContentOn($html){
-		return $this->renderValidationErrorsOn($html).
-				$html->form()->class('dialog-form')->with(
-					$html->hiddenInput()->callback($this,'clearErrors').
-					$html->divClass($html->divClass())->with(
+		
+	 	return $this->renderValidationErrorsOn($html).
+					$html->form()->class('dialog-form')->with(
+				$html->hiddenInput()->callback($this,'clearErrors').
+					$html->div()->class($html->divClass())->with(
 						$this->renderDialogOn($html)
-						).
+						).	
 					$this->renderButtonsOn($html)
-				);					
+				);			
+				
 	}
 	
 }

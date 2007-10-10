@@ -7,6 +7,9 @@ div.spacer {
 }
 div.row span.singleElementRow {
 	float: left;
+	padding:0px;
+	border:0px;
+	margin:0px;
 	text-align: center;
 	font-weight:bold;
 	width:99%;
@@ -15,6 +18,9 @@ div.row span.singleElementRow {
 }
 div.row span.label, div.buttons span.label {
 	float: left;
+	padding:0px;
+	border:0px;
+	margin:0px;
 	text-align: right;
 	font-weight:bold;
 	padding-top:5px;
@@ -30,9 +36,14 @@ div.dialog-buttons {
 
 div.row span.value,div.buttons span.value {
 	float: right;
-	width:49%;
+	padding:0px;
+	border:0px;
+	margin:0px;
+	width:50%;
 	text-align: left;
 	margin-left:4px;
+	padding-top:5px;
+	margin-right:-5px;
 	
 }
 div.row span.value span {

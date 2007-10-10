@@ -210,7 +210,6 @@ if(!isset($_REQUEST['_lu']) || $_REQUEST['_lu'] == ""){
 		);
 	}
 }
-
-echo $html;
+echo $html->document();
 $errorHandler->end();
 $_SESSION[$app]['session']->save();
