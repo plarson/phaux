@@ -227,7 +227,8 @@ function() { return uri; }, xmlProcessResults);
 
 function xmlLiveUpdater(uriFunc, processResultsFunc)
 {
-
+	var oldCur = document.documentElement.style.cursor;
+	document.documentElement.style.cursor = "wait";
     var request = false;
 
     if (window.XMLHttpRequest) {
@@ -270,7 +271,7 @@ function xmlLiveUpdater(uriFunc, processResultsFunc)
 				processResultsFunc(request.responseXML);
 
 				window.status = "Done";
-
+				
 			} else {
 				/*
 				**If we are here assume we reseived an error
@@ -282,11 +283,13 @@ function xmlLiveUpdater(uriFunc, processResultsFunc)
 				//document.location.reload();
 
 			}
+			document.documentElement.style.cursor = oldCur;
 
 		}
+		
 
     }
-
+	
     return update;
 
 }

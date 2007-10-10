@@ -197,9 +197,10 @@ class WHHtmlCanvas extends WHCanvas {
 		return $this;
 	}
 	
-	function __toString(){
+	public function document(){
 		header("Content-type: ".$this->mimeType());
 		return $this->docType.
-				$this->baseTag->__toString();
+				$this->baseTag->__toString();	
 	}
+	
 }
