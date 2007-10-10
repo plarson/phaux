@@ -256,7 +256,8 @@ abstract class WHComponent extends Object {
 			$return .= $this->thisOrDialog()->styleOfDecorations();
 		}
 		foreach($this->decorations as $decoration){
-			$return .= $decoration->style();
+			$return .= $decoration->styleOfThisAndChildren();
+		
 		}
 		return $return;
 	}

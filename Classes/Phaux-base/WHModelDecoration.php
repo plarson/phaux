@@ -8,10 +8,7 @@
 
 class WHModelDecoration extends WHDecoration {
 
-	public function children(){
-		return array($this->decoratedComponent->parentComponent);
-	}
-	
+
 	public function renderChildComponentOn($html){
 		/*
 		**Ok kids don't try any of this at home. 
@@ -53,6 +50,14 @@ class WHModelDecoration extends WHDecoration {
 			addToCallStack(window, "onresize", updateModelBox);
 			addLoadEvent(updateModelBox);
 		';
+	}
+	
+	public function style(){
+		return $this->decoratedComponent->parentComponent->style();
+	}
+	
+	public function script(){
+		return $this->decoratedComponent->parentComponent->script();
 	}
 	
 }
