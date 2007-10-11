@@ -242,31 +242,72 @@ abstract class WHComponent extends Object {
 		return '';
 	}
 	
-	public function styleOfThisAndChildren(){
-		$return = $this->thisOrDialog()->style();
+	
+	/*
+	** Brevity over clearity? You be the judge
+	** I am trying desperately not to be clever while
+	** managing to do something clever. 
+	*/
+	public function &addKeyOfThisAndChildrenToArray(&$anArray,$methodKey){
+		$anArray[$this->thisOrDialog()->getClass()] = $this->thisOrDialog()->$methodKey();
 		foreach($this->thisOrDialog()->children() as $child){
-			$return .= $child->thisOrDialog()->styles();
+			$child->thisOrDialog()->addKeyToArray($anArray,$methodKey);
 		}
-		return $return;
+		return $anArray;
 	}
 	
-	public function styleOfDecorations(){
-		$return = '';
+	public function &addKeyOfDecorationsToArray(&$anArray,$methodKey){
 		if($this->thisOrDialog() !== $this){
-			$return .= $this->thisOrDialog()->styleOfDecorations();
+			$this->thisOrDialog()->addKeyOfDecorationsToArray($anArray,$methodKey);
 		}
 		foreach($this->decorations as $decoration){
-			$return .= $decoration->styleOfThisAndChildren();
-		
+			$decoration->addKeyOfThisAndChildrenToArray($anArray,$methodKey);
 		}
-		return $return;
+		return $anArray;
+	}
+	
+	public function &addKeyToArray(&$anArray,$methodKey){
+		$this->addKeyOfThisAndChildrenToArray($anArray,$methodKey);
+		$this->addKeyOfDecorationsToArray($anArray,$methodKey);
+		return $anArray;
 	}
 	
 	public function styles(){
-		return $this->styleOfThisAndChildren() .
-				$this->styleOfDecorations();
+		$array = array();
+		$this->addKeyToArray($array,'style');
+		return implode(' ',$array);	
 		
 	}
+	
+	public function script(){
+		return "";
+	}
+	
+	public function scripts(){
+		$array = array();
+		$this->addKeyToArray($array,'script');
+		return implode(' ',$array);
+	}
+	
+	
+	public function styleLink(){
+		if($this->style() != ""){
+			return "<link type=\"text/css\" ".
+				"href=\"".$this->session()->configuration()->scriptName().
+				"?_sfc=".get_class($this)."&_type=style".
+				"&app=".$this->session()->appName()."\" rel=\"stylesheet\" /> ";
+		}
+	}
+	
+	public function scriptLink(){
+		if($this->script() != ""){
+			return "<script type=\"text/javascript\" ".
+				"src=\"".$this->session()->configuration()->scriptName().
+				"?_sfc=".get_class($this)."&_type=script\"" .
+				"&app=".$this->session()->appName()."\"/> ";
+		}
+	}
+	
 	
 	public function updateRoot($anHtmlRoot){
 		if($anHtmlRoot->title() == ""){
@@ -289,54 +330,6 @@ abstract class WHComponent extends Object {
 		}
 
 		return $this;
-	}
-
-	public function script(){
-		return "";
-	}
-	
-	public function styleLink(){
-		if($this->style() != ""){
-			return "<link type=\"text/css\" ".
-				"href=\"".$this->session()->configuration()->scriptName().
-				"?_sfc=".get_class($this)."&_type=style".
-				"&app=".$this->session()->appName()."\" rel=\"stylesheet\" /> ";
-		}
-	}
-	
-	public function scriptLink(){
-		if($this->script() != ""){
-			return "<script type=\"text/javascript\" ".
-				"src=\"".$this->session()->configuration()->scriptName().
-				"?_sfc=".get_class($this)."&_type=script\"" .
-				"&app=".$this->session()->appName()."\"/> ";
-		}
-	}
-	
-	public function scriptOfThisAndChildren(){
-		$return = $this->thisOrDialog()->script();
-		foreach($this->thisOrDialog()->children() as $child){
-			$return .= $child->thisOrDialog()->scripts();
-		}
-		
-		return $return;
-	}
-	
-	public function scriptOfDecorations(){
-		$return = '';
-		if($this->thisOrDialog() !== $this){
-			$return .= $this->thisOrDialog()->scriptOfDecorations();
-		}
-		foreach($this->thisOrDialog()->decorations() as $decoration){
-			$return .= $decoration->script();
-		}
-		return $return;
-	}
-	
-	public function scripts(){
-		return $this->scriptOfThisAndChildren() .
-				$this->scriptOfDecorations();
-		
 	}
 	
 }
