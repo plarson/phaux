@@ -138,7 +138,26 @@ class REServeMySQLDriver extends REServeDriver {
 	}
 	
 	public function collectionWithOid($model,$anOid){
-		$result = $this->executeQuery($this->queryForLookupCollectionWithOid($model,$anOid));
+		/*
+		**Copy and paste hacky
+		** we need a migrate class method
+		*/
+		try{
+			$result = $this->executeQuery($this->queryForLookupCollectionWithOid($model,$anOid));
+		}catch (WHException $e){
+			try{
+				if($e->getCode() == 666){
+					$this->updateTableForObject($model->parentObject());
+					$result = $this->executeQuery($this->queryForLookupCollectionWithOid($model,$anOid));
+				}else{
+					throw $e;
+				}
+			}catch(Exception $e){
+				//Woops something else is wrong throw it
+				throw $e;
+			}
+		}
+		
 		$collection = array();
 		while($array = mysql_fetch_array($result)){
 			$row = array();

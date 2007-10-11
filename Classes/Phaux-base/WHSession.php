@@ -134,12 +134,10 @@ class WHSession extends Object {
 	}
 	
 	/*
-	** If an application has 10 registered
-	** objects the back button will work
-	** 20 times
+	** The back button will work 25 times!
 	*/
 	public function maxRegistries (){
-		return 200;
+		return 25;
 	}
 	/*
 	**How many callbacks do you have on a page at a time?

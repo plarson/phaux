@@ -84,6 +84,9 @@ class REArray extends REServeBasicType {
 		if($oldArray == NULL){
 			$oldArray = array();
 		}
+		if($newArray == NULL){
+			$newArray = array();
+		}
 		$toAdd = array_diff_assoc($newArray,$oldArray);
 		$toRemove = array_diff_assoc($oldArray,$newArray);
 		foreach($toRemove as $var => &$value){
