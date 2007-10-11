@@ -90,14 +90,12 @@ if($_REQUEST['_sfc']){
 */
 
 if(isset($_REQUEST["_r"])){
-	
 	$_SESSION[$app]['session']->restoreRegistry($_REQUEST["_r"]);
 }
 
 $REDIRECT = FALSE;
 
 if(isset($_REQUEST["_k"])){
-	//var_dump($_SESSION[$app]['session']);
 	if(is_object($_SESSION[$app]['session']->callbackByKey($_REQUEST["_k"]))){
 		$_SESSION[$app]['session']->callbackByKey($_REQUEST["_k"])->run();
 	}
@@ -105,8 +103,20 @@ if(isset($_REQUEST["_k"])){
 	
 }
 
-if(isset($_REQUEST["_i"]) && is_array($_REQUEST["_i"])){
-	foreach($_REQUEST["_i"] as $key => $value){
+if(isset($_FILES['_i']) && is_array($_FILES['_i'])){
+
+	foreach($_FILES['_i']['error'] as $key => $file){
+		$_REQUEST['_i'][$key] = array('name'=>$_FILES['_i']['name'][$key],
+		 								'type'=>$_FILES['_i']['type'][$key],
+										'tmp_name'=>$_FILES['_i']['tmp_name'][$key],
+										'error'=>$_FILES['_i']['error'][$key],
+										'size'=>$_FILES['_i']['size'][$key]);
+	}
+	ksort($_REQUEST['_i']);
+}
+
+if(isset($_REQUEST['_i']) && is_array($_REQUEST['_i'])){
+	foreach($_REQUEST['_i'] as $key => $value){
 		//var_dump($_SESSION[$app]['session']);
 		if(is_object($_SESSION[$app]['session']->callbackByKey($key))){
 			$_SESSION[$app]['session']->callbackByKey($key)->runWithArgument($value);
