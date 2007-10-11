@@ -190,6 +190,7 @@ function xmlLiveProcessOne(child) {
 			for(i=0; i < child.childNodes.length; i++) {
 				iHtml = iHtml + xmlAsString(child.childNodes[i]);
 			}
+		
 			element.innerHTML = iHtml;
 			
 		}

@@ -30,7 +30,7 @@ $typesForExt = array('css'=>'text/css',
 foreach($resourceDirs as $dir){
 	if(is_file($dir.'/'.$resource)){
 		$offset = 3600 * 24;	
-		header('Expires: ' . gmdate("D, d M Y H:i:s", time() + $offset) . ' GMT');
+		header('Expires: Thu, 15 Apr 2010 20:00:00 GMT');
 		header('Cache-control: public');
 	  	header('Content-Length: '.filesize($dir.'/'.$resource));
 		$gmt_mtime = gmdate('D, d M Y H:i:s', filemtime($dir.'/'.$resource) ) . ' GMT';

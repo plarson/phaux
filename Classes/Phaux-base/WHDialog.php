@@ -1,7 +1,7 @@
 <?php
 abstract class WHDialog extends WHComponent{
 	protected $errors = array();
-	
+
 	public function addValidationError($aString){
 		$this->errors[] = $aString;
 	}
@@ -32,7 +32,7 @@ abstract class WHDialog extends WHComponent{
 		$buttons = $this->buttons();
 		return $buttons[$label];
 	}
-
+	
 	/*
 	**Does not work
 	*/
@@ -53,6 +53,8 @@ abstract class WHDialog extends WHComponent{
 				
 		}
 	}
+	
+	
 		
 	public function renderButtonsOn($html){
 	
