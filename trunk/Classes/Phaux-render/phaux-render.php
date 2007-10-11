@@ -32,3 +32,4 @@ include("WHScriptTag.php");
 include("WHImageTag.php");
 include('WHTextAreaTag.php');
 include('WHStyleTag.php');
+include('WHFileInputTag.php');

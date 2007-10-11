@@ -4,6 +4,7 @@ class WHFormTest extends WHComponent {
 	protected $firstName = "";
 	protected $lastName = "";
 	protected $sex = "Female";
+	protected $fileContents;
 	
 	public function firstName(){
 		return $this->firstName;
@@ -44,6 +45,11 @@ class WHFormTest extends WHComponent {
 		
 	}
 	
+	public function fileHandle($aPHPFile){
+		$this->fileContents = $aPHPFile;
+		return $this;
+	}
+	
 	public function renderContentOn($html){
 		$cont = $html->headingLevel(1)->
 				with($this->firstName." ".$this->lastName. " -- ".$this->sex);
@@ -59,6 +65,17 @@ class WHFormTest extends WHComponent {
 			$html->br().
 			$html->submitButton()->callback($this,'submitButton')->value("Submit!")			
 			);
+	
+		$cont .= $html->form()->enctype("multipart/form-data")->with(
+				$html->bold('File Test:').
+				$html->br().
+				$html->fileInput()->callback($this,'fileHandle').
+				$html->br().
+				$html->submitButton()->callback($this,'submitButton')->value("Submit!")
+				).
+				$html->bold('The Contents of the File:').
+				$html->br().
+				$html->text(print_r($this->fileContents,TRUE));
 	
 		return $cont;
 	}
