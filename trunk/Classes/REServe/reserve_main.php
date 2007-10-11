@@ -21,3 +21,4 @@ include("REDate.php");
 include("RETime.php");
 include("REDateAndTime.php");
 include('REDecimal.php');
+include('REText.php');
