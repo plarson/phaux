@@ -99,8 +99,13 @@ class WHSession extends Object {
 		if(!is_array($anArray)){
 			$this->error('You must pass an array to addArrayToDebugErrors but you passed '.
 							print_r($anArray));
+		
 		}
-		$this->debugErrors = array_merge($this->debugErrors,$anArray);
+		/*
+		**Keep the size of this down
+		*/
+		$ne = array_merge($this->debugErrors,$anArray);
+		$this->debugErrors = array_slice($ne,-100);
 		return $this;
 	}
 	public function addDebugError($aString){
