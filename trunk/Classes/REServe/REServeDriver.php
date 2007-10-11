@@ -598,6 +598,7 @@ abstract class REServeDriver extends Object {
 		return 'INTEGER ';
 	}
 	
+	
 	public function updateObject($anObject){
 		$this->currentObject($anObject);
 		try{
@@ -630,7 +631,7 @@ abstract class REServeDriver extends Object {
 		if(count($s) == 0 ){
 			throw new WHException("Can not update and object that is not managed");
 		}
-		//return FALSE;
+		$this->setCurrentObject($anObject);
 		foreach($anObject->tableDefinition()->columns() as $column){
 			foreach($s->columns() as $c){
 				if($column->name() == $c->name()){
@@ -638,6 +639,8 @@ abstract class REServeDriver extends Object {
 					continue 2;
 				}
 			}
+			
+			$this->setCurrentColumn($column);
 			/*If we did not find this row add it*/
 			if($column->type()->reServeValueStoredWithObject()){
 				$this->executeQuery(
@@ -648,11 +651,14 @@ abstract class REServeDriver extends Object {
 					);
 				
 			}else{
-				$this->currentObject($anObject);
+				$this->setCurrentObject($anObject);
 				$column->type()->createTableWithDbConnection($this);
 			}
 			//Add it to the database as well
 			$s->addColumn($column);
+			if($column->isIndexed()){
+				$this->executeQuery($this->queryToCreateIndexForObjectOn($column,$anObject));
+			}
 			
 		}
 		

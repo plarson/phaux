@@ -69,12 +69,22 @@ class WHREServeContactModel extends REServe {
 		return $this;
 	}
 	
+	public function friends(){
+		return $this->friends;
+	}
+	
+	public function setFriends($anArray){
+		$this->friends = $anArray;
+		return $this;
+	}
+	
 	public function tableDefinition(){
 		return parent::tableDefinition()->
 				column("name",'REString')->
 				column("phoneNumber",'REString')->
 				column("email",'REString')->
 				column("niceness",'REInteger')->
+				column('friends',REArray::of('REString'))->
 				column("dayOfMeeting",'REDate')->
 				column("timeOfMeeting",'RETime');
 	}
