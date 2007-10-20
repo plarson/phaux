@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REInteger extends REServeBasicType {
 	public function asSqlValueStringFor($aThing){
 		return (string)intval($aThing);

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REDecimal extends REServeBasicType {
 	protected $precision = 2;
 	

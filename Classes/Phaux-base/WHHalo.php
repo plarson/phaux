@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHHalo extends WHDecoration{
 	protected $showHTML = FALSE;
 	

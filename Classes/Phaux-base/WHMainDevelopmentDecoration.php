@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHMainDevelopmentDecoration extends WHDecoration {
 	protected $showErrorConsole = FALSE;	
 	protected $showUserErrors = TRUE;

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REServeTest extends REServe {
 	protected $string;
 	protected $integer;

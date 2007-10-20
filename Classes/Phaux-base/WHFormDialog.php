@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Phaux-base
+ */
 abstract class WHFormDialog extends WHDialog {
 	
 	

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHOptionTag extends WHTag {
 
 	public function tag(){

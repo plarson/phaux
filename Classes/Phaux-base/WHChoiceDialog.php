@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHChoiceDialog extends WHDialog {
 	protected $choices = array();
 	protected $radioOrSelect = 'select';

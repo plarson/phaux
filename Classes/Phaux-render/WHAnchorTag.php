@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHAnchorTag extends WHTag {
 	protected $positionKey;/*the #postion append to the end of a link */
 	protected $liveUpdaterKey = NULL;

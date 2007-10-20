@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REServe extends Object {
 	protected $oid;
 	protected $lastVersion;

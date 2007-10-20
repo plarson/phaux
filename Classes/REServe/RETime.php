@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class RETime extends WHTime {
 	public function reServeType(){
 		return "time";

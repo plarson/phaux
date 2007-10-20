@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHListTag extends WHCollectionTag {
 	protected $tag = "ul";
 	

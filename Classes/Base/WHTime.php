@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Base
+ */
 class WHTime extends Object {
 	protected $hour;
 	protected $minute;

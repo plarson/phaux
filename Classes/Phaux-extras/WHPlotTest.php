@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-extras
+ */
 class WHPlotTest extends WHComponent{
 	protected $plots;
 	

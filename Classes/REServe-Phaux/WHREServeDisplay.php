@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe-Phaux
+ */
 class WHREServeDisplay extends WHComponent {
 	protected $reservable;
 	

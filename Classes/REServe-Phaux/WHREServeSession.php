@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe-Phaux
+ */
 class WHREServeSession extends WHSession {
 	protected $db = NULL;
 	

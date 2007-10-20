@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-test
+ */
 class WHDialogTest extends WHComponent {
 	protected $yesNoAnswer = FALSE;
 

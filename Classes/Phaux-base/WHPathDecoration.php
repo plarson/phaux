@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHPathDecoration extends WHWindowDecoration{
 
 	

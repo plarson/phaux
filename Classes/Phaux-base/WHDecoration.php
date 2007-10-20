@@ -3,7 +3,9 @@
  * Subclass WHDecoration to create a decoration that
  * Can be placed around an arbitray component
  */
-
+/**
+ * @package Phaux-base
+ */
 abstract class WHDecoration extends WHComponent {
 	
 	protected $decoratedComponent;

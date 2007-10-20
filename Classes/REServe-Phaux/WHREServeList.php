@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe-Phaux
+ */
 class WHREServeList extends WHREServeDisplay{
 
 	protected $reObjects; // An array of objects

@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Phaux-base
+ */
 abstract class WHDialog extends WHComponent{
 	protected $errors = array();
 

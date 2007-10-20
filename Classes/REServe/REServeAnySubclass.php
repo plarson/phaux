@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REServeAnySubclass extends REServe {
 	public function fromSqlValueStringWithConnection($aString,$reServeConnection){
 		if($aString == NULL){

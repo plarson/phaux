@@ -4,7 +4,9 @@
 **A time duration
 ** rember we are dealing with 32b integer
 */
-
+/**
+ * @package Base
+ */
 class WHDuration extends Object {
 	protected $seconds;
 

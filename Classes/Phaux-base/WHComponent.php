@@ -5,7 +5,9 @@
 ** The functionality is fine but the implimentation is
 ** a little confusing
 */
-
+/**
+ * @package Phaux-base
+ */
 abstract class WHComponent extends Object {
 	
 	/**

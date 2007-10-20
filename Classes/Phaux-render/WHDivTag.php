@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHDivTag extends WHTag {
 	
 	public function tag(){

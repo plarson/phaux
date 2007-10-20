@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-test
+ */
 class WHNavigationTest extends WHComponent {
 	protected $navigation;
 	

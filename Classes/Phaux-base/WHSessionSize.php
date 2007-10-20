@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHSessionSize extends WHComponent {
 	protected $summaryTable = array();
 	protected $processedObjects = array();

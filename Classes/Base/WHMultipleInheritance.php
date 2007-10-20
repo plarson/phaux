@@ -8,6 +8,9 @@
 ** The best way to do that is in the classes
 ** varable definition
 */
+/**
+ * @package Base
+ */
 class WHMultipleInheritance extends Object {
 	/*
 	** Might look like ...

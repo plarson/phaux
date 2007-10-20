@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-test
+ */
 class WHLiveTest extends WHComponent {
 	protected $navigation;
 	protected $message = "Click on a link to set a message";

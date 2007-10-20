@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-test
+ */
 class WHHangman extends WHComponent {
 	protected $level;
 	protected $guesses = array();

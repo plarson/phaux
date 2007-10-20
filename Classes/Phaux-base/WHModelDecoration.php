@@ -5,7 +5,9 @@
 ** is to call callModel on your component
 ** callModel is used just like callDialog
 */
-
+/**
+ * @package Phaux-base
+ */
 class WHModelDecoration extends WHDecoration {
 
 

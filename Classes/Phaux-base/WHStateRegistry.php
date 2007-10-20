@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHStateRegistry extends Object {
 	protected $registeredObjects = array();
 	

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-extras
+ */
 class WHPlot extends WHComponent {
 	protected $id;
 	protected $type = 'bar';

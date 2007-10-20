@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHLinkTag extends WHTag {
 	protected $doesNotNeedClose = TRUE;
 	

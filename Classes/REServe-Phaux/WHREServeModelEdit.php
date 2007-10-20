@@ -5,7 +5,9 @@
 ** editing reservable objects
 ** EVERYTHING is subject to RADICAL change
 */
-
+/**
+ * @package REServe-Phaux
+ */
 class WHREServeModelEdit extends WHREServeDisplay {
 	protected static $numberForDateSelector = 1;
 	

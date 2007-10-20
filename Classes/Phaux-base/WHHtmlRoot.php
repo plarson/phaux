@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHHtmlRoot extends Object {
 	protected $title;
 	protected $styles = array();

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REServeBasicType extends Object {
 	
 	public function needsReServeConnection (){

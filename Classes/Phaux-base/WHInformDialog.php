@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHInformDialog extends WHComponent {
 	protected $message;
 	

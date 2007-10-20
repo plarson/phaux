@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REServeDirectMemberAccess extends REServe {
 	
 	public function getValueForKeyPath($aKeyPath){

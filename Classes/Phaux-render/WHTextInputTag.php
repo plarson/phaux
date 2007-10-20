@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHTextInputTag extends WHFormInputTag {
 	public function type(){
 		return 'text';

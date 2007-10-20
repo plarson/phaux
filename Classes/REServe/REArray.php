@@ -1,5 +1,7 @@
 <?php 
-
+/**
+ * @package REServe
+ */
 class REArray extends REServeBasicType {
 	protected $valueType;
 	protected $tableName;

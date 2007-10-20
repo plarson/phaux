@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHCallback extends Object {
 	protected $key;
 	protected $object; /*The object to call the method on*/

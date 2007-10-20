@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Phaux-base
+ */
 class WHInspector extends WHComponent {
 	protected $workspace;
 	protected $path;

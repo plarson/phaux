@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REServeColumnDefinition extends REServe {
 	protected $name;
 	protected $keyPath;

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Base
+ */
 class WHError extends Object {
 	protected $number;
 	protected $string;

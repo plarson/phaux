@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Base
+ */
 class WHProxyObjectLogCall {
 	protected $__object;
 	protected $__callOutput = '/tmp/reservedebug.txt';

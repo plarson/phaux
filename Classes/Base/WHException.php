@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Base
+ */
 class WHException extends Exception {
 
 	public function __toString(){

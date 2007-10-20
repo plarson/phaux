@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-test
+ */
 class TicTacPhaux extends WHComponent {
 
     private $board = array();

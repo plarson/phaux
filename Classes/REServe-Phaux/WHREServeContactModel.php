@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe-Phaux
+ */
 class WHREServeContactModel extends REServe {
 	protected $name;
 	protected $phoneNumber;
