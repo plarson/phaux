@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHRadioButtonTag extends WHFormInputTag {
 	protected $group;
 	

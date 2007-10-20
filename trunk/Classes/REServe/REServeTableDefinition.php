@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REServeTableDefinition extends REServe {
 	protected $columns = array();
 	protected $typeClass;

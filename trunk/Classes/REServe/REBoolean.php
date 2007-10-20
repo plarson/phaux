@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REBoolean extends REInteger {
 	public function asSqlValueStringFor($aThing){
 		if($aThing){

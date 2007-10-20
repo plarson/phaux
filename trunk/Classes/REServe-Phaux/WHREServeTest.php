@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe-Phaux
+ */
 class WHREServeTest extends WHComponent {
 	protected $currentContactComponent;
 	protected $contactList;

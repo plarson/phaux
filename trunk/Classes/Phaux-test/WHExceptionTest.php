@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-test
+ */
 class WHExceptionTest extends WHComponent {
 	
 	public function throwException(){

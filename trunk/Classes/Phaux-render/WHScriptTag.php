@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHScriptTag extends WHTag{
 	public function tag(){
 		return 'script';

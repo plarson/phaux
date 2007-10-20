@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHTag extends Object {
 	protected $attributes = array();
 	protected $contents = "";

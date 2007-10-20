@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHStyleTag extends WHTag{
 	public function tag(){
 		return 'style';

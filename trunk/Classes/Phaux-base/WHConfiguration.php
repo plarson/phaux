@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHConfiguration extends Object {
 	protected $configValues; /*Stored as a multi deminsional array 
 							 ** 1st deminsion is the category

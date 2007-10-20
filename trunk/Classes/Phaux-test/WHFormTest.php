@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-test
+ */
 class WHFormTest extends WHComponent {
 	protected $firstName = "";
 	protected $lastName = "";

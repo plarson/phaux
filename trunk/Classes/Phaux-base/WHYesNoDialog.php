@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHYesNoDialog extends WHInformDialog {
 	
 	public function submitAnswer($stringValue,$boolValue){

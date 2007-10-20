@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHHtmlText extends WHTag {
 	
 	function __toString(){

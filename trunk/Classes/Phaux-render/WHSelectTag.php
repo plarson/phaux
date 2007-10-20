@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHSelectTag extends WHCollectionTag {
 	
 	protected $labels = array();

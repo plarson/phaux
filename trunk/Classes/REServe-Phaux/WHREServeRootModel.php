@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe-Phaux
+ */
 class WHREServeRootModel extends REServe {
 	protected $contacts = array();
 	

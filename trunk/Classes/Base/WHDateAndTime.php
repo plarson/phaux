@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Base
+ */
 class WHDateAndTime extends WHMultipleInheritance {
 	protected $classes = array("WHDate","WHTime");
 	

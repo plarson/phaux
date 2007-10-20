@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 abstract class WHCollectionTag extends WHTag {
 	protected $items = array();
 	protected $selectedItem;

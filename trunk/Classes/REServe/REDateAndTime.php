@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REDateAndTime extends WHDateAndTime {
 	public function reServeType(){
 		return "dateAndTime";

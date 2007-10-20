@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-test
+ */
 class WHRegisteredCounter extends WHCounter {
 	function __construct(){
 		parent::__construct();

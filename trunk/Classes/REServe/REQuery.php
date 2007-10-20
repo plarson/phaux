@@ -9,7 +9,9 @@
 ** introduce the programmer to yet another query 
 ** lauguage but it might be more simplistic. 
 */
-
+/**
+ * @package REServe
+ */
 class REQuery extends Object {
 	protected $dbConnection;
 	protected $buffer;

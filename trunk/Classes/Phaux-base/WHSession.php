@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHSession extends Object {
 //	protected $mainComponent;
 	protected $callbacks = array();

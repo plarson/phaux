@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHRender extends Object {
 	protected $currentBrush;
 	protected $parentBrush;

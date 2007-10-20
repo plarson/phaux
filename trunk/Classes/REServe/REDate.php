@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REDate extends WHDate {
 	public function needsReServeConnection (){
 		return FALSE;

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHWorkspace extends WHComponent {
 	protected $code = '';
 	protected $results = '';

@@ -5,7 +5,9 @@
 ** Localization would be very nice but is is a fair
 ** amount of effort 
 */
-
+/**
+ * @package Base
+ */
 class WHDate extends Object {
 	protected $year;
 	protected $month;

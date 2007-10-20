@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REServeMySQLDriver extends REServeDriver {
 	protected $connection;
 	protected $debugOutputFile = NULL;

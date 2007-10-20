@@ -5,7 +5,9 @@
 ** methods. It is not intended to be return from a render method.
 ** WHRadioButtonGroup can not be rendered
 */
-
+/**
+ * @package Phaux-render
+ */
 class WHRadioButtonGroup extends WHTag {
 	protected $groupName;
 	

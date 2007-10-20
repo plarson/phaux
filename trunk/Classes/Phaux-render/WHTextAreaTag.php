@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHTextAreaTag extends WHTag {
 	
 	public function tag(){

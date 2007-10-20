@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHNavigation extends WHComponent {
 	protected $selection;
 	protected $components = array();

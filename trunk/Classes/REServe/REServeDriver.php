@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 abstract class REServeDriver extends Object {
 	protected $localCache;
 	protected $currentObject;

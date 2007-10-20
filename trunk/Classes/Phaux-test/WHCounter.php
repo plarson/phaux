@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-test
+ */
 class WHCounter extends WHComponent {
 	protected $counter;
 	

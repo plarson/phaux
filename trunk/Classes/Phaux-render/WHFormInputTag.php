@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHFormInputTag extends WHTag {
 	
 	function __construct(){

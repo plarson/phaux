@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHRegisteredObject extends Object {
 	protected $onObject;
 	protected $keyPath;

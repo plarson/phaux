@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package REServe
+ */
 class REServeObjectId extends REInteger {
 	public function reServeType(){
 		return "oid";

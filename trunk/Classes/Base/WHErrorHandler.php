@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Base
+ */
 $WHERROR_TYPES = array (
                 E_ERROR              => 'Error',
                 E_WARNING            => 'Warning',

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-render
+ */
 class WHGenericTag extends WHTag {
 	protected $tag;
 	

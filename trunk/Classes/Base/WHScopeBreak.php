@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Base
+ */
 class WHScopeBreak extends WHProxyObjectLogCall{
 	protected $__loggingEnabled = FALSE;
 	public function __get($nm){

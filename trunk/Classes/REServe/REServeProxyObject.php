@@ -5,7 +5,9 @@
  * This is a proxy class it will foward most of the
  * methods on to the intended recever
  */
-
+/**
+ * @package REServe
+ */
 class REServeProxyObject {
 	protected $oid;
 	protected $objectClass;

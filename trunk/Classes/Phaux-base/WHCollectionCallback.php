@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Phaux-base
+ */
 class WHCollectionCallback extends WHCallback {
 	protected $items = array(); /*a group of items that can be 
 								** Passed as an arg to the callback */
