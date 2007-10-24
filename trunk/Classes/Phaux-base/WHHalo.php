@@ -29,6 +29,16 @@ class WHHalo extends WHDecoration{
 		return $this;
 	}
 	
+	public function browsParent(){
+		$this->session()->toggleHalos();
+		$this->session()->mainComponent()->callModel(
+						Object::construct('WHBrowser')->
+						setCurrentClass($this->decoratedComponent->getClass())->
+						addDecoration(Object::construct('WHWindowDecoration'))->
+						onAnswerCallback($this->session(),'toggleHalos'));
+		return $this;
+	}
+	
 	public function renderSourceButtonOn($html){
 		if($this->showHTML){
 			$label = 'R';
@@ -37,6 +47,12 @@ class WHHalo extends WHDecoration{
 		}
 		return $html->text('[ ').
 				$html->anchor()->callback($this,'toggleShowHTML')->with($label).
+				$html->text(' ]');
+	}
+	
+	public function renderBrowsButtonOn($html){
+		return $html->text('[ ').
+				$html->anchor()->callback($this,'browsParent')->with('B').
 				$html->text(' ]');
 	}
 	
@@ -56,6 +72,7 @@ class WHHalo extends WHDecoration{
 		return $html->div()->class('halo-header')->with(
 				$html->div()->class('icons')->with(
 					$html->div()->class('halo-mode')->with(
+							$this->renderBrowsButtonOn($html).
 							$this->renderInspectButtonOn($html).
 							$this->renderSourceButtonOn($html)
 						)

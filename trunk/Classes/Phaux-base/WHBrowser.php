@@ -211,7 +211,7 @@ class WHBrowser extends WHComponent {
 		return '
 				.whbrowser form{display:inline;}
 				.whbrowser-source {
-					font-size: 14px;
+					font-size: 12px;
 				}
 				.whbrowser select{width:200px;}
 			';
