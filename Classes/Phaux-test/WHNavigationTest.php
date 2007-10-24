@@ -15,7 +15,8 @@ class WHNavigationTest extends WHComponent {
 				addWithLabel(Object::construct("WHDialogTest"),"Dialog test")->
 				addWithLabel(Object::construct("WHLiveTest"),"AJAX Test")->
 				addWithLabel(Object::construct("WHExceptionTest"),"Exception Text")->
-				addWithLabel($this->plotTest(),'Plot Test');
+				addWithLabel($this->plotTest(),'Plot Test')->
+				addWithLabel(Object::construct('WHBrowser'),'Browser Test');
 				
 		return $this;
 	}

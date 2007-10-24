@@ -25,3 +25,4 @@ include('WHPathDecoration.php');
 include('WHWorkspace.php');
 include('WHModelDecoration.php');
 include('WHMessageDecoration.php');
+include('WHBrowser.php');

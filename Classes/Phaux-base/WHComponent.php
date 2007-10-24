@@ -71,10 +71,7 @@ abstract class WHComponent extends Object {
 		return $return;
 	}
 	
-	public function renderContentOn($html){
-		$this->subclassResponsibility("renderContentOn");
-		return $this;
-	}
+	abstract public function renderContentOn($html);
 
 	
 	public function callDialog($aComponent){
@@ -213,11 +210,16 @@ abstract class WHComponent extends Object {
 		if(is_object($this->parentComponent)){
 			$this->parentComponent->restoreSelf();
 		}
+		return $this;
 	}
 	
 	public function restoreSelf(){
 		$this->dialog = NULL;
-		$this->dialogCallback = NULL;
+		/*
+		**This was wrong ?
+		*/
+		//$this->dialogCallback = NULL;
+		return $this;
 	}
 	
 	public function thisOrDialog(){
