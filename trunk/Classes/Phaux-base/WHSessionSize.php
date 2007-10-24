@@ -71,7 +71,9 @@ class WHSessionSize extends WHComponent {
 		if(!isset($this->summaryTable[$object->getClass()])){
 			$this->summaryTable[$object->getClass()] = array();
 		}
-	
+		if(!isset($this->summaryTable[$object->getClass()]['total'])){
+			$this->summaryTable[$object->getClass()]['total'] = 0;
+		}
 		++$this->summaryTable[$object->getClass()]['total'];
 			
 		foreach($object->objectVars() as $var => $value){
@@ -81,6 +83,9 @@ class WHSessionSize extends WHComponent {
 			}elseif(is_array($value)){
 				$this->processArrayForObject($value,$object);
 			}elseif(!is_resource($value) && !is_null($value)){
+				if(!isset($this->summaryTable[$object->getClass()]['size'])){
+					$this->summaryTable[$object->getClass()]['size'] = 0;
+				}
 				$this->summaryTable[$object->getClass()]['size'] += $this->sizeForVar($value);
 			}			
 		}

@@ -35,7 +35,7 @@ class WHSelectTag extends WHCollectionTag {
 		return $this;
 	}
 	
-	/*
+	/**
 	**This must be run after all items have been added to the select
 	** and before you call with()
 	** You can not set the callback for a select before adding the items
@@ -54,7 +54,7 @@ class WHSelectTag extends WHCollectionTag {
 		return $this;
 	}
 	
-	/*
+	/**
 	** anArray should look like
 	** "label"=>$item
 	*/
@@ -65,7 +65,7 @@ class WHSelectTag extends WHCollectionTag {
 		return $this;
 	}
 	
-	/*
+	/**
 	** anArray should look like
 	** $item=>"label"
 	*/
@@ -82,10 +82,12 @@ class WHSelectTag extends WHCollectionTag {
 			
 			if($this->methodForLabel != NULL 
 					&& is_object($anItem) 
-					&& $anItem->hasMethod($this->methodForLabel)){
-				
-				return $anItem->perform($this->methodForLabel,array());
+					&& method_exists($anItem,$this->methodForLabel)){
+				$m = $this->methodForLabel;
+
+				return $anItem->$m();
 			}
+
 			return $anItem;
 		}
 		$label = $this->labels[$this->indexForItem($anItem)];
