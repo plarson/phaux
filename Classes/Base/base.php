@@ -11,3 +11,4 @@ include("WHDateAndTime.php");
 include('WHDuration.php');
 include('WHProxyObjectLogCall.php');
 include('WHScopeBreak.php');
+include('WHReflectionClass.php');
