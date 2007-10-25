@@ -18,4 +18,31 @@ class WHReflectionClass extends ReflectionClass {
 		return parent::getMethods();
 	}
 	
+	/**
+	** Returns an array of class names that
+	** are a child of this reflected class
+	*/
+	public function childClassNames(){
+		$childClasses = array();
+		foreach(get_declared_classes() as $class){
+			if(get_parent_class($class) == $this->getName()){
+				$childClasses[] = $class;
+			}
+		}
+		return $childClasses;
+	}
+	
+	/**
+	** Returns an array of classes that have not parent
+	*/
+	static public function rootClasses(){
+		$rootClasses = array();
+		foreach(get_declared_classes() as $class){
+			if(!get_parent_class($class)){
+				$rootClasses[] = $class;
+			}
+		}
+		return $rootClasses;
+	}
+	
 }

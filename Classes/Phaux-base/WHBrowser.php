@@ -1,5 +1,9 @@
 <?php
 
+/**
+** A lot of the logic of this class
+** should be moved into reflection classes
+*/
 class WHBrowser extends WHComponent {
 	public $currentClass = '';
 	public $currentMethod = '';
@@ -126,7 +130,21 @@ class WHBrowser extends WHComponent {
 		return $methodAndLabel;
 	}
 	
+	public function classHierarchyWityLabel(){
+		$list = array();
+		foreach(WHReflectionClass::rootClasses() as $class){
+			$this->classAddToListWithLevel($class,$list,0);
+		}
+		return $list;
+	}
 
+	public function classAddToListWithLevel($class,&$list,$level){
+		foreach(Object::construct('WHReflectionClass',$class)->childClassNames() as $class){
+			$list[$class] = str_repeat('&nbsp;&nbsp;',$level).$class;
+			$this->classAddToListWithLevel($class,$list,$level+1);
+		}
+		return $list;
+	}
 	
 	public function currentClassReflected(){
 		if($this->currentClass == ''){
@@ -171,12 +189,23 @@ class WHBrowser extends WHComponent {
 	
 	public function renderClassSelectionOn($html){
 		return 
-				$html->form()->with(
-					$html->select()->setItems($this->classCategories())->
-									size(20)->
+				$html->div()->class('class-limit')->with(
+					$html->form()->with(
+						$html->select()->setItems($this->classCategories())->
+									size(10)->
 									submitFormOnChange()->
 									callback($this,'setCurrentCategory')->
 									setSelectedItem($this->currentCategory)
+					).
+				
+			
+					$html->form()->with(
+						$html->select()->itemsAndLabels($this->classHierarchyWityLabel())->
+									size(10)->
+									submitFormOnChange()->
+									callback($this,'setCurrentClass')->
+									setSelectedItem($this->currentClass)
+					)
 				).
 				$html->form()->with(
 					$html->select()->setItems($this->currentClassList())->
@@ -214,6 +243,20 @@ class WHBrowser extends WHComponent {
 					font-size: 12px;
 				}
 				.whbrowser select{width:200px;}
+				.whbrowser .class-limit {
+					width:201px;
+					float:left;
+				}
+				.whbrowser .class-limit select{
+					height:125px;
+
+				}
+				.whbrowser  select{
+					height:252px;
+					margin:0px;
+					padding:0px;
+					
+				}
 			';
 	}
 	
