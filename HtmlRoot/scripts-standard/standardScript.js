@@ -159,8 +159,7 @@ function xmlLiveProcessOne(child) {
 	** If we get an html tag we can expect that it is unexpected
 	** and most likely an error. Replace the contents of the
 	** entire page
-	*/ 
-
+	*/
 	if (child.tagName == "dom") {
 		var elementId = child.getAttribute("id");
 		var element = document.getElementById(elementId);
@@ -202,11 +201,9 @@ function xmlLiveProcessOne(child) {
 
 function xmlProcessResults(response) {
 	
-	for(i=0; i < response.documentElement.childNodes.length; i++) {
-	
+	for(var i=0; i < response.documentElement.childNodes.length; i++) {
 		var child = response.documentElement.childNodes[i];
 		xmlLiveProcessOne(child);
-
 	}
 }
 
@@ -362,4 +359,14 @@ function visualCenter(element) {
 function updateModelBox(){
 	fullscreen("model-overlay");
 	visualCenter("model-window");
+}
+
+function setSelectedIndexOnSelectFromLabel(select,label){
+
+	for(var i = 0; i < select.options.length -1; i++){
+		if(select.options[i].text.replace(/^\s+|\s+$/g, '') == label){
+			select.selectedIndex = i;
+		}
+	}
+
 }

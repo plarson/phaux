@@ -187,51 +187,97 @@ class WHBrowser extends WHComponent {
 		 
 	}
 	
+	public function renderCategorySelectionOn($html){
+		return 
+		$html->div()->class('class-limit')->id('whbrowser-category-selection')->
+			with(
+			$html->form()->with(
+				$html->select()->id('classCategorySelect')->
+							setItems($this->classCategories())->
+							size(10)->
+							callback($this,'setCurrentCategory')->
+							liveUpdateOn('onChange',$this,'renderAjaxClassUpdateOn')->
+							setSelectedItem($this->currentCategory)
+			).
+		
+	
+			$html->form()->with(
+				$html->select()->id('classHierarchySelect')->
+							itemsAndLabels($this->classHierarchyWityLabel())->
+							size(10)->
+							submitFormOnChange()->
+							callback($this,'setCurrentClass')->
+							liveUpdateOn('onChange',$this,'renderAjaxClassUpdateOn')->
+							setSelectedItem($this->currentClass)
+			)
+		);
+	}
+	
 	public function renderClassSelectionOn($html){
 		return 
-				$html->div()->class('class-limit')->with(
-					$html->form()->with(
-						$html->select()->setItems($this->classCategories())->
-									size(10)->
-									submitFormOnChange()->
-									callback($this,'setCurrentCategory')->
-									setSelectedItem($this->currentCategory)
-					).
-				
-			
-					$html->form()->with(
-						$html->select()->itemsAndLabels($this->classHierarchyWityLabel())->
-									size(10)->
-									submitFormOnChange()->
-									callback($this,'setCurrentClass')->
-									setSelectedItem($this->currentClass)
-					)
-				).
+			$html->div()->class('class-limit')->id('whbrowser-class-selection')->
+				with(
 				$html->form()->with(
 					$html->select()->setItems($this->currentClassList())->
-									size(20)->
-									submitFormOnChange()->
-									callback($this,'setCurrentClass')->
-									setSelectedItem($this->currentClass)
-					).
-				$html->form()->with(
-					$html->select()->itemsAndLabels($this->methodListWithLabel())->
-									size(20)->
-									submitFormOnChange()->
-									callback($this,'setCurrentMethod')->
-									setSelectedItem($this->currentMethod)
+								size(20)->
+								submitFormOnChange()->
+								callback($this,'setCurrentClass')->
+								liveUpdateOn('onChange',$this,'renderAjaxClassUpdateOn')->
+								setSelectedItem($this->currentClass)
+					)
 				);
 	}
 	
+	public function renderMethodSelectionOn($html){
+		return 	$html->div()->class('class-limit')->id('whbrowser-method-selection')->
+				with(
+					$html->form()->with(
+						$html->select()->
+								itemsAndLabels($this->methodListWithLabel())->
+								size(20)->
+								submitFormOnChange()->
+								callback($this,'setCurrentMethod')->
+								liveUpdateOn('onChange',$this,'renderMethodSourceOn')->
+								setSelectedItem($this->currentMethod)
+					)
+				);
+	}
+	
+	public function renderTopSelectionOn($html){
+		return 
+				$this->renderCategorySelectionOn($html).
+				$this->renderClassSelectionOn($html).
+				$this->renderMethodSelectionOn($html).
+				$html->div()->class('spacer')->with($html->space());
+	}
+	
 	public function renderMethodSourceOn($html){
-		return $html->div()->class('whbrowser-source')->
+		return $html->div()->class('whbrowser-source')->id('whbrowser-source')->
 						with(highlight_string("<?php\n".
 									$this->currentMethodSource(),true));
 	}
 	
+	public function renderAjaxClassUpdateOn($html){
+		return 
+				$this->renderMethodSelectionOn($html).
+				$this->renderClassSelectionOn($html).
+				$this->renderMethodSourceOn($html).
+				$html->script()->with('
+
+							setSelectedIndexOnSelectFromLabel(
+								document.getElementById("classHierarchySelect"),
+								"'.$this->currentClass.'");
+							setSelectedIndexOnSelectFromLabel(
+								document.getElementById("classCategorySelect"),
+								"'.$this->currentCategory.'");
+							');
+				
+					
+	}
+	
 	public function renderContentOn($html){
 		return $html->div()->class('whbrowser')->with(
-				$this->renderClassSelectionOn($html).
+				$this->renderTopSelectionOn($html).
 				$this->renderMethodSourceOn($html)
 			);
 	}
@@ -247,9 +293,8 @@ class WHBrowser extends WHComponent {
 					width:201px;
 					float:left;
 				}
-				.whbrowser .class-limit select{
+				.whbrowser #whbrowser-category-selection.class-limit select{
 					height:125px;
-
 				}
 				.whbrowser  select{
 					height:252px;

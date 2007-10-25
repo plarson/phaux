@@ -71,7 +71,9 @@ abstract class WHComponent extends Object {
 		return $return;
 	}
 	
-	abstract public function renderContentOn($html);
+	public function renderContentOn($html){
+		$this->subclassResponsibility('renderContentOn');
+	}
 
 	
 	public function callDialog($aComponent){

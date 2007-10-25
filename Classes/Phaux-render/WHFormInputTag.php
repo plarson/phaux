@@ -17,7 +17,16 @@ class WHFormInputTag extends WHTag {
 		$this->subclassResponsibility("type");
 	}
 
-
+	public function liveUpdateFunction($renderKey,$callbackKey = ""){
+		global $app;
+		$url = $_SESSION[$app]['session']->url();
+		if($callbackKey != ""){
+			$url .= "&_i[$callbackKey]='+this.value+'";
+		}		
+		$url .= "&_lu=$renderKey";
+		return $this->liveUpdateFunctionWithUrl($url);
+		
+	}
 
 	/*
 	**Register a callback for processing the user data
