@@ -116,7 +116,8 @@ class WHSelectTag extends WHCollectionTag {
 	}
 	
 	public function itemLabel($anItem,$aString){
-		$this->labels[$this->indexForItem($anItem)] = htmlspecialchars($aString);
+		$this->labels[$this->indexForItem($anItem)] = 
+				str_replace(' ','&nbsp;',htmlspecialchars($aString));
 		return $this;
 	}
 	

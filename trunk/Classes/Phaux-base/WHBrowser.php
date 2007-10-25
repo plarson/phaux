@@ -140,7 +140,7 @@ class WHBrowser extends WHComponent {
 
 	public function classAddToListWithLevel($class,&$list,$level){
 		foreach(Object::construct('WHReflectionClass',$class)->childClassNames() as $class){
-			$list[$class] = str_repeat('&nbsp;&nbsp;',$level).$class;
+			$list[$class] = str_repeat('  ',$level).$class;
 			$this->classAddToListWithLevel($class,$list,$level+1);
 		}
 		return $list;
