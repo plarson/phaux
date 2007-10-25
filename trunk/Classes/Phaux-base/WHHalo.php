@@ -31,7 +31,7 @@ class WHHalo extends WHDecoration{
 	
 	public function browsParent(){
 		$this->session()->toggleHalos();
-		$this->session()->mainComponent()->callModel(
+		$this->session()->mainComponent()->callDialog(
 						Object::construct('WHBrowser')->
 						setCurrentClass($this->decoratedComponent->getClass())->
 						addDecoration(Object::construct('WHWindowDecoration'))->

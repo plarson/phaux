@@ -49,6 +49,18 @@ class WHSelectTag extends WHCollectionTag {
 		return $this;
 	}
 	
+	
+	public function liveUpdateFunction($renderKey,$callbackKey = ""){
+		global $app;
+		$url = $_SESSION[$app]['session']->url();
+		if($callbackKey != ""){
+			$url .= "&_i[$callbackKey]='+this.options[this.selectedIndex].value+'";
+		}		
+		$url .= "&_lu=$renderKey";
+		return $this->liveUpdateFunctionWithUrl($url);
+		
+	}
+	
 	public function addItemWithLabel($item,$label){
 		$this->addItem($item)->itemLabel($item,$label);	
 		return $this;
@@ -104,7 +116,7 @@ class WHSelectTag extends WHCollectionTag {
 	}
 	
 	public function itemLabel($anItem,$aString){
-		$this->labels[$this->indexForItem($anItem)] = $aString;
+		$this->labels[$this->indexForItem($anItem)] = htmlspecialchars($aString);
 		return $this;
 	}
 	
