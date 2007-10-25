@@ -361,10 +361,12 @@ function updateModelBox(){
 	visualCenter("model-window");
 }
 
+
 function setSelectedIndexOnSelectFromLabel(select,label){
 
 	for(var i = 0; i < select.options.length -1; i++){
-		if(select.options[i].text.replace(/^\s+|\s+$/g, '') == label){
+		var text = select.options[i].text;
+		if(text.replace(/^\s+|\s+$/g,'') == label){
 			select.selectedIndex = i;
 		}
 	}
