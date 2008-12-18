@@ -35,10 +35,26 @@ class WHConfiguration extends Object {
 		return $_SERVER['SCRIPT_NAME'];
 		
 	}
+	
+	public function prettyUrl() {
+		return $this->configValueBySubjectAndKey('server','pretty_url');
+	}
+
+	public function prettyOrBaseUrl() {
+		if ($this->prettyUrl()) {
+			return $this->prettyUrl();
+		} else {
+			return $this->baseUrl();
+		}
+	}
+
 	public function basePath(){
 		return substr($this->baseUrl(),0,strpos($this->baseUrl(),$this->scriptName()));
 	}
 	
+	public function resourceUrl(){
+	    return $this->basePath()."/resource.php/".$this->applicationName();
+	}
 	
 	public function debugMode(){
 		return $this->configValueBySubjectAndKey('general','debug');
@@ -104,20 +120,31 @@ class WHConfiguration extends Object {
 	**Supplying the path would be a good idea as well
 	*/
 	static function parseConfigurationFileForApp($appName){
-		$base_configuration = parse_ini_file("../Configuration/base.ini",TRUE);
+	    
 		if(eregi('^[A-Z_0-9_.]*$', $appName) && file_exists('../Configuration/'.$appName.'.ini')){
 			$new_conf = parse_ini_file('../Configuration/'.$appName.'.ini',TRUE);
+			
+			if(isset($new_conf['general']['parent'])){
+			    $parent_configuration = self::parseConfigurationFileForApp($new_conf['general']['parent']);
+			}
+		
+			
 			foreach($new_conf as $section => $values){
-				if(isset($base_configuration[$section]) && is_array($base_configuration[$section])){
-					$new_conf[$section] = array_merge($base_configuration[$section],$values);
+				if(isset($parent_configuration[$section]) && is_array($parent_configuration[$section])){
+					$new_conf[$section] = array_merge($parent_configuration[$section],$values);
 				}
 			}
-			foreach($base_configuration as $section =>$values){
-				if(!isset($new_conf[$section])){
-					$new_conf[$section] = $values;
-				}
+			
+			if(isset($parent_configuration)){
+			    foreach($parent_configuration as $section =>$values){
+				    if(!isset($new_conf[$section])){
+					    $new_conf[$section] = $values;
+				    }
+			    }
 			}
 			return $new_conf;
+		}else{
+		    throw new WHException("Configuration for $appName not found");
 		}
 		return NULL;
 	}

@@ -2,7 +2,7 @@
 /**
  * @package Phaux-render
  */
-class WHRadioButtonTag extends WHFormInputTag {
+class WHRadioButtonTag extends WHCheckBoxTag {
 	protected $group;
 	
 	public function type(){
@@ -22,12 +22,6 @@ class WHRadioButtonTag extends WHFormInputTag {
 	public function callback($object,$function,$args = ""){
 		$this->error(__CLASS__.' can not have a callback associated with it.'.
 					__CLASS__.' Must be part of a WHRadioButtonGroup');
-		return $this;
-	}
-	
-	
-	public function checked(){
-		$this->setAttribute("checked","true");
 		return $this;
 	}
 

@@ -237,14 +237,14 @@ class WHSession extends Object {
 		global $app;
 		global $errorHandler;
 		session_destroy();
-		header("Location: ".$_SESSION[$app]['configuration']->baseUrl()."/$app");
+		header("Location: ".$_SESSION[$app]['configuration']->prettyOrBaseUrl()."/$app");
 		$errorHandler->end();
 		exit;
 	}
 	
 	public function url(){
 		global $app;
-		$url = $this->configuration()->baseUrl().
+		$url = $this->configuration()->prettyOrBaseUrl().
 							"/".
 							$this->appName.
 							"?_r=".$this->currentRegistryKey();

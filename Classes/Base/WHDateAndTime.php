@@ -37,12 +37,16 @@ class WHDateAndTime extends WHMultipleInheritance {
 		if(strtotime($aString) === FALSE){
 			return FALSE;
 		}			
-		$this->thisForClass("WHDate")->fromUnixTimestamp(strtotime($aString));
-		$this->thisForClass("WHTime")->fromUnixTimestamp(strtotime($aString));
+		$this->fromUnixTimestamp(strtotime($aString));
 		return $this;
 	}
 	
-	
+	public function fromUnixTimestamp($aTimeStamp) {
+	    $this->thisForClass("WHDate")->fromUnixTimestamp($aTimeStamp);
+		$this->thisForClass("WHTime")->fromUnixTimestamp($aTimeStamp);
+		return $this;
+	}
+
 	protected function asSqlValueString(){
 		$val = $this->thisForClass("WHDate")->asSqlValueString() 
 				." ".

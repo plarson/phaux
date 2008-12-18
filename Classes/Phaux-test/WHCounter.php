@@ -22,7 +22,11 @@ class WHCounter extends WHComponent {
 	}
 	
 	public function subtract(){
-		$this->counter--;
+		if ($this->counter == 0) {
+			$this->callDialog(Object::construct('WHInformDialog')->setMessage('Negative :('));
+		} else {
+			$this->counter--;
+		}
 	}
 	
 	public function renderContentOn($html){

@@ -77,7 +77,7 @@ class WHHalo extends WHDecoration{
 							$this->renderSourceButtonOn($html)
 						)
 					).
-					$this->decoratedComponent->__toString()
+					get_class($this->decoratedComponent)
 				);
 	}	
 	public function renderDecorationOn($html,$parentHTML){

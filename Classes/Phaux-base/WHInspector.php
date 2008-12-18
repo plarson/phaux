@@ -86,9 +86,17 @@ class WHInspector extends WHComponent {
 	
 	public function renderContentOn($html){
 		return $html->render($this->path).
-				$html->headingLevel(1)->with($this->path->currentSegment()->__toString()).
+				$html->headingLevel(1)->with(get_class($this->path->currentSegment())).
 				$this->renderMembersOn($html).
 				$this->renderWorkspaceOn($html);
 			
+	}
+	
+	public function updateRoot($anHtmlRoot){
+	    $anHtmlRoot->needsStyle('styles-standard/standardStyle.css');
+	    $anHtmlRoot->needsStyle('styles-standard/standardPlacement.css');
+	    $anHtmlRoot->needsStyle('styles-standard/kalseyTabs.css');
+	    $anHtmlRoot->needsScript('scripts-standard/standardScript.js');
+	    return $this;
 	}
 }

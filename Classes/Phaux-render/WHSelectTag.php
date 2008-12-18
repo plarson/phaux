@@ -127,7 +127,7 @@ class WHSelectTag extends WHCollectionTag {
 	
 	public function setLabels($anArray){
 		$this->labels = $anArray;
-		return this;
+		return $this;
 	}
 	
 	public function submitFormOnChange(){
@@ -154,8 +154,8 @@ class WHSelectTag extends WHCollectionTag {
 						option()->
 						value($position)->
 						with($this->labelForItem($value));
-									
-			if($value === $this->selectedItem()){
+						
+            if($value === $this->selectedItem()){
 				$option->selected();
 			}
 			$return .= $option->__toString();

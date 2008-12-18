@@ -8,7 +8,10 @@ class WHTag extends Object {
 	protected $htmlCanvas;
 	protected $callbackKey;/*the key of the callback to exec when clicked */
 	protected $doesNotNeedClose = FALSE;
-	
+
+	protected $ensure_id;
+	protected static $ensure_id_counter = 0;
+
 	public function tag (){
 		/*
 		** the subclass should define this tag
@@ -137,13 +140,18 @@ class WHTag extends Object {
 			
 		}else{
 			$return .= ">";
-			$return .= sprintf("%s",$contents);
+			$return .= $contents;//sprintf("%s",$contents);
 			$return .= "</".$this->tag().">";
 		}
 		return $return;
 	}
 	
-	
+	public function ensure_id() {
+		if (!$this->ensure_id && !$this->attributeAt('id')) {
+			$this->ensure_id = ++self::$ensure_id_counter;
+			$this->setAttribute('id', 'id' . $this->ensure_id);
+		}
+	}
 
 	
 }

@@ -3,7 +3,7 @@
  * @package Phaux-render
  */
 class WHFormInputTag extends WHTag {
-	
+
 	function __construct(){
 		parent::__construct();
 		$this->setAttribute("type",$this->type());
