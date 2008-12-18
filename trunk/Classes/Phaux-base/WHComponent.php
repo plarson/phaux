@@ -82,6 +82,10 @@ abstract class WHComponent extends Object {
 		return $this;
 	}
 	
+	public function isDialog(){
+	    return is_object($this->parentComponent);
+	}
+	
 	public function inform($aString){
 		$this->callDialog(Object::Construct('WHInformDialog')->setMessage($aString));
 		return $this;
@@ -133,6 +137,12 @@ abstract class WHComponent extends Object {
 		$aWHDecoration->setDecoratedComponent($this);
 		$this->decorations[] = $aWHDecoration;
 		return $this;
+	}
+	
+	public function shiftDecoration($aWHDecoration){
+	    $aWHDecoration->setDecoratedComponent($this);
+	    array_unshift($this->decorations,$aWHDecoration);
+	    return $this;
 	}
 	
 	
@@ -232,7 +242,7 @@ abstract class WHComponent extends Object {
 	}
 	
 	public function parentComponent(){
-		return $this->parentComponet;
+		return $this->parentComponent;
 	}
 	
 	public function setParentComponent($aComponent){

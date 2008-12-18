@@ -200,13 +200,13 @@ class WHDate extends Object {
 	}
 	
 	public function asNiceString(){
-		if($this == Object::construct('WHDate')){
+		if(self::equal($this, Object::construct('WHDate'))){
 			return 'Today';
 		}
-		if($this == Object::construct('WHDate')->yesterday()){
+		if(self::equal($this, Object::construct('WHDate')->yesterday())){
 			return 'Yesterday';
 		}
-		if($this == Object::construct('WHDate')->tomorrow()){
+		if(self::equal($this, Object::construct('WHDate')->tomorrow())){
 			return 'Tomorrow';
 		}
 		
@@ -216,4 +216,9 @@ class WHDate extends Object {
 	public function __toString(){
 		return $this->asAmericanString();
 	}
+	
+	public static function equal($date1, $date2) {
+	    return $date1 && $date2 && $date1->month() == $date2->month() && $date1->day() == $date2->day() && $date1->year() == $date2->year();
+	}
+
 }

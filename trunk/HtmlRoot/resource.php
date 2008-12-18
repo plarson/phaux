@@ -43,6 +43,7 @@ foreach($resourceDirs as $dir){
 		}
 		header('Content-Type: '.$mime);
 		readfile($dir.'/'.$resource);
+		exit;
 	}
 	
 }

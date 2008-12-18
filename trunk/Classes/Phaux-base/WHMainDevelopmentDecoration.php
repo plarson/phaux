@@ -9,8 +9,11 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 	protected $showToolbar = true;
 	
 	public function renderDecorationOn($html,$parentHtml){
-		return $this->renderDecoratedComponentOn($html,$parentHtml).
-				$this->renderToolbarOn($html);
+		$return = $this->renderDecoratedComponentOn($html,$parentHtml);
+		if($this->session()->configuration()->configValueBySubjectAndKey('general','showtoolbar')){
+				$return .= $this->renderToolbarOn($html);
+		}
+		return $return;
 	}
 
 	public function sessionMemoryUsage(){
@@ -82,7 +85,7 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 		}
 		return 
 			
-			$html->div()->id('toolbar-console')->with(
+			$html->div()->id('phuax-toolbar-console')->with(
 					$html->anchor()->liveUpdateWithCallbackOn('onClick',
 									$this,'renderErrorConsoleOn',array(),
 									$this->session(),'clearDebugErrors',array())->
@@ -126,7 +129,7 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 	}
 	
 	public function renderInactiveToolbarOn($html){
-		 return $html->div()->id('toolbar')->class('toolbar-inactive')->with(
+		 return $html->div()->id('phaux-toolbar')->class('toolbar toolbar-inactive')->with(
 				$html->anchor()->
 						callback($this,'toggleToolbar')->
 					//	liveUpdateOn('onClick',$this,'renderToolbarOn')->
@@ -134,7 +137,7 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 	}
 	
 	public function renderActiveToolbarOn($html){
-		return $html->div()->id('toolbar')->with(
+		return $html->div()->id('phaux-toolbar')->class('toolbar')->with(
 					$html->anchor()->
 							callback($this,'toggleToolbar')->
 							//liveUpdateOn('onClick',$this,'renderToolbarOn')->
@@ -171,10 +174,11 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 	
 	public function style(){
 		return '
-			#toolbar {
+			#phaux-toolbar {
 				position: fixed; 
-				bottom: 0; 
-				left: 0; right: 0; 
+				bottom: 0 ! important; 
+				left: 0 ! important ; 
+				right: 0 ! important; 
 				margin-top: 40px; 
 				padding: 3px;
 				padding-top:5px; 
@@ -183,12 +187,15 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 				font-size: 8pt; 
 				z-index: 20;
 				height:15px;
+			    min-height: 0px;
+			    -webkit-box-sizing: content-box;
+		
 			}
 			.toolbar-inactive{
 				width:13px;
 				right:15px;
 			}
-			#toolbar a{
+			#phaux-toolbar a{
 				border:1px outset;
 				padding:2px;
 				text-decoration:none;
@@ -196,16 +203,16 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 				margin-right:2px;
 			}
 			
-			#toolbar a:active{
+			#phaux-toolbar a:active{
 				border:1px inset;
 				background: #d0d0d0; 
 			}
-			#toolbar a.active{
+			#phaux-toolbar a.active{
 				border:1px inset;
 				background: #d0d0d0; 
 			}
 			
-			#toolbar-console {
+			#phaux-toolbar-console {
 				position: fixed; 
 				bottom: 23px; 
 				right: 0; 
@@ -218,7 +225,7 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 				overflow:hidden;
 				background: #d3d3d3; 
 			}
-			#toolbar-console #console-output{
+			#phaux-toolbar-console #console-output{
 				position: fixed;
 				background:white;
 				overflow:auto;
@@ -229,5 +236,13 @@ class WHMainDevelopmentDecoration extends WHDecoration {
 			}
 		';
 	}
-	
+
+	public function updateRoot($anHtmlRoot){
+	    //$anHtmlRoot->needsStyle('styles-standard/standardStyle.css');
+	    $anHtmlRoot->needsStyle('styles-standard/standardPlacement.css');
+	    $anHtmlRoot->needsStyle('styles-standard/kalseyTabs.css');
+	    $anHtmlRoot->needsScript('scripts-standard/standardScript.js');
+	    return $this;
+	}
+
 }

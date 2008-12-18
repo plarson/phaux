@@ -27,6 +27,7 @@ class WHMultipleInheritance extends Object {
 	}
 	
 	public function __call($methodName,$args){
+	    echo $methodName."<br>";
 		if($this->hasMethod($methodName)){
 			return call_user_func_array(
 									array($this->whoHasMethod($methodName),
@@ -130,7 +131,7 @@ class WHMultipleInheritance extends Object {
 	*/
 	public function thisForClass($className){
 		foreach($this->objects as $instance){
-			if($instance->getClass() == $className){
+			if(is_a($instance, $className)){ //$instance->getClass() == $className){
 				return $instance;
 			}
 		}

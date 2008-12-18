@@ -50,7 +50,7 @@ if($app_configurations[$app] == NULL){
 	foreach($app_configurations[$app]['includes'] as $var => $value){
 		include($value);
 	}
-	
+
 	$configuration_class = $app_configurations[$app]['general']['configuration_class'];
 	$configuration = Object::construct($configuration_class);
 	$configuration->setApplicationName($app)->
@@ -184,20 +184,16 @@ if($configuration->debugMode()){
 $html = WHHtmlCanvas::construct($configuration->renderClass());
 
 if(!isset($_REQUEST['_lu']) || $_REQUEST['_lu'] == ""){
-	
+
+    $styles = trim($_SESSION[$app]['mainComponent']->styles());
+    $scripts = trim($_SESSION[$app]['mainComponent']->scripts());
+
 	$html->html()->with(
 		$html->head()->with(
 			$htmlRoot->renderHeadContentsOn($html).
-		
-			$html->style()->with(
-				$_SESSION[$app]['mainComponent']->styles()
-			).
-			$html->script()->type("text/javascript")->with(
-				$_SESSION[$app]['mainComponent']->scripts()
-				)
-			).
-			
-		
+		    ($styles ? $html->style()->with($styles) : '').
+		    ($scripts ? $html->script()->type("text/javascript")->with($scripts) : '')
+	    ).
 			$html->body()->id('main-body')->with(
 				$_SESSION[$app]['mainComponent']->renderOn($html)
 				)

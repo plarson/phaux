@@ -136,6 +136,10 @@ class WHHtmlCanvas extends WHCanvas {
 		return $this->constructTagWithClass("WHRadioButtonTag");
 	}
 	
+	public function checkBox() {
+		return $this->constructTagWithClass("WHCheckBoxTag");
+	}
+
 	public function option(){
 		return $this->constructTagWithClass("WHOptionTag");
 	}
@@ -181,7 +185,15 @@ class WHHtmlCanvas extends WHCanvas {
 	public function style(){
 		return $this->constructTagWithClass("WHStyleTag");
 	}
-	
+
+	public function label($aString) {
+		return $this->constructTagWithClass("WHFormLabelTag")->with($aString);
+	}
+
+	public function button() {
+		return $this->constructTagWithClass("WHButtonTag");
+	}
+
 	public function render($component){
 		$return = $this->constructTagWithClass("WHHtmlText")
 				 		->with($component->renderOn($this));

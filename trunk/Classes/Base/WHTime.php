@@ -77,4 +77,8 @@ class WHTime extends Object {
 		return $this->asSqlValueString();
 	}
 	
+	public function equal($time1, $time2) {
+	    return $time1->second() == $time2->second() && $time1->minute() == $time2->minute() && $time1->hour() == $time2->hour();
+	}
+
 }

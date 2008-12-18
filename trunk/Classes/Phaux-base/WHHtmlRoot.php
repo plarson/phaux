@@ -8,7 +8,7 @@ class WHHtmlRoot extends Object {
 	protected $scripts = array();
 	protected $pathExtra = "";
 	protected $urlArgs = array();
-	
+	protected $headTags = array();
 	
 	public function title(){
 		return $this->title;
@@ -19,6 +19,11 @@ class WHHtmlRoot extends Object {
 	}
 	public function addToTitle($aString){
 		$this->title .= $aString;
+	}
+	
+	public function addHeadTag($anHtmlTag){
+	    $this->headTags[] = $anHtmlTag;
+	    return $this;
 	}
 	
 	/**
@@ -57,6 +62,7 @@ class WHHtmlRoot extends Object {
 		$title = $html->title()->with($this->title());
 		$baseUrl = $_SESSION[$app]['session']->configuration()->basePath();
 		$styles = "";
+		$headExtra = '';
 		foreach($this->styles as $style => $t){
 			if($t){
 				$styles .= $html->link()->type("text/css")->href($baseUrl.$style)->rel("stylesheet");
@@ -68,8 +74,14 @@ class WHHtmlRoot extends Object {
 				$styles .= $html->script()->type("text/javascript")->src($baseUrl.$script)->with("");
 			}
 		}
+		
+		foreach($this->headTags as $tag){
+		    $headExtra .= $tag->__toString();
+		}
+		
+		
 		return '<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />'.
-					$title.$styles;			
+					$title.$styles.$headExtra;			
 				
 	}
 	

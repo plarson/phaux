@@ -8,32 +8,45 @@ function addParameter(uri, key, value)
 	return uri + separator + key + "=" + escape(value);
 }
 
-function xmlLiveUpdaterForForm(aForm,uri){
-	var newUri = uri;
-	for (i=0; i<aForm.childNodes.length; i++) {
-		
-		if (aForm.childNodes[i].tagName == "INPUT") {
-			if (aForm.childNodes[i].type == "checkbox" ||
-					aForm.childNodes[i].type == "radio" ) {
-				if (aForm.childNodes[i].checked) {
-					newUri = addParameter(newUri,aForm.childNodes[i].name,aForm.childNodes[i].value);
-				}else if (aForm.childNodes[i].type != "radio" ){
-					newUri = addParameter(newUri,aForm.childNodes[i].name,aForm.childNodes[i].value);
+function processNodes(nodes, uri) {
+	for (var i = 0; i < nodes.length; i++) {
+		if (nodes[i].tagName == "INPUT") {
+			if (nodes[i].type == "checkbox" ||
+					nodes[i].type == "radio" ) {
+				if (nodes[i].type == "checkbox" ) {
+				    if(nodes[i].checked){
+					    uri = addParameter(uri,nodes[i].name,nodes[i].value);
+					}
+				}else if (nodes[i].type == "radio" ){
+					uri = addParameter(uri,nodes[i].name,nodes[i].value);
 				}
-			}else{
 			
-				newUri = addParameter(newUri,aForm.childNodes[i].name,aForm.childNodes[i].value);
+			}else{
+				uri = addParameter(uri,nodes[i].name,nodes[i].value);
 			}
-		}else if(aForm.childNodes[i].tagName == "SELECT") {
-			newUri = addParameter(newUri,
-						aForm.childNodes[i].name,
-						aForm.childNodes[i].options[aForm.childNodes[i].selectedIndex].value);
-		}else if (aForm.childNodes[i].tagName == "TEXTAREA") {
-			newUri = addParameter(newUri,aForm.childNodes[i].name,aForm.childNodes[i].value);
+		}else if(nodes[i].tagName == "SELECT") {
+			uri = addParameter(uri,
+						nodes[i].name,
+						nodes[i].options[nodes[i].selectedIndex].value);
+		}else if (nodes[i].tagName == "TEXTAREA") {
+			uri = addParameter(uri,nodes[i].name,nodes[i].value);
+		}else if(nodes[i].tagName == "BUTTON"){
+		    
+		    if(nodes[i].wasClicked == true){
+		        uri = addParameter(uri,nodes[i].name,nodes[i].value);
+		    }
+		} else {
+			uri = processNodes(nodes[i].childNodes, uri);
 		}
+		
 	}
-	xmlLiveUpdaterUri(newUri);
+	return uri;
 }
+
+function xmlLiveUpdaterForForm(aForm,uri){
+	xmlLiveUpdaterUri(processNodes(aForm.childNodes, uri));
+}
+
 function createDataPacket(parameters) {
 	var dataPacket = "";
 	for(var i=0; i<parameters.length; i++) {
@@ -160,12 +173,14 @@ function xmlLiveProcessOne(child) {
 	** and most likely an error. Replace the contents of the
 	** entire page
 	*/
+	
 	if (child.tagName == "dom") {
 		var elementId = child.getAttribute("id");
 		var element = document.getElementById(elementId);
 		liveUpdateDOM(element, child);
 	}
-	else if(child.tagName == "script") {
+	else if(child.tagName.toLowerCase() == "script") {
+
 		if(child.textContent){
 			eval(child.textContent);
 		}
@@ -178,9 +193,18 @@ function xmlLiveProcessOne(child) {
 			//Safari!
 			eval(child.childNodes[1].data);
 		}
+
+		var src = child.getAttribute('src');
+		if (src) {
+            // append it to the body so it's processed
+		    var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = src;
+            document.body.appendChild(script);
+		}
+
 	}else /*if (child.tagName == "innerHtml")*/ {
 		var elementId = child.getAttribute("id");
-		
 		var element = document.getElementById(elementId);
 		if(child.firstChild.data){
 			element.innerHTML = child.firstChild.data;
@@ -193,16 +217,25 @@ function xmlLiveProcessOne(child) {
 			element.innerHTML = iHtml;
 			
 		}
+		// do we have any inline js that needs to be processed?
+		processInlineJS(element);
 	}
 	
 }
 
+function processInlineJS(element) {
+    var s = element.getElementsByTagName('script');
+    for (var i = 0; i < s.length; i++) {
+        xmlLiveProcessOne(s[i]);
+    }
+}
 
 
 function xmlProcessResults(response) {
 	
 	for(var i=0; i < response.documentElement.childNodes.length; i++) {
 		var child = response.documentElement.childNodes[i];
+		
 		xmlLiveProcessOne(child);
 	}
 }
@@ -261,7 +294,7 @@ function xmlLiveUpdater(uriFunc, processResultsFunc)
     
     function processRequestChange() {
 		if(request.readyState == 4) {
-
+           
 		     window.status = "Getting new instructions...";
 		
 			if(request && request.responseXML && request.responseXML.documentElement) {
