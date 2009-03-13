@@ -33,5 +33,5 @@ include("WHImageTag.php");
 include('WHTextAreaTag.php');
 include('WHStyleTag.php');
 include('WHFileInputTag.php');
-include('WHLabelTag.php');
-include('WHButtonTag.php');
+//include('WHLabelTag.php');
+//include('WHButtonTag.php');
