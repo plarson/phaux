@@ -250,7 +250,7 @@ class WHSession extends Object {
 							"?_r=".$this->currentRegistryKey();
 							
 		if(!$this->configuration()->useCookie()){
-			$url .= "&SID=".$this->sessionId();
+			$url .= "&".$this->configuration()->sessionName()."=".$this->sessionId();
 		}
 		return $url;
 	}
