@@ -1,0 +1,153 @@
+.whtablefromsql div.pagination a.pagelink ,.whtablefromsql div.pagination span.activepage{
+	background : #E8EBF0;
+	border : 1px solid #ccc;
+	margin:2px;
+	padding:5px;
+}
+.whtablefromsql table{
+	border : 1px solid #ccc;
+}
+.whtablefromsql div.pagination span.activepage {
+	background : white;
+}
+div.pagination{
+	padding:8px;
+	text-align:center;
+}
+
+/*For IE*/
+.whtablefromsql div.results{
+	float:right;
+}
+
+/*For Everyone else*/
+html>body .whtablefromsql div.results{
+	float:none;
+	margin-left:190px;
+}
+.whtablefromsql div.filters{
+	float:left;
+	clear:none;
+	width:150px;
+	border: 1px dashed #ccc;
+	margin:0px;
+	padding: 16px;
+
+}
+
+.whtablefromsql div.filters h3{
+	padding:0px;
+	margin-top:-16px;
+	margin-left:-16px;
+	margin-right:-16px;
+	background:#E8EBF0;
+	
+}
+.whtablefromsql div.filters form{
+	margin:0px;
+	display:inline;
+}
+.whtablefromsql div.filters form.filter-new{
+	margin:0px;
+}
+.whtablefromsql div.filters .filter-removal{
+	float:right;
+	text-align:center;
+	margin:1px;
+	padding:1px;
+	
+}
+.whtablefromsql div.filters .filter-value{
+	margin:3px;
+	width:150px;
+}
+
+.whtablefromsql div.filters .filter-control{
+	font-weight:bold;
+}
+
+.whtablefromsql div.filters .filter-control .filter-label{
+	margin:3px;
+}
+.whtablefromsql div.filters .filter-control a.filter-negation {
+	text-decoration: none;
+	border-bottom: dotted 1px;
+}
+.whtablefromsql div.filters .filter-control a.filter-negation:hover {
+	border:dotted 1px;
+}
+
+
+.whtablefromsql div.filters input{
+	width:100%;
+	
+}
+
+.whworkadmin-select{
+	float:right;
+	
+}
+.whtablefromsql .clickable:hover{
+	background-color:lightyellow;
+}
+
+
+.whtablefromsql .filter{
+	border-bottom : 1px solid #ccc;
+	padding-left:13px;
+	padding-right:13px;
+	padding-top:5px;
+	margin:-16px;
+	margin-top:1px;
+	margin-bottom:4px;
+}
+
+.whtablefromsql .column-menu {
+	position: absolute;
+	left:auto;
+	right: auto;
+	margin-left:-2px;
+	margin-top:2px;
+	width: 10em;
+	border-right:solid 1px #ccc;
+	border-bottom:solid 2px #ccc;
+	border-left:solid 2px #ccc;
+	background:white;
+	padding:0px;
+	
+}
+.whtablefromsql .column-menu div.column-menu-item,
+.whtablefromsql .column-menu div.column-menu-item-active{
+	width:10em;
+	
+}
+.whtablefromsql .column-menu div.column-menu-item a,
+.whtablefromsql .column-menu div.column-menu-item-active a {
+	display:block;
+	width:100%;
+	font-weight:normal;
+	color:black;
+	text-decoration: none;
+	padding-top:3px;
+	padding-bottom:2px;
+	
+}
+.whtablefromsql .column-menu div.column-menu-item-active a {
+	font-weight:bold;
+}
+
+.whtablefromsql .column-menu div.column-menu-item a:hover,
+.whtablefromsql .column-menu div.column-menu-item-active a:hover {
+	text-decoration: none;
+	background-color:#E8EBF0;
+}
+
+.whtablefromsql .grouped-by-break {
+	font-weight:normal;
+	font-size:150%;
+	background-color:#E8EBF0;
+}
+
+.whtablefromsql .total-row{
+	font-weight:bold;
+}

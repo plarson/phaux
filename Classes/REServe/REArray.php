@@ -32,7 +32,7 @@ class REArray extends REServeBasicType {
 		
 		$this->setupActionFromConnection($dbConnection);
 		$dbConnection->createTableForObject($this);
-		$dbConnection->currentObject($this->parentObject);
+		$dbConnection->setCurrentObject($this->parentObject);
 		return $this;
 	}
 	
@@ -89,6 +89,7 @@ class REArray extends REServeBasicType {
 		if($newArray == NULL){
 			$newArray = array();
 		}
+	
 		$toAdd = array_diff_assoc($newArray,$oldArray);
 		$toRemove = array_diff_assoc($oldArray,$newArray);
 		foreach($toRemove as $var => &$value){
@@ -260,11 +261,12 @@ class REArray extends REServeBasicType {
 													$this->parentObject->oid());
 		if(!is_array($oldArray)){
 			return false;
-		}			
-		if(sizeof(array_diff_assoc($newArray,$oldArray)) > 0){
+		}		
+	
+		if(sizeof(array_diff_assoc((array)$newArray,$oldArray)) > 0){
 			return true;
 		}
-		if(sizeof(array_diff_assoc($oldArray,$newArray)) > 0){
+		if(sizeof(array_diff_assoc((array)$oldArray,$newArray)) > 0){
 			return true;
 		}
 		

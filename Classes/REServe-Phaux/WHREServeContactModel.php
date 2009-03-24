@@ -86,7 +86,7 @@ class WHREServeContactModel extends REServe {
 				column("phoneNumber",'REString')->
 				column("email",'REString')->
 				column("niceness",'REInteger')->
-				column('friends',REArray::of('REString'))->
+				/*column('friends',REArray::of('REString'))->*/
 				column("dayOfMeeting",'REDate')->
 				column("timeOfMeeting",'RETime');
 	}

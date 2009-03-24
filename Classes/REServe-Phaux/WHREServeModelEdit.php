@@ -176,10 +176,10 @@ class WHREServeModelEdit extends WHREServeDisplay {
 		** I think these scripts are overkill for what I am doing
 		** but it was one of the better JavaScript cal popups I found
 		*/
-		$htmlRoot->needsScript("date.js");
-		$htmlRoot->needsScript("anchorPosition.js");
-		$htmlRoot->needsScript("popupWindow.js");
-		$htmlRoot->needsScript("calendarPopup.js");
+		$htmlRoot->needsScript("scripts-standard/date.js");
+		$htmlRoot->needsScript("scripts-standard/anchorPosition.js");
+		$htmlRoot->needsScript("scripts-standard/popupWindow.js");
+		$htmlRoot->needsScript("scripts-standard/calendarPopup.js");
 		return $this;
 	}
 }
