@@ -6,6 +6,9 @@
 ** It might be better to move most of it out to an 
 ** Object
 */
+
+
+
 error_reporting(E_ALL);
 if(get_magic_quotes_gpc()){
 	foreach($_REQUEST as $var => $value){
@@ -55,9 +58,9 @@ if($app_configurations[$app] == NULL){
 	$configuration = Object::construct($configuration_class);
 	$configuration->setApplicationName($app)->
 										setConfigValues($app_configurations[$app]);
-	
+	session_set_cookie_params($app_configurations[$app]['general']['session_cookie_expiration']);
 	ini_set("session.use_cookies",$configuration->useCookie());
-	ini_set("session.name","SID");
+	session_name($configuration->sessionName());
 			
 	$session_class = $configuration->sessionClass();
 	$session = call_user_func(array(

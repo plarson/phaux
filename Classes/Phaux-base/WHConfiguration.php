@@ -27,8 +27,9 @@ class WHConfiguration extends Object {
 	public function appUrl(){
 		global $app;
 		 return $_SESSION[$app]['session']->configuration()->baseUrl().
-				"/$app?SID=".$_SESSION[$app]['session']->sessionId();
+				"/$app?".$this->sessionName()."=".$_SESSION[$app]['session']->sessionId();
 	}
+	
 	
 	public function baseUrl(){
 		//die(var_dump($url));
@@ -92,6 +93,14 @@ class WHConfiguration extends Object {
 		return $this->configValueBySubjectAndKey('general','use_cookie');
 	}
 	
+	public function sessionName(){
+	    $session_name = $this->configValueBySubjectAndKey('general','session_name');
+	    if(empty($session_name)){
+	        return "SID";
+	    }
+	    return $session_name;
+	}
+	
 	public function sessionClass(){
 		return $this->configValueBySubjectAndKey('general','session_class');
 	}
@@ -153,7 +162,7 @@ class WHConfiguration extends Object {
 	static function startUpOnAppWithIni($app,$app_configuration){
 	
 		ini_set("session.use_cookies",$app_configuration['general']['use_cookie']);
-		ini_set("session.name","SID");
+		session_name($configuration->sessionName());
 
 		$configuration_class = $app_configuration['general']['configuration_class'];
 		$configuration = Object::construct($configuration_class);
