@@ -86,6 +86,12 @@ class WHHtmlCanvas extends WHCanvas {
 	public function hiddenInput(){
 		return $this->constructTagWithClass("WHHiddenInputTag");
 	}
+	
+	
+	public function image() {
+		return $this->constructTagWithClass("WHImageTag");
+	}
+ 
 
 	public function table(){
 		return $this->constructTagWithClass("WHTableTag");
